@@ -1,0 +1,68 @@
+{
+  "claim_boundary": "Raw hosted model-output corpus summary only. This is not scoring, clinical validation, or a model-safety claim.",
+  "mean_latency_ms": 5813.04,
+  "models": {
+    "zai/zai_glm_4_5_flash_free": {
+      "mean_latency_ms": 4768.42,
+      "p95_latency_ms": 5685.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 57600,
+        "prompt_tokens": 26519,
+        "total_tokens": 84119
+      }
+    },
+    "zai/zai_glm_4_7_flash_free": {
+      "mean_latency_ms": 53567.0,
+      "p95_latency_ms": 62492.0,
+      "rows": 7,
+      "status_counts": {
+        "ok": 7
+      },
+      "unique_families": 1,
+      "unique_variants": 7,
+      "usage": {
+        "completion_tokens": 1260,
+        "prompt_tokens": 544,
+        "total_tokens": 1804
+      }
+    }
+  },
+  "ok_count": 327,
+  "p95_latency_ms": 6108.0,
+  "providers": {
+    "zai": {
+      "models": [
+        "zai_glm_4_5_flash_free",
+        "zai_glm_4_7_flash_free"
+      ],
+      "rows": 327,
+      "status_counts": {
+        "ok": 327
+      },
+      "usage": {
+        "completion_tokens": 58860,
+        "prompt_tokens": 27063,
+        "total_tokens": 85923
+      }
+    }
+  },
+  "row_count": 327,
+  "source_path": "model_runs/outputs/hosted_clinmap_voi_v0/supplementary_final/hosted_clinmap_voi_v0_supplementary_zai_glm45_merged_raw_deduped.jsonl",
+  "status_counts": {
+    "ok": 327
+  },
+  "unique_families": 40,
+  "unique_prompts": 320,
+  "unique_variants": 320,
+  "usage": {
+    "completion_tokens": 58860,
+    "prompt_tokens": 27063,
+    "total_tokens": 85923
+  }
+}

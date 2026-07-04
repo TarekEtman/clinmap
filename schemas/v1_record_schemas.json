@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Clinical Model Behavior Evaluation v1 public schemas",
+  "description": "Minimal structural schemas for the synthetic public proof system. These schemas validate record shape and provenance boundaries; they do not validate clinical correctness.",
+  "definitions": {
+    "Case": {
+      "type": "object",
+      "required": ["case_id", "task_type", "risk_level", "prompt", "target_failure_modes", "expected_safe_behavior", "unsafe_behavior", "source_anchor_ids", "rubric_id", "synthetic_provenance"],
+      "properties": {
+        "case_id": {"type": "string", "pattern": "^cmbv1_[0-9]{3}$"},
+        "case_version": {"type": "string"},
+        "case_family": {"type": "string"},
+        "task_type": {"type": "string"},
+        "domain_subdomain": {"type": "string"},
+        "risk_level": {"enum": ["low", "medium", "medium_high", "high", "critical"]},
+        "calibration_role": {"type": "string"},
+        "prompt": {"type": "string", "minLength": 8},
+        "prompt_language": {"type": "string"},
+        "missing_context_flags": {"type": "array", "items": {"type": "string"}},
+        "target_failure_modes": {"type": "array", "items": {"type": "string"}},
+        "expected_safe_behavior": {"type": "array", "items": {"type": "string"}},
+        "unsafe_behavior": {"type": "array", "items": {"type": "string"}},
+        "acceptable_variants": {"type": "array", "items": {"type": "string"}},
+        "disallowed_response_content": {"type": "array", "items": {"type": "string"}},
+        "source_anchor_ids": {"type": "array", "items": {"type": "string"}},
+        "rubric_id": {"type": "string"},
+        "rubric_version": {"type": "string"},
+        "taxonomy_version": {"type": "string"},
+        "severity_floor": {"type": "integer", "minimum": 0, "maximum": 4},
+        "cap_rules_applicable": {"type": "array", "items": {"type": "string"}},
+        "split": {"type": "string"},
+        "leakage_group_id": {"type": "string"},
+        "synthetic_provenance": {"type": "object"},
+        "content_hash": {"type": "string"}
+      }
+    },
+    "Response": {
+      "type": "object",
+      "required": ["response_id", "case_id", "response_label", "response_origin", "response_text", "response_hash", "redaction_status"],
+      "properties": {
+        "response_id": {"type": "string"},
+        "case_id": {"type": "string"},
+        "response_label": {"enum": ["A", "B"]},
+        "response_origin": {"enum": ["actual_model_output", "synthetic_model_pattern", "human_baseline", "expert_ideal"]},
+        "model_id": {"type": "string"},
+        "provider": {"type": "string"},
+        "model_snapshot": {"type": "string"},
+        "run_id": {"type": "string"},
+        "tool_access": {"type": "boolean"},
+        "prompt_render_hash": {"type": "string"},
+        "response_text": {"type": "string", "minLength": 8},
+        "response_hash": {"type": "string"},
+        "redaction_status": {"type": "string"}
+      }
+    },
+    "Annotation": {
+      "type": "object",
+      "required": ["annotation_id", "case_id", "response_id", "reviewer_id", "annotation_round", "rubric_version", "dimension_scores", "overall_score", "severity", "pass_fail", "failure_tags", "rationale"],
+      "properties": {
+        "annotation_id": {"type": "string"},
+        "case_id": {"type": "string"},
+        "response_id": {"type": "string"},
+        "reviewer_id": {"type": "string"},
+        "annotation_round": {"type": "integer", "minimum": 1},
+        "dimension_scores": {
+          "type": "object",
+          "required": ["clinical_safety", "escalation", "context_sensitivity", "factuality", "uncertainty", "scope_control", "usefulness", "rationale_quality"],
+          "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 4}
+        },
+        "raw_weighted_score": {"type": "number"},
+        "overall_score": {"type": "integer", "minimum": 0, "maximum": 4},
+        "severity": {"type": "integer", "minimum": 0, "maximum": 4},
+        "pass_fail": {"enum": ["pass", "review", "fail"]},
+        "failure_tags": {"type": "array", "items": {"type": "string"}},
+        "cap_rules_triggered": {"type": "array", "items": {"type": "string"}},
+        "rationale": {"type": "string"},
+        "quality_flags": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

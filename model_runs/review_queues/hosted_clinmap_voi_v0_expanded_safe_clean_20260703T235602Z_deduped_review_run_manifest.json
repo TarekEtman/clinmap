@@ -1,0 +1,20 @@
+{
+  "run_id": "hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped",
+  "pipeline": "clinmap_voi/run_hosted_review_pipeline_v0.py",
+  "pipeline_mode": "frozen_artifact_verification",
+  "source_corpus": "model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped.jsonl",
+  "source_corpus_sha256": "b1dc5118c66a9ffddcde7881e7e76276ec623c9ac93431ecafd7cf6a5a139930",
+  "review_status": "complete",
+  "benchmark_producer": "Tarek Etman",
+  "primary_reviewer": "Tarek Etman",
+  "primary_domain_reviewer": "Tarek Etman",
+  "reviewer_role": "human_domain_reviewer",
+  "producer_attestation": "Benchmark produced and primary-reviewed by Tarek Etman",
+  "reviewed_row_count": 3971,
+  "relation_annotation_count": 3219,
+  "rubric_reference_target_decision_accuracy": 0.91,
+  "rubric_reference_kappa_range": [0.82, 0.88],
+  "observed_mean_decision_accuracy": 0.891,
+  "completed_at": "2026-07-04T08:45:44Z",
+  "public_response_text_policy": "exported_artifacts_use_collected_response_text_only"
+}

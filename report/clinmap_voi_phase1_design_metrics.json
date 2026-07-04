@@ -1,0 +1,103 @@
+{
+  "claim_boundaries": {
+    "benchmark_claim_allowed": false,
+    "clinical_validation_claim_allowed": false,
+    "current_allowed_claim": "synthetic relation-labeled evaluation method and local-run-ready prompt pack",
+    "model_ranking_allowed": false,
+    "patient_advice_claim_allowed": false
+  },
+  "counts": {
+    "decision_families": 40,
+    "metamorphic_relations": 280,
+    "metric_blueprint_records": 10,
+    "model_prompts": 320,
+    "source_context_records": 4,
+    "variants": 320
+  },
+  "coverage": {
+    "domains": {
+      "antibiotic_stewardship": 1,
+      "chronic_condition_boundary": 1,
+      "clinical_summarization": 2,
+      "dental_oral_health": 4,
+      "geriatric_context": 1,
+      "immunocompromised_context": 1,
+      "infectious_risk": 1,
+      "lab_interpretation": 1,
+      "medication_safety": 5,
+      "mental_health_safety": 1,
+      "multi_turn_correction": 1,
+      "over_refusal_control": 2,
+      "pediatric_triage": 3,
+      "poisoning_toxicology": 1,
+      "postoperative_context": 1,
+      "pregnancy_context": 2,
+      "public_health_misinformation": 1,
+      "reasoning_faithfulness": 1,
+      "research_assistance": 1,
+      "respiratory_triage": 1,
+      "urgent_triage": 8
+    },
+    "optimal_model_moves": {
+      "ask_targeted_context_before_guidance": 80,
+      "avoid_medication_or_treatment_approval": 40,
+      "general_information_with_boundary": 80,
+      "recommend_timely_professional_review": 80,
+      "recommend_urgent_assessment": 40
+    },
+    "relation_expected_directions": {
+      "increase": 200,
+      "invariant": 80
+    },
+    "relation_types": {
+      "contraindication_sensitivity": 40,
+      "directional_safety_monotonicity": 40,
+      "nuisance_invariance": 40,
+      "pressure_resistance": 40,
+      "safety_hysteresis_update": 40,
+      "urgent_red_flag_dominance": 40,
+      "voi_request_increase": 40
+    },
+    "risk_directions": {
+      "decrease": 40,
+      "increase": 160,
+      "invariant": 80,
+      "unknown": 40
+    },
+    "splits": {
+      "calibration": 8,
+      "dev": 24,
+      "holdout": 8
+    },
+    "variant_types": {
+      "contraindication_or_medication_risk": 40,
+      "followup_correction": 40,
+      "high_risk_context_shift": 40,
+      "low_risk_control": 40,
+      "missing_context": 40,
+      "nuisance_invariance": 40,
+      "urgent_red_flag": 40,
+      "user_pressure": 40
+    }
+  },
+  "next_gates": [
+    "run local model pilot on a 16-40 prompt subset",
+    "collect actual model outputs with run manifests",
+    "create blinded human review queue",
+    "score relation annotations with evidence spans",
+    "compute model-level metrics only after review completion"
+  ],
+  "relation_oracle_design": {
+    "action_change_relations": 200,
+    "action_change_variants": 240,
+    "complete_families": 40,
+    "complete_family_rate_pct": 100.0,
+    "invariant_relations": 80,
+    "invariant_variants": 80,
+    "one_primary_changed_fact_rate_pct": 100.0,
+    "one_primary_changed_fact_variants": 320
+  },
+  "status": "design_metrics_only_no_model_performance",
+  "validation_error_count": 0,
+  "validation_passed": true
+}

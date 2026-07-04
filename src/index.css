@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #F7F4EF;
+  color: #303846;
+  font-family: 'Kanit', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(169, 81, 50, 0.22);
+  color: #303846;
+}
+
+.hero-heading {
+  background: linear-gradient(180deg, #303846 0%, #6C7680 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-label {
+  color: #A95132;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  color: #303846;
+  font-size: clamp(2.25rem, 5.6vw, 5.9rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.surface-card {
+  border: 1px solid rgba(48, 56, 70, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 22px 70px rgba(48, 56, 70, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  border-radius: 28px;
+}
+
+.lab-grid,
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(48, 56, 70, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(48, 56, 70, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.avatar-stage {
+  transform-style: preserve-3d;
+}
+
+.avatar-card {
+  transform: translate(-50%, -50%) translateZ(52px);
+  filter: drop-shadow(0 32px 58px rgba(48, 56, 70, 0.26)) drop-shadow(0 0 50px rgba(169, 81, 50, 0.10));
+  overflow: visible;
+}
+
+.avatar-image {
+  -webkit-mask-image: radial-gradient(ellipse 52% 60% at 50% 43%, #000 0%, #000 54%, rgba(0, 0, 0, 0.74) 66%, transparent 82%);
+  mask-image: radial-gradient(ellipse 52% 60% at 50% 43%, #000 0%, #000 54%, rgba(0, 0, 0, 0.74) 66%, transparent 82%);
+}
+
+.portrait-glint {
+  background: linear-gradient(108deg, transparent 0%, rgba(255, 255, 255, 0.20) 42%, transparent 51%);
+  mix-blend-mode: screen;
+  opacity: 0.28;
+  -webkit-mask-image: radial-gradient(ellipse 52% 60% at 50% 43%, #000 0%, #000 54%, rgba(0, 0, 0, 0.50) 66%, transparent 82%);
+  mask-image: radial-gradient(ellipse 52% 60% at 50% 43%, #000 0%, #000 54%, rgba(0, 0, 0, 0.50) 66%, transparent 82%);
+}
+
+.avatar-ring {
+  transform-style: preserve-3d;
+  animation: orbit-spin 18s linear infinite;
+  box-shadow: 0 0 46px rgba(169, 81, 50, 0.10);
+}
+
+.avatar-ring-2 {
+  transform: translate(-50%, -50%) rotate(62deg);
+  animation-duration: 24s;
+  animation-direction: reverse;
+}
+
+.avatar-ring-3 {
+  transform: translate(-50%, -50%) rotate(-58deg);
+  animation-duration: 30s;
+}
+
+@keyframes orbit-spin {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .avatar-card {
+    transform: translate(-50%, -50%) translateZ(34px);
+  }
+
+  .avatar-image,
+  .portrait-glint {
+    -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 44%, #000 0%, #000 58%, rgba(0, 0, 0, 0.72) 70%, transparent 84%);
+    mask-image: radial-gradient(ellipse 60% 62% at 50% 44%, #000 0%, #000 58%, rgba(0, 0, 0, 0.72) 70%, transparent 84%);
+  }
+}

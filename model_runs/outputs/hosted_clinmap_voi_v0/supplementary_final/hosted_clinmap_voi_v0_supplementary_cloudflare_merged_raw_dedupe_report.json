@@ -1,0 +1,28 @@
+{
+  "deduped_path": "model_runs/outputs/hosted_clinmap_voi_v0/supplementary_final/hosted_clinmap_voi_v0_supplementary_cloudflare_merged_raw_deduped.jsonl",
+  "deduped_rows": 60,
+  "duplicate_attempt_rows_removed": 45,
+  "duplicate_keys_seen": 45,
+  "model_counts_deduped": {
+    "cloudflare_workers_ai/cloudflare_glm_4_7_flash_free_alloc/failed": 11,
+    "cloudflare_workers_ai/cloudflare_glm_4_7_flash_free_alloc/ok": 9,
+    "cloudflare_workers_ai/cloudflare_gpt_oss_120b_free_alloc/failed": 5,
+    "cloudflare_workers_ai/cloudflare_gpt_oss_120b_free_alloc/ok": 15,
+    "cloudflare_workers_ai/cloudflare_qwen3_30b_a3b_free_alloc/failed": 1,
+    "cloudflare_workers_ai/cloudflare_qwen3_30b_a3b_free_alloc/ok": 19
+  },
+  "provider_counts_deduped": {
+    "cloudflare_workers_ai": 60
+  },
+  "raw_rows": 105,
+  "selection_policy": "one row per provider/model_id/prompt_id; prefer ok over non-ok; otherwise later appended row",
+  "source_path": "model_runs/outputs/hosted_clinmap_voi_v0/supplementary_final/hosted_clinmap_voi_v0_supplementary_cloudflare_merged_raw.jsonl",
+  "status_counts_deduped": {
+    "failed": 17,
+    "ok": 43
+  },
+  "status_counts_raw": {
+    "failed": 60,
+    "ok": 45
+  }
+}

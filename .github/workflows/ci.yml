@@ -1,0 +1,24 @@
+name: clinical-model-behavior-lab-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install Node dependencies
+        run: npm ci
+      - name: Typecheck and build landing page
+        run: npm run build
+      - name: Run evaluation audit
+        run: make audit

@@ -1,0 +1,409 @@
+{
+  "framework_version": "clinmap-voi-v0.1",
+  "default_params": {
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 180,
+    "timeout_sec": 120,
+    "retries": 3,
+    "target_total_tokens_per_request_lt": 500,
+    "respect_retry_after_headers": true,
+    "save_every_completed_output_immediately": true,
+    "resume_skips_completed_rows": true
+  },
+  "providers": {
+    "groq": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key_env": "GROQ_API_KEY",
+      "default_rpm_per_model": 45,
+      "notes": "OpenAI-compatible Groq API. Model list should be probed before a full run.",
+      "quota_notes": "Use model-specific conservative RPM because Groq preview/production limits vary by model; all selected models remain below 320 RPD/model for this benchmark."
+    },
+    "cerebras": {
+      "base_url": "https://api.cerebras.ai/v1",
+      "api_key_env": "CEREBRAS_API_KEY",
+      "default_rpm_per_model": 4,
+      "notes": "OpenAI-compatible Cerebras Inference API. Conservative per-model RPM for free-tier runs.",
+      "quota_notes": "Free-tier planning assumption: 5 RPM/model, 30K TPM/model, 1M TPD/model; run at 4 RPM/model."
+    },
+    "mistral": {
+      "base_url": "https://api.mistral.ai/v1",
+      "api_key_env": "MISTRAL_API_KEY",
+      "default_rpm_per_model": 50,
+      "notes": "Mistral chat completions API. Current limits should be checked in the console/headers.",
+      "quota_notes": "Use model-specific conservative RPM/RPS. Combined Mistral schedule is kept near or below 1 RPS to reduce free-tier 429 risk."
+    },
+    "google": {
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+      "api_key_env": "GEMINI_API_KEY",
+      "default_rpm_per_model": 10,
+      "quota_notes": "Supplementary provider. OpenAI-compatible Gemini endpoint. Run 20-prompt probe before scaling.",
+      "api_key_envs": [
+        "GEMINI_API_KEY",
+        "GOOGLE_API_KEY"
+      ]
+    },
+    "nvidia": {
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "base_url_env": "NVIDIA_BASE_URL",
+      "api_key_env": "NVIDIA_API_KEY",
+      "default_rpm_per_model": 20,
+      "quota_notes": "Supplementary provider via NVIDIA Integrate OpenAI-compatible endpoint. Probe 20 prompts first; do not hard-fail core benchmark."
+    },
+    "zai": {
+      "base_url": "https://api.z.ai/api/paas/v4",
+      "api_key_env": "ZAI_API_KEY",
+      "default_rpm_per_model": 30,
+      "notes": "Z.AI OpenAI-compatible endpoint. Pricing docs list GLM-4.7-Flash and GLM-4.5-Flash as Free/Free/Free/Free.",
+      "quota_notes": "Free model; exact active account rate limit should be probed. Start at 30 RPM."
+    },
+    "cloudflare_workers_ai": {
+      "base_url": "<set CLOUDFLARE_BASE_URL=https://api.cloudflare.com/client/v4/accounts/<account_id>/ai/v1>",
+      "base_url_env": "CLOUDFLARE_BASE_URL",
+      "api_key_env": "CLOUDFLARE_API_TOKEN",
+      "default_rpm_per_model": 30,
+      "notes": "Cloudflare Workers AI OpenAI-compatible endpoint; free allocation is 10,000 Neurons/day.",
+      "quota_notes": "Requires CLOUDFLARE_BASE_URL with account id and CLOUDFLARE_API_TOKEN. Free allocation resets daily."
+    },
+    "siliconflow": {
+      "base_url": "https://api.siliconflow.com/v1",
+      "api_key_env": "SILICONFLOW_API_KEY",
+      "default_rpm_per_model": 30,
+      "notes": "SiliconFlow OpenAI-compatible endpoint. Docs state free models have fixed rate limits and free calls show cost 0; Qwen/Qwen3-8B appears in API docs.",
+      "quota_notes": "May require account/identity verification; start at 30 RPM and probe."
+    },
+    "github_models": {
+      "base_url": "https://models.github.ai/inference",
+      "api_key_env": "GITHUB_TOKEN",
+      "default_rpm_per_model": 10,
+      "notes": "GitHub Models free prototyping endpoint. Daily caps are low; use for probes or small supplemental runs, not full 320 quickly.",
+      "quota_notes": "Free API usage is rate limited by model tier: low 15 RPM/150 RPD, high 10 RPM/50 RPD for Copilot Free/Pro."
+    }
+  },
+  "models": [
+    {
+      "alias": "cerebras_gpt_oss_120b",
+      "provider": "cerebras",
+      "model_id": "gpt-oss-120b",
+      "rpm": 4,
+      "priority": 1,
+      "status": "main",
+      "limits": "5 RPM, 30K TPM, 1M TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "cerebras_gemma_4_31b",
+      "provider": "cerebras",
+      "model_id": "gemma-4-31b",
+      "rpm": 4,
+      "priority": 1,
+      "status": "main",
+      "limits": "5 RPM, 30K TPM, 1M TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "cerebras_zai_glm_4_7",
+      "provider": "cerebras",
+      "model_id": "zai-glm-4.7",
+      "rpm": 4,
+      "priority": 1,
+      "status": "main",
+      "limits": "5 RPM, 30K TPM, 1M TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "groq_llama_4_scout",
+      "provider": "groq",
+      "model_id": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "rpm": 20,
+      "priority": 1,
+      "status": "main",
+      "limits": "30 RPM, 1000 RPD, 30K TPM, 500K TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "groq_qwen3_32b",
+      "provider": "groq",
+      "model_id": "qwen/qwen3-32b",
+      "rpm": 8,
+      "priority": 1,
+      "status": "main",
+      "limits": "60 RPM, 1000 RPD, 6K TPM, 500K TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "groq_qwen3_6_27b",
+      "provider": "groq",
+      "model_id": "qwen/qwen3.6-27b",
+      "rpm": 8,
+      "priority": 1,
+      "status": "main",
+      "limits": "30 RPM, 1000 RPD, 8K TPM, 200K TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "groq_gpt_oss_120b",
+      "provider": "groq",
+      "model_id": "openai/gpt-oss-120b",
+      "rpm": 8,
+      "priority": 1,
+      "status": "main",
+      "limits": "30 RPM, 1000 RPD, 8K TPM, 200K TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "groq_gpt_oss_20b",
+      "provider": "groq",
+      "model_id": "openai/gpt-oss-20b",
+      "rpm": 8,
+      "priority": 1,
+      "status": "main",
+      "limits": "30 RPM, 1000 RPD, 8K TPM, 200K TPD",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "mistral_large_2512",
+      "provider": "mistral",
+      "model_id": "mistral-large-2512",
+      "rpm": 3.5,
+      "priority": 1,
+      "status": "main",
+      "limits": "250K TPM, 0.07 RPS ≈ 4.2 RPM",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "mistral_magistral_medium_2509",
+      "provider": "mistral",
+      "model_id": "magistral-medium-2509",
+      "rpm": 4,
+      "priority": 1,
+      "status": "main",
+      "limits": "75K TPM, 0.08 RPS ≈ 4.8 RPM",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "mistral_medium_2508",
+      "provider": "mistral",
+      "model_id": "mistral-medium-2508",
+      "rpm": 18,
+      "priority": 1,
+      "status": "main",
+      "limits": "356K TPM, 0.38 RPS ≈ 22.8 RPM",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "mistral_small_2603",
+      "provider": "mistral",
+      "model_id": "mistral-small-2603",
+      "rpm": 30,
+      "priority": 1,
+      "status": "main",
+      "limits": "50K TPM, 0.83 RPS ≈ 49.8 RPM",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "google_gemini_3_1_pro",
+      "provider": "google",
+      "model_id": "gemini-3.1-pro-preview",
+      "rpm": 4,
+      "limits": "supplementary; exact active limits must be checked in AI Studio; 20-prompt probe first; full-run safety rpm set to 4 after 20-prompt probe hit short-window 429s at rpm=10",
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "google_gemini_3_5_flash",
+      "provider": "google",
+      "model_id": "gemini-3.5-flash",
+      "rpm": 4,
+      "limits": "supplementary; exact active limits must be checked in AI Studio; 20-prompt probe first; full-run safety rpm set to 4 after 20-prompt probe hit short-window 429s at rpm=10",
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "enabled": false
+    },
+    {
+      "alias": "nvidia_nemotron_primary",
+      "provider": "nvidia",
+      "model_id": "nvidia/nemotron-3-ultra-550b-a55b",
+      "enabled": false,
+      "rpm": 10,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first; full-run safety rpm set to 10 after one transient worker-local 503 at rpm=20",
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "notes": "Configured from NVIDIA Integrate sample. Runner uses non-streamed chat completions with temperature=0, top_p=1, max_tokens=180."
+    },
+    {
+      "alias": "nvidia_secondary_chat",
+      "provider": "nvidia",
+      "model_id": "nvidia/nemotron-3-super-120b-a12b",
+      "enabled": false,
+      "rpm": 10,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first; full-run safety rpm set to 10 after one transient worker-local 503 at rpm=20",
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "notes": "Configured from NVIDIA Integrate sample. Runner uses non-streamed chat completions with temperature=0, top_p=1, max_tokens=180."
+    },
+    {
+      "alias": "nvidia_glm_5_2",
+      "provider": "nvidia",
+      "model_id": "z-ai/glm-5.2",
+      "enabled": false,
+      "rpm": 10,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first; full-run safety rpm set to 10 after one transient worker-local 503 at rpm=20",
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "notes": "Chosen as third NVIDIA supplementary model from NVIDIA Build recent free endpoints: flagship LLM for agentic workflows, coding, and long-horizon reasoning."
+    },
+    {
+      "alias": "nvidia_deepseek_v4_pro",
+      "provider": "nvidia",
+      "model_id": "deepseek-ai/deepseek-v4-pro",
+      "enabled": false,
+      "rpm": 10,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first; full-run safety rpm set to 10 after one transient worker-local 503 at rpm=20",
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "notes": "Chosen as additional NVIDIA supplementary model: independent DeepSeek family, MoE, coding/agentic reasoning; avoids soon-deprecated Kimi K2.6 and redundant Mistral family overlap."
+    },
+    {
+      "alias": "nvidia_llama_3_3_70b_baseline",
+      "provider": "nvidia",
+      "model_id": "meta/llama-3.3-70b-instruct",
+      "enabled": false,
+      "rpm": 10,
+      "limits": "supplementary baseline; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first; full-run safety rpm set to 10 after one transient worker-local 503 at rpm=20",
+      "priority": 3,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "notes": "Added as a widely recognized NVIDIA-hosted Meta Llama baseline. Not a headline frontier model; useful for comparison against newer Nemotron/GLM/DeepSeek hosted models."
+    },
+    {
+      "alias": "zai_glm_4_7_flash_free",
+      "provider": "zai",
+      "model_id": "glm-4.7-flash",
+      "enabled": true,
+      "rpm": 30,
+      "priority": 1,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "Z.AI pricing page: GLM-4.7-Flash is free for input/cached/storage/output. Probe exact RPM."
+    },
+    {
+      "alias": "zai_glm_4_5_flash_free",
+      "provider": "zai",
+      "model_id": "glm-4.5-flash",
+      "enabled": true,
+      "rpm": 30,
+      "priority": 1,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "Z.AI pricing page: GLM-4.5-Flash is free for input/cached/storage/output. Probe exact RPM."
+    },
+    {
+      "alias": "cloudflare_glm_4_7_flash_free_alloc",
+      "provider": "cloudflare_workers_ai",
+      "model_id": "@cf/zai-org/glm-4.7-flash",
+      "enabled": true,
+      "rpm": 30,
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "Cloudflare Workers AI free allocation: 10,000 Neurons/day; model price page lists GLM-4.7-Flash."
+    },
+    {
+      "alias": "cloudflare_gpt_oss_120b_free_alloc",
+      "provider": "cloudflare_workers_ai",
+      "model_id": "@cf/openai/gpt-oss-120b",
+      "enabled": true,
+      "rpm": 20,
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "Cloudflare Workers AI free allocation: 10,000 Neurons/day; model page lists gpt-oss-120b."
+    },
+    {
+      "alias": "cloudflare_qwen3_30b_a3b_free_alloc",
+      "provider": "cloudflare_workers_ai",
+      "model_id": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "enabled": true,
+      "rpm": 30,
+      "priority": 2,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "Cloudflare Workers AI free allocation: 10,000 Neurons/day; model page/changelog list qwen3-30b-a3b-fp8."
+    },
+    {
+      "alias": "siliconflow_qwen3_8b_free",
+      "provider": "siliconflow",
+      "model_id": "Qwen/Qwen3-8B",
+      "enabled": true,
+      "rpm": 30,
+      "priority": 3,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "SiliconFlow docs: free models have fixed free calls; Qwen/Qwen3-8B appears in Chat Completions docs. Probe availability."
+    },
+    {
+      "alias": "groq_llama_3_3_70b_versatile_free",
+      "provider": "groq",
+      "model_id": "llama-3.3-70b-versatile",
+      "enabled": true,
+      "rpm": 20,
+      "priority": 4,
+      "status": "supplementary",
+      "planned_requests_full_run": 320,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "Groq free docs: 30 RPM, 1K RPD, 12K TPM, 100K TPD. Run at 20 RPM to stay below TPM/RPD."
+    }
+  ],
+  "supplementary_provider_policy": {
+    "default_behavior": "free candidates only; explicit provider/model selection recommended",
+    "provenance_rule": "Do not relabel rows. Each free provider/model has separate provider and alias.",
+    "probe_first_prompts": 20,
+    "scale_rule": "Probe /models when supported and run --limit 20 first; scale only after ok rate is acceptable.",
+    "github_models_note": "GitHub Models omitted from enabled model list because exact model slugs should be fetched from catalog and daily quotas are low."
+  }
+}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="192" viewBox="0 0 920 192" role="img" aria-label="Response provenance">
+  <rect width="100%" height="100%" fill="#fbf7ef"/>
+  <text x="32" y="38" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Response provenance</text>
+  <text x="32" y="88" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">synthetic_model_pattern</text>
+  <rect x="250" y="70" width="570" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="70" width="570" height="24" rx="6" fill="#244b4a"/>
+  <text x="838" y="87" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">49</text>
+  <text x="32" y="126" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">expert_ideal</text>
+  <rect x="250" y="108" width="570" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="108" width="523" height="24" rx="6" fill="#244b4a"/>
+  <text x="838" y="125" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">45</text>
+  <text x="32" y="164" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">human_baseline</text>
+  <rect x="250" y="146" width="570" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="146" width="23" height="24" rx="6" fill="#244b4a"/>
+  <text x="838" y="163" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">2</text>
+</svg>

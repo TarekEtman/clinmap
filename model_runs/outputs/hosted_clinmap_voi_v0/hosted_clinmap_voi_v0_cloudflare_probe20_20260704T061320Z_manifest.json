@@ -1,0 +1,74 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "completed_at": "2026-07-04T06:14:20Z",
+  "config_path": "model_runs/hosted_models_clinmap_voi_v0_free_candidates.json",
+  "created_at": "2026-07-04T06:13:20Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": true,
+  "models": [
+    {
+      "alias": "cloudflare_glm_4_7_flash_free_alloc",
+      "model_id": "@cf/zai-org/glm-4.7-flash",
+      "provider": "cloudflare_workers_ai",
+      "rpm": 30
+    },
+    {
+      "alias": "cloudflare_gpt_oss_120b_free_alloc",
+      "model_id": "@cf/openai/gpt-oss-120b",
+      "provider": "cloudflare_workers_ai",
+      "rpm": 20
+    },
+    {
+      "alias": "cloudflare_qwen3_30b_a3b_free_alloc",
+      "model_id": "@cf/qwen/qwen3-30b-a3b-fp8",
+      "provider": "cloudflare_workers_ai",
+      "rpm": 30
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_cloudflare_probe20_20260704T061320Z.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 3,
+    "temperature": 0,
+    "timeout_sec": 120,
+    "top_p": 1
+  },
+  "planned_requests": 60,
+  "prompt_count": 20,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "cloudflare_workers_ai"
+  ],
+  "run_id": "hosted_clinmap_voi_v0_cloudflare_probe20_20260704T061320Z",
+  "status": "complete",
+  "worker_summaries": [
+    {
+      "failed": 20,
+      "model_alias": "cloudflare_glm_4_7_flash_free_alloc",
+      "ok": 0,
+      "planned": 20,
+      "provider": "cloudflare_workers_ai",
+      "skipped": 0,
+      "status": "done"
+    },
+    {
+      "failed": 20,
+      "model_alias": "cloudflare_qwen3_30b_a3b_free_alloc",
+      "ok": 0,
+      "planned": 20,
+      "provider": "cloudflare_workers_ai",
+      "skipped": 0,
+      "status": "done"
+    },
+    {
+      "failed": 20,
+      "model_alias": "cloudflare_gpt_oss_120b_free_alloc",
+      "ok": 0,
+      "planned": 20,
+      "provider": "cloudflare_workers_ai",
+      "skipped": 0,
+      "status": "done"
+    }
+  ]
+}

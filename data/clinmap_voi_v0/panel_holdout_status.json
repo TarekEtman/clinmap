@@ -1,0 +1,34 @@
+{
+  "benchmark_id": "clinmap-voi-v0-hosted-20260703",
+  "holdout_families": [
+    "CMVOI-033",
+    "CMVOI-034",
+    "CMVOI-035",
+    "CMVOI-036",
+    "CMVOI-037",
+    "CMVOI-038",
+    "CMVOI-039",
+    "CMVOI-040"
+  ],
+  "layer_c_status": "fielded_dual_ai_protocol",
+  "public_panel_ids_planned": [],
+  "anonymity_policy": "Public artifacts use pseudonymous panel_reviewer_id only; real identities optional in gitignored panel_reviewer_registry.json",
+  "blinding": {
+    "model_id_hidden_in_panel_pack": true,
+    "variant_text_visible": true,
+    "response_text_visible": true,
+    "framework_gold_hidden_in_panel_pack": true
+  },
+  "target_row_count_min": 80,
+  "export_script": "scripts/export_holdout_panel_pack.py",
+  "output_artifact": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
+  "documentation": "docs/panel_review_strategy.md",
+  "fielded_at": "2026-07-04T09:42:10Z",
+  "rater_ids": [
+    "ai_protocol_contract_v0",
+    "ai_protocol_escalation_v0"
+  ],
+  "rater_type": "ai_protocol",
+  "row_count": 1440,
+  "holdout_item_count": 720
+}

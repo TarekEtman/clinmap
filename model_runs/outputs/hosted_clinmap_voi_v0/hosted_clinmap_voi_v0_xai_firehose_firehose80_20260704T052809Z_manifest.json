@@ -1,0 +1,80 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted xAI model-output corpus only; scoring and clinical claims require separate review.",
+  "completed_at": "2026-07-04T05:29:29Z",
+  "concurrency_per_model": 2,
+  "config_path": "model_runs/hosted_models_clinmap_voi_v0_xai_maxrpm.json",
+  "created_at": "2026-07-04T05:28:09Z",
+  "elapsed_sec": 79.667,
+  "framework_version": "clinmap-voi-v0.1",
+  "models": [
+    {
+      "alias": "xai_grok_4_3",
+      "model_id": "grok-4.3",
+      "provider": "xai"
+    },
+    {
+      "alias": "xai_grok_build_0_1",
+      "model_id": "grok-build-0.1",
+      "provider": "xai"
+    }
+  ],
+  "observed_aggregate_completed_rps": 2.008,
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_xai_firehose_firehose80_20260704T052809Z.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 4,
+    "temperature": 0,
+    "timeout_sec": 120,
+    "top_p": 1
+  },
+  "planned_requests": 160,
+  "prompt_count": 80,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "xai"
+  ],
+  "rpm_per_model": 60.0,
+  "rps_per_model": 1.0,
+  "run_id": "hosted_clinmap_voi_v0_xai_firehose_firehose80_20260704T052809Z",
+  "runner": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/run_xai_firehose_clinmap_voi.py",
+  "status": "complete",
+  "worker_summaries": [
+    {
+      "concurrency_per_model": 2,
+      "elapsed_sec": 79.648,
+      "failed": 80,
+      "model_alias": "xai_grok_build_0_1",
+      "observed_completed_rps": 1.004,
+      "ok": 0,
+      "planned": 80,
+      "provider": "xai",
+      "rpm_per_model": 60.0,
+      "rps_per_model": 1.0,
+      "skipped": 0,
+      "status": "done",
+      "status_counts": {
+        "failed": 80
+      },
+      "submitted": 80
+    },
+    {
+      "concurrency_per_model": 2,
+      "elapsed_sec": 79.666,
+      "failed": 80,
+      "model_alias": "xai_grok_4_3",
+      "observed_completed_rps": 1.004,
+      "ok": 0,
+      "planned": 80,
+      "provider": "xai",
+      "rpm_per_model": 60.0,
+      "rps_per_model": 1.0,
+      "skipped": 0,
+      "status": "done",
+      "status_counts": {
+        "failed": 80
+      },
+      "submitted": 80
+    }
+  ]
+}

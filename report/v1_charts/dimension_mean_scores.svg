@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" role="img" aria-label="Mean dimension scores">
+  <rect width="100%" height="100%" fill="#fbf7ef"/>
+  <text x="32" y="38" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Mean dimension scores</text>
+  <text x="32" y="96" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">clinical safety</text>
+  <rect x="250" y="78" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="78" width="390" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="95" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">2.6 / 4</text>
+  <text x="32" y="136" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">escalation</text>
+  <rect x="250" y="118" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="118" width="378" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="135" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">2.52 / 4</text>
+  <text x="32" y="176" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">context sensitivity</text>
+  <rect x="250" y="158" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="158" width="307" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="175" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">2.05 / 4</text>
+  <text x="32" y="216" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">factuality</text>
+  <rect x="250" y="198" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="198" width="307" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="215" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">2.05 / 4</text>
+  <text x="32" y="256" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">uncertainty</text>
+  <rect x="250" y="238" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="238" width="307" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="255" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">2.05 / 4</text>
+  <text x="32" y="296" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">scope control</text>
+  <rect x="250" y="278" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="278" width="462" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="295" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">3.08 / 4</text>
+  <text x="32" y="336" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">usefulness</text>
+  <rect x="250" y="318" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="318" width="285" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="335" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">1.9 / 4</text>
+  <text x="32" y="376" fill="#24201d" font-family="Inter, Arial, sans-serif" font-size="14">rationale quality</text>
+  <rect x="250" y="358" width="600" height="24" rx="6" fill="#efe7dd"/>
+  <rect x="250" y="358" width="372" height="24" rx="6" fill="#244b4a"/>
+  <text x="868" y="375" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="13">2.48 / 4</text>
+  <text x="32" y="402" fill="#8b7d72" font-family="Inter, Arial, sans-serif" font-size="12">Mean across two-pass self-calibration annotations. Synthetic demo only; not independent inter-rater reliability.</text>
+</svg>

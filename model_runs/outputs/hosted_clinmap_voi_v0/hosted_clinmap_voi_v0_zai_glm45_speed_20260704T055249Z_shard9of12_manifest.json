@@ -1,0 +1,32 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "config_path": "model_runs/hosted_models_clinmap_voi_v0_free_candidates.json",
+  "created_at": "2026-07-04T05:52:51Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": true,
+  "models": [
+    {
+      "alias": "zai_glm_4_5_flash_free",
+      "model_id": "glm-4.5-flash",
+      "provider": "zai",
+      "rpm": 30
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_zai_glm45_speed_20260704T055249Z_shard9of12.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 2,
+    "temperature": 0,
+    "timeout_sec": 90,
+    "top_p": 1
+  },
+  "planned_requests": 26,
+  "prompt_count": 26,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "zai"
+  ],
+  "run_id": "hosted_clinmap_voi_v0_zai_glm45_speed_20260704T055249Z_shard9of12",
+  "status": "running"
+}

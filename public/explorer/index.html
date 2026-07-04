@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clinical Model Behavior Eval Explorer</title>
+  <script src="./data.js"></script>
+  <style>
+    :root { --bg:#f7f4ef; --paper:#fffdf8; --ink:#24201d; --muted:#776b62; --line:#d8ccb9; --rust:#a65437; --teal:#244b4a; --pale:#eadfd2; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); }
+    main { max-width:1180px; margin:0 auto; padding:42px 24px 72px; }
+    header { display:grid; grid-template-columns:1.35fr .65fr; gap:28px; align-items:end; border-bottom:1px solid var(--line); padding-bottom:28px; }
+    h1 { font-size:clamp(42px, 7vw, 92px); line-height:.9; letter-spacing:-.07em; margin:12px 0; }
+    .eyebrow { color:var(--rust); font-weight:800; letter-spacing:.16em; text-transform:uppercase; font-size:12px; }
+    .muted { color:var(--muted); }
+    .metrics { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+    .metric, .panel, .card { background:var(--paper); border:1px solid var(--line); border-radius:22px; }
+    .metric { padding:18px; border-top:6px solid var(--teal); }
+    .metric:nth-child(2) { border-top-color:var(--rust); }
+    .metric strong { display:block; font-size:30px; line-height:1; }
+    .controls { display:grid; grid-template-columns:1fr 1fr 1.4fr; gap:12px; margin:26px 0; }
+    input, select { width:100%; border:1px solid var(--line); border-radius:999px; padding:12px 15px; background:var(--paper); color:var(--ink); font:inherit; }
+    .layout { display:grid; grid-template-columns:360px 1fr; gap:18px; }
+    .list { max-height:720px; overflow:auto; padding:10px; }
+    .case-button { width:100%; text-align:left; border:1px solid var(--line); background:var(--paper); border-radius:16px; padding:13px; margin-bottom:10px; cursor:pointer; color:var(--ink); }
+    .case-button.active { border-color:var(--rust); box-shadow:0 0 0 3px rgba(166,84,55,.12); }
+    .tag { display:inline-block; border-radius:999px; padding:4px 8px; margin:4px 4px 0 0; font-size:11px; font-weight:800; background:#dce8e4; color:var(--teal); text-transform:uppercase; }
+    .tag.risk { background:#f0ded4; color:var(--rust); }
+    .panel { padding:22px; }
+    .responses { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+    .card { padding:18px; border-top:6px solid var(--teal); }
+    .card.fail { border-top-color:var(--rust); }
+    .score { font-weight:900; color:var(--teal); }
+    .fail .score { color:var(--rust); }
+    pre { white-space:pre-wrap; font:inherit; line-height:1.45; color:var(--muted); }
+    ul { padding-left:18px; color:var(--muted); }
+    footer { margin-top:32px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:20px; }
+    @media (max-width: 860px) { header, .layout, .responses, .controls { grid-template-columns:1fr; } .metrics { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <section>
+      <div class="eyebrow">Interactive synthetic eval explorer</div>
+      <h1>Clinical Model Behavior</h1>
+      <p class="muted">Browse synthetic healthcare-domain prompts, A/B candidate responses, rubric scores, failure tags, and evaluator rationales. This is a proof artifact, not medical advice or a benchmark.</p>
+    </section>
+    <aside class="metrics" id="metrics"></aside>
+  </header>
+  <section class="controls">
+    <select id="task"></select>
+    <select id="risk"></select>
+    <input id="search" placeholder="Search prompts, tags, rationales..." />
+  </section>
+  <section class="layout">
+    <aside class="panel list" id="caseList"></aside>
+    <article class="panel" id="caseDetail"></article>
+  </section>
+  <footer id="boundary"></footer>
+</main>
+<script>
+const data = window.CMB_EXPLORER_DATA;
+const state = { task: 'all', risk: 'all', search: '', selected: 0 };
+const $ = (id) => document.getElementById(id);
+function uniq(arr){ return [...new Set(arr)].sort(); }
+function renderControls(){
+  $('metrics').innerHTML = `<div class="metric"><strong>${data.counts.cases}</strong><span>cases</span></div><div class="metric"><strong>${data.counts.responses}</strong><span>responses</span></div><div class="metric"><strong>${data.counts.annotations}</strong><span>annotations</span></div>`;
+  $('task').innerHTML = '<option value="all">All task types</option>' + uniq(data.cases.map(c=>c.task_type)).map(x=>`<option>${x}</option>`).join('');
+  $('risk').innerHTML = '<option value="all">All risk levels</option>' + uniq(data.cases.map(c=>c.risk_level)).map(x=>`<option>${x}</option>`).join('');
+  $('boundary').textContent = data.claim_boundary + ' Generated from data/v1.';
+}
+function filtered(){
+  const q = state.search.toLowerCase();
+  return data.cases.filter(c => (state.task==='all'||c.task_type===state.task) && (state.risk==='all'||c.risk_level===state.risk) && (!q || JSON.stringify(c).toLowerCase().includes(q)));
+}
+function renderList(){
+  const rows = filtered();
+  if(state.selected >= rows.length) state.selected = 0;
+  $('caseList').innerHTML = rows.map((c,i)=>`<button class="case-button ${i===state.selected?'active':''}" data-i="${i}"><strong>${c.case_id}</strong><br/><span class="muted">${c.prompt}</span><br/><span class="tag risk">${c.risk_level}</span><span class="tag">${c.task_type}</span></button>`).join('') || '<p class="muted">No cases match.</p>';
+  [...document.querySelectorAll('.case-button')].forEach(btn=>btn.onclick=()=>{state.selected=Number(btn.dataset.i); render();});
+}
+function renderDetail(){
+  const rows = filtered();
+  const c = rows[state.selected];
+  if(!c){ $('caseDetail').innerHTML='<p class="muted">No case selected.</p>'; return; }
+  const responses = c.responses.map(r=>`<div class="card ${r.pass_fail==='fail'?'fail':''}"><h3>Response ${r.label} - ${r.pass_fail.toUpperCase()}</h3><p class="score">Score ${r.score}/4 | severity ${r.severity} | ${r.origin}</p><pre>${r.text}</pre><p><strong>Failure tags:</strong> ${r.failure_tags.length ? r.failure_tags.map(t=>`<span class="tag">${t}</span>`).join('') : '<span class="muted">none</span>'}</p><p class="muted"><strong>Rationale:</strong> ${r.rationale}</p></div>`).join('');
+  $('caseDetail').innerHTML = `<div class="eyebrow">${c.case_id} · ${c.task_type}</div><h2>${c.prompt}</h2><p><span class="tag risk">${c.risk_level}</span>${c.target_failure_modes.map(t=>`<span class="tag">${t}</span>`).join('')}</p><h3>Expected safe behavior</h3><ul>${c.expected_safe_behavior.map(x=>`<li>${x}</li>`).join('')}</ul><section class="responses">${responses}</section>`;
+}
+function render(){ renderList(); renderDetail(); }
+renderControls(); render();
+$('task').onchange = e => { state.task=e.target.value; state.selected=0; render(); };
+$('risk').onchange = e => { state.risk=e.target.value; state.selected=0; render(); };
+$('search').oninput = e => { state.search=e.target.value; state.selected=0; render(); };
+</script>
+</body>
+</html>

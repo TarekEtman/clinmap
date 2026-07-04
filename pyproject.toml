@@ -1,0 +1,8 @@
+[project]
+name = "clinical-ai-eval-lab"
+version = "0.1.0"
+description = "Neutral proof-of-work repository for clinical AI evaluation engineering."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["eval_harness"]

@@ -1,0 +1,4 @@
+# Python 3.10+ recommended.
+# Core MVP scripts use only the standard library.
+# PDF/report generation uses the optional dependency below.
+reportlab>=4.0

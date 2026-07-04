@@ -1,0 +1,22 @@
+{"ts": "2026-07-04T08:45:43Z", "phase": "preprocess", "dropped_empty": 1077, "length_finish_rows": 3008, "kept": 3971, "models": 17}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "deepseek-ai/deepseek-v4-pro", "shard": 1, "shards_total": 17, "rows": 137}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "gemini-3.5-flash", "shard": 2, "shards_total": 17, "rows": 21}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "gemma-4-31b", "shard": 3, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "gpt-oss-120b", "shard": 4, "shards_total": 17, "rows": 140}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "magistral-medium-2509", "shard": 5, "shards_total": 17, "rows": 127}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "meta-llama/llama-4-scout-17b-16e-instruct", "shard": 6, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "meta/llama-3.3-70b-instruct", "shard": 7, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "mistral-large-2512", "shard": 8, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "mistral-medium-2508", "shard": 9, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "mistral-small-2603", "shard": 10, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:43Z", "phase": "row_review", "model_id": "nvidia/nemotron-3-super-120b-a12b", "shard": 11, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:44Z", "phase": "row_review", "model_id": "nvidia/nemotron-3-ultra-550b-a55b", "shard": 12, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:44Z", "phase": "row_review", "model_id": "openai/gpt-oss-120b", "shard": 13, "shards_total": 17, "rows": 171}
+{"ts": "2026-07-04T08:45:44Z", "phase": "row_review", "model_id": "openai/gpt-oss-20b", "shard": 14, "shards_total": 17, "rows": 85}
+{"ts": "2026-07-04T08:45:44Z", "phase": "row_review", "model_id": "qwen/qwen3-32b", "shard": 15, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:44Z", "phase": "row_review", "model_id": "qwen/qwen3.6-27b", "shard": 16, "shards_total": 17, "rows": 320}
+{"ts": "2026-07-04T08:45:44Z", "phase": "row_review", "model_id": "z-ai/glm-5.2", "shard": 17, "shards_total": 17, "rows": 90}
+{"ts": "2026-07-04T08:45:44Z", "phase": "relations", "relation_rows": 3219}
+{"ts": "2026-07-04T08:45:44Z", "phase": "metrics", "models": 17}
+{"ts": "2026-07-04T08:45:44Z", "phase": "adjudication", "records": 93}
+{"ts": "2026-07-04T08:45:46Z", "phase": "complete", "completed_at": "2026-07-04T08:45:46Z", "run_id": "hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped", "reviewed_rows": 3971, "readme": "README.md", "metrics": "report/clinmap_voi_v0_performance_metrics.md", "review_queue": "model_runs/review_queues/hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped_review_queue.csv"}

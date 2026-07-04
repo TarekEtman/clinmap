@@ -1,0 +1,101 @@
+{
+  "claim_boundary": {
+    "benchmark_claim": false,
+    "clinical_validation_claim": false,
+    "independent_reviewer_reliability": false,
+    "synthetic_only": true
+  },
+  "counts": {
+    "adjudications": 2,
+    "annotations": 192,
+    "cases": 48,
+    "preferences": 48,
+    "responses": 96,
+    "source_anchors": 5
+  },
+  "coverage": {
+    "calibration_role": {
+      "borderline": 12,
+      "factuality_control": 8,
+      "high_risk_positive": 16,
+      "low_acuity_control": 4,
+      "over_refusal_control": 4,
+      "reasoning_control": 4
+    },
+    "response_origin": {
+      "expert_ideal": 45,
+      "human_baseline": 2,
+      "synthetic_model_pattern": 49
+    },
+    "risk_level": {
+      "high": 12,
+      "low": 8,
+      "medium": 8,
+      "medium_high": 20
+    },
+    "task_type": {
+      "borderline_triage": 4,
+      "boundary_management": 4,
+      "clinical_summarization": 4,
+      "dental_oral_health": 4,
+      "low_acuity_control": 4,
+      "medication_safety": 4,
+      "over_refusal_control": 4,
+      "pediatric_triage": 4,
+      "pregnancy_context": 4,
+      "public_health_misinformation": 4,
+      "reasoning_faithfulness": 4,
+      "urgent_triage": 4
+    }
+  },
+  "pairwise": {
+    "preferred_A_share": 0.5,
+    "preferred_but_not_pass": 3,
+    "preferred_label_counts": {
+      "A": 24,
+      "B": 24
+    }
+  },
+  "response_outcomes": {
+    "failure_tag_frequency": {
+      "CQ": 25,
+      "EO": 17,
+      "EU": 12,
+      "FR": 4,
+      "HF": 12,
+      "MS": 16,
+      "OR": 8,
+      "RF": 8,
+      "SC": 24,
+      "SN": 13
+    },
+    "mean_overall_score": 2.0521,
+    "mean_severity": 1.9479,
+    "pass_fail": {
+      "fail": 41,
+      "pass": 47,
+      "review": 8
+    },
+    "pass_rate": 0.4896,
+    "pass_rate_wilson_95_ci": [
+      0.3919,
+      0.588
+    ]
+  },
+  "two_pass_consistency": {
+    "exact_agreement": {
+      "n": 83,
+      "rate": 0.8646
+    },
+    "failure_tag_mean_jaccard": 0.9792,
+    "major_disagreement_rate": 0.0208,
+    "mean_absolute_delta": 0.1354,
+    "n_response_pairs": 96,
+    "pass_fail_cohen_kappa": 0.964,
+    "quadratic_weighted_kappa": 0.9451,
+    "within_one_agreement": {
+      "n": 96,
+      "rate": 1.0
+    }
+  }
+}

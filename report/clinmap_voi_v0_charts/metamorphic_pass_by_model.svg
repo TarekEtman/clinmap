@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320">
+<text x="48" y="24" font-size="16" font-family="system-ui">Metamorphic pass rate by model</text>
+<rect x="48" y="104" width="33" height="168" fill="#2563eb"/>
+<text x="48" y="308" font-size="9" transform="rotate(35 48,308)">gemma-4-31b</text>
+<rect x="89" y="90" width="33" height="182" fill="#2563eb"/>
+<text x="89" y="308" font-size="9" transform="rotate(35 89,308)">llama-4-scout-</text>
+<rect x="130" y="94" width="33" height="178" fill="#2563eb"/>
+<text x="130" y="308" font-size="9" transform="rotate(35 130,308)">llama-3.3-70b-</text>
+<rect x="171" y="99" width="33" height="173" fill="#2563eb"/>
+<text x="171" y="308" font-size="9" transform="rotate(35 171,308)">mistral-large-</text>
+<rect x="212" y="90" width="33" height="182" fill="#2563eb"/>
+<text x="212" y="308" font-size="9" transform="rotate(35 212,308)">mistral-medium</text>
+<rect x="253" y="92" width="33" height="180" fill="#2563eb"/>
+<text x="253" y="308" font-size="9" transform="rotate(35 253,308)">mistral-small-</text>
+<rect x="294" y="109" width="33" height="163" fill="#2563eb"/>
+<text x="294" y="308" font-size="9" transform="rotate(35 294,308)">nemotron-3-sup</text>
+<rect x="335" y="91" width="33" height="181" fill="#2563eb"/>
+<text x="335" y="308" font-size="9" transform="rotate(35 335,308)">nemotron-3-ult</text>
+<rect x="376" y="109" width="33" height="163" fill="#2563eb"/>
+<text x="376" y="308" font-size="9" transform="rotate(35 376,308)">qwen3-32b</text>
+<rect x="417" y="108" width="33" height="164" fill="#2563eb"/>
+<text x="417" y="308" font-size="9" transform="rotate(35 417,308)">qwen3.6-27b</text>
+<rect x="458" y="99" width="33" height="173" fill="#2563eb"/>
+<text x="458" y="308" font-size="9" transform="rotate(35 458,308)">gpt-oss-120b</text>
+<rect x="499" y="121" width="33" height="151" fill="#2563eb"/>
+<text x="499" y="308" font-size="9" transform="rotate(35 499,308)">gpt-oss-120b</text>
+<rect x="540" y="94" width="33" height="178" fill="#2563eb"/>
+<text x="540" y="308" font-size="9" transform="rotate(35 540,308)">deepseek-v4-pr</text>
+<rect x="581" y="71" width="33" height="201" fill="#2563eb"/>
+<text x="581" y="308" font-size="9" transform="rotate(35 581,308)">magistral-medi</text>
+<rect x="622" y="99" width="33" height="173" fill="#2563eb"/>
+<text x="622" y="308" font-size="9" transform="rotate(35 622,308)">glm-5.2</text>
+</svg>

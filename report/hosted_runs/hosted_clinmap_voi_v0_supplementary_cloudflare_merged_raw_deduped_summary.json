@@ -1,0 +1,89 @@
+{
+  "claim_boundary": "Raw hosted model-output corpus summary only. This is not scoring, clinical validation, or a model-safety claim.",
+  "mean_latency_ms": 19881.05,
+  "models": {
+    "cloudflare_workers_ai/cloudflare_glm_4_7_flash_free_alloc": {
+      "mean_latency_ms": 86768.0,
+      "p95_latency_ms": 117679.0,
+      "rows": 20,
+      "status_counts": {
+        "failed": 11,
+        "ok": 9
+      },
+      "unique_families": 3,
+      "unique_variants": 20,
+      "usage": {
+        "completion_tokens": 1620,
+        "prompt_tokens": 713,
+        "total_tokens": 2333
+      }
+    },
+    "cloudflare_workers_ai/cloudflare_gpt_oss_120b_free_alloc": {
+      "mean_latency_ms": 2112.87,
+      "p95_latency_ms": 2826.0,
+      "rows": 20,
+      "status_counts": {
+        "failed": 5,
+        "ok": 15
+      },
+      "unique_families": 3,
+      "unique_variants": 20,
+      "usage": {
+        "completion_tokens": 2700,
+        "prompt_tokens": 2171,
+        "total_tokens": 4871
+      }
+    },
+    "cloudflare_workers_ai/cloudflare_qwen3_30b_a3b_free_alloc": {
+      "mean_latency_ms": 2225.26,
+      "p95_latency_ms": 2937.0,
+      "rows": 20,
+      "status_counts": {
+        "failed": 1,
+        "ok": 19
+      },
+      "unique_families": 3,
+      "unique_variants": 20,
+      "usage": {
+        "completion_tokens": 3420,
+        "prompt_tokens": 1620,
+        "total_tokens": 5040
+      }
+    }
+  },
+  "ok_count": 43,
+  "p95_latency_ms": 114042.0,
+  "providers": {
+    "cloudflare_workers_ai": {
+      "models": [
+        "cloudflare_glm_4_7_flash_free_alloc",
+        "cloudflare_gpt_oss_120b_free_alloc",
+        "cloudflare_qwen3_30b_a3b_free_alloc"
+      ],
+      "rows": 60,
+      "status_counts": {
+        "failed": 17,
+        "ok": 43
+      },
+      "usage": {
+        "completion_tokens": 7740,
+        "prompt_tokens": 4504,
+        "total_tokens": 12244
+      }
+    }
+  },
+  "row_count": 60,
+  "source_path": "model_runs/outputs/hosted_clinmap_voi_v0/supplementary_final/hosted_clinmap_voi_v0_supplementary_cloudflare_merged_raw_deduped.jsonl",
+  "status_counts": {
+    "failed": 17,
+    "ok": 43
+  },
+  "unique_families": 3,
+  "unique_prompts": 20,
+  "unique_variants": 20,
+  "usage": {
+    "completion_tokens": 7740,
+    "prompt_tokens": 4504,
+    "total_tokens": 12244
+  }
+}

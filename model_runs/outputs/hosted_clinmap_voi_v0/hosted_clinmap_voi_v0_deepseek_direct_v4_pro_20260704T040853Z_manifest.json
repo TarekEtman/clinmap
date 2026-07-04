@@ -1,0 +1,32 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "config_path": "model_runs/hosted_models_clinmap_voi_v0_deepseek_direct.json",
+  "created_at": "2026-07-04T04:08:53Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": true,
+  "models": [
+    {
+      "alias": "deepseek_direct_v4_pro",
+      "model_id": "deepseek-v4-pro",
+      "provider": "deepseek",
+      "rpm": 30
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_deepseek_direct_v4_pro_20260704T040853Z.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 8,
+    "temperature": 0,
+    "timeout_sec": 180,
+    "top_p": 1
+  },
+  "planned_requests": 320,
+  "prompt_count": 320,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "deepseek"
+  ],
+  "run_id": "hosted_clinmap_voi_v0_deepseek_direct_v4_pro_20260704T040853Z",
+  "status": "running"
+}

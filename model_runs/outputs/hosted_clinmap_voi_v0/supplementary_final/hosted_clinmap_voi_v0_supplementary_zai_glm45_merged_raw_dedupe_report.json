@@ -1,0 +1,23 @@
+{
+  "deduped_path": "model_runs/outputs/hosted_clinmap_voi_v0/supplementary_final/hosted_clinmap_voi_v0_supplementary_zai_glm45_merged_raw_deduped.jsonl",
+  "deduped_rows": 327,
+  "duplicate_attempt_rows_removed": 96,
+  "duplicate_keys_seen": 96,
+  "model_counts_deduped": {
+    "zai/zai_glm_4_5_flash_free/ok": 320,
+    "zai/zai_glm_4_7_flash_free/ok": 7
+  },
+  "provider_counts_deduped": {
+    "zai": 327
+  },
+  "raw_rows": 423,
+  "selection_policy": "one row per provider/model_id/prompt_id; prefer ok over non-ok; otherwise later appended row",
+  "source_path": "model_runs/outputs/hosted_clinmap_voi_v0/supplementary_final/hosted_clinmap_voi_v0_supplementary_zai_glm45_merged_raw.jsonl",
+  "status_counts_deduped": {
+    "ok": 327
+  },
+  "status_counts_raw": {
+    "ok": 333,
+    "rate_limited": 90
+  }
+}
