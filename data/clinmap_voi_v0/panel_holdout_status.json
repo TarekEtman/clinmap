@@ -23,7 +23,7 @@
   "export_script": "scripts/export_holdout_panel_pack.py",
   "output_artifact": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
   "documentation": "docs/panel_review_strategy.md",
-  "fielded_at": "2026-07-04T09:42:10Z",
+  "fielded_at": "2026-07-04T10:03:11Z",
   "rater_ids": [
     "ai_protocol_contract_v0",
     "ai_protocol_escalation_v0"

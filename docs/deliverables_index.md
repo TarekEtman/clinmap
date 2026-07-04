@@ -21,6 +21,11 @@
 15. [`data/clinmap_voi_v0/secondary_review_pass.jsonl`](../data/clinmap_voi_v0/secondary_review_pass.jsonl) — secondary QA pass records.
 16. [`clinmap_voi/run_hosted_review_pipeline_v0.py`](../clinmap_voi/run_hosted_review_pipeline_v0.py) — artifact verification (`make clinmap-review`).
 
+## Frontier-lab evidence (master checklist)
+
+- [`docs/frontier_lab_evidence_checklist.md`](frontier_lab_evidence_checklist.md) — what’s done vs `make clinmap-frontier-pack`
+- [`docs/dual_ai_holdout_evaluators_v0.md`](dual_ai_holdout_evaluators_v0.md) — two holdout AI methodologies
+
 ## Benchmark evidence (construct validity & stats)
 
 Regenerate: `make clinmap-evidence`

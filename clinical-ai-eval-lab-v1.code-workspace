@@ -1,0 +1,11 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "ClinMAP-VOI v1 (canonical)"
+    }
+  ],
+  "settings": {
+    "terminal.integrated.cwd": "${workspaceFolder}"
+  }
+}

@@ -24,6 +24,8 @@ SECONDARY = DATA_DIR / "secondary_review_pass.jsonl"
 REL_PATH = DATA_DIR / "relation_annotations.jsonl"
 REPORT_JSON = ROOT / "report/clinmap_voi_review_quality_audit.json"
 REPORT_MD = ROOT / "report/clinmap_voi_review_quality_audit.md"
+HOLDOUT_DUAL_AI_JSON = ROOT / "report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.json"
+PANEL_HOLDOUT_STATUS = DATA_DIR / "panel_holdout_status.json"
 
 HOLDOUT_FAMILIES = {f"CMVOI-{i:03d}" for i in range(33, 41)}
 RUBRIC_REFERENCE_TARGET_ACCURACY = 0.91
@@ -179,6 +181,13 @@ def main() -> int:
     }
     all_pass = all(gate_results.values())
 
+    holdout_dual_ai: dict[str, Any] = {}
+    if HOLDOUT_DUAL_AI_JSON.exists():
+        holdout_dual_ai = json.loads(HOLDOUT_DUAL_AI_JSON.read_text(encoding="utf-8"))
+    panel_status: dict[str, Any] = {}
+    if PANEL_HOLDOUT_STATUS.exists():
+        panel_status = json.loads(PANEL_HOLDOUT_STATUS.read_text(encoding="utf-8"))
+
     payload = {
         "audit_type": "clinmap_voi_frozen_artifact_verification",
         "run_id": RUN_ID,
@@ -206,6 +215,8 @@ def main() -> int:
         "primary_domain_reviewer": "Tarek Etman",
         "benchmark_producer": "Tarek Etman",
         "review_signoff": "Tarek Etman",
+        "holdout_dual_ai_protocol": holdout_dual_ai,
+        "holdout_review_status": panel_status,
     }
     REPORT_JSON.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     lines = [
@@ -228,7 +239,25 @@ def main() -> int:
         f"**Overall QA pass:** {'YES' if all_pass else 'NO'}",
         "",
         "Secondary review pass: `data/clinmap_voi_v0/secondary_review_pass.jsonl` (frozen at review completion).",
+        "",
+        "## Holdout dual AI protocol raters (CMVOI-033–040)",
+        "",
+        "Disclosure: `rater_type: ai_protocol` — not human panelists. See `docs/panel_review_strategy.md`.",
+        "",
     ]
+    if holdout_dual_ai:
+        lines.extend(
+            [
+                f"- Holdout items: **{holdout_dual_ai.get('holdout_item_count', 'n/a')}**",
+                f"- κ(contract, escalation): **{holdout_dual_ai.get('kappa_contract_vs_escalation')}**",
+                f"- κ(contract, primary): **{holdout_dual_ai.get('kappa_contract_vs_primary')}**",
+                f"- κ(escalation, primary): **{holdout_dual_ai.get('kappa_escalation_vs_primary')}**",
+                f"- Full metrics: `report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md`",
+                "",
+            ]
+        )
+    else:
+        lines.append("- Not loaded — run `make clinmap-holdout-ai` then `make clinmap-review-audit`.\n")
     REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps({"overall_pass": all_pass, "holdout_acc": holdout_acc, "full_acc": full_acc, "kappa_qa": kappa_qa}))
     return 0 if all_pass else 2

@@ -75,6 +75,7 @@ make clinmap-review-audit # same verification (queue + secondary_review_pass.jso
 make clinmap-evidence     # Wilson CIs, gold stats, discrimination, failure atlas
 make clinmap-panel-pack   # blinded CSV for human holdout reviewers (optional)
 make clinmap-holdout-ai   # dual AI protocol raters on holdout + κ report
+make clinmap-frontier-pack  # evidence reports + holdout AI + QA audit (frontier-lab bundle)
 ```
 
 Benchmark evidence and panel strategy: [`docs/construct_validity_clinmap_voi_v0.md`](docs/construct_validity_clinmap_voi_v0.md), [`docs/panel_review_strategy.md`](docs/panel_review_strategy.md).

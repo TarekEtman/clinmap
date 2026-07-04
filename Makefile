@@ -89,6 +89,8 @@ clinmap-holdout-ai:
 	python3 scripts/run_holdout_dual_ai_review_v0.py
 	python3 clinmap_voi/panel_holdout_metrics_v0.py
 
+clinmap-frontier-pack: clinmap-evidence clinmap-holdout-ai clinmap-review-audit
+
 clinmap-hosted: clinmap-voi clinmap-review
 
 install-deps:

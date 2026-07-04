@@ -1,6 +1,8 @@
 # Agent instructions
 
-**Canonical project root:** `clinical-ai-eval-lab-v1` (this repository).
+**Canonical project root:** `/Users/nati/Documents/JOB/clinical-ai-eval-lab-v1` (this repository).
+
+**If the agent cannot run terminal commands:** workspace path may be wrong (`clinical-ai-eval-lab` vs `-v1`). See `docs/WORKSPACE_SETUP.md` — symlink script `scripts/fix_workspace_symlink.sh` or reopen this folder in Grok/Cursor.
 
 **Primary deliverable:** ClinMAP-VOI v0 hosted benchmark — review complete. Start with `README.md` and `docs/deliverables_index.md`.
 
@@ -17,6 +19,7 @@
 ## Key commands
 
 ```bash
+make clinmap-frontier-pack   # evidence + holdout dual AI + QA audit
 make clinmap-review-audit
 make audit
 python3 -m unittest discover -s tests

@@ -47,6 +47,13 @@ Demonstrate ability to:
 
 Full tables: `report/clinmap_voi_v0_performance_metrics.md`
 
+## Holdout dual AI protocol (Layer C)
+
+- Families **CMVOI-033–040** (720 response-level items in canonical run)
+- Raters: `ai_protocol_contract_v0`, `ai_protocol_escalation_v0` (`rater_type: ai_protocol`)
+- Metrics: `report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md`
+- Methodology: `docs/dual_ai_holdout_evaluators_v0.md`
+
 ## QA audit
 
 Holdout families CMVOI-033–040, blind-QA κ band, relation integrity, literature-style baseline comparison: `report/clinmap_voi_review_quality_audit.md`
