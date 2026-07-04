@@ -28,7 +28,7 @@ ax.plot(cx + R * np.cos(th), cy + R * np.sin(th), lw=3, color=INK, alpha=0.75)
 # rachis
 ys = np.linspace(cy - 115, cy + 100, 100)
 t = (ys - (cy - 115)) / 215
-xs = cx + np.sin((t) * 1.25) * 14
+xs = cx + np.sin(t * 1.35) * 16
 ax.plot(xs, ys, lw=3.2, color=INK, solid_capstyle="round")
 # barbs
 for i in range(12):
@@ -42,7 +42,7 @@ for i in range(12):
         bx = np.linspace(x, x + side * ln * f, 20)
         by = y + (bx - x) / (side * ln * f + 1e-9) * (10 + tt * 6) * ((bx - x) / (side * ln * f + 1e-9))
         ax.plot(bx, y + ((bx - x) / (side * ln * f + 1e-9)) ** 1.4 * (12 + tt * 4), lw=1.5, color=col, alpha=float(a), solid_capstyle="round")
-ax.add_patch(Circle((cx + np.sin(1.25) * 14, cy + 104), 5.5, color=RUST))
+ax.add_patch(Circle((cx, cy - 119), 5.5, color=RUST))
 out = Path(__file__).resolve().parents[1] / "tmp" / "clinmap_social_preview.png"
 out.parent.mkdir(exist_ok=True)
 fig.savefig(out, facecolor=CREAM)
