@@ -1,7 +1,7 @@
 {
   "audit_type": "clinmap_voi_frozen_artifact_verification",
   "run_id": "hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped",
-  "completed_at": "2026-07-04T14:10:17Z",
+  "completed_at": "2026-07-04T14:58:57Z",
   "holdout_families": [
     "CMVOI-033",
     "CMVOI-034",
