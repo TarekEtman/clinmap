@@ -102,3 +102,32 @@ body {
     transform: none;
   }
 }
+
+
+/* Feathers: drift in on scroll, then sway forever */
+.feather-drift {
+  opacity: 0;
+  transform: translateY(-46px) rotate(-14deg);
+  transition: opacity 1.6s ease, transform 2.2s cubic-bezier(0.16, 0.6, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.feather-drift.is-in {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+}
+
+.feather-sway {
+  animation: feather-sway 10s ease-in-out infinite alternate;
+  transform-origin: 50% 8%;
+}
+
+@keyframes feather-sway {
+  from { transform: rotate(-5deg) translateY(0); }
+  to { transform: rotate(6deg) translateY(10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feather-sway { animation: none; }
+  .feather-drift { opacity: 1; transform: none; transition: none; }
+}
