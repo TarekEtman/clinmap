@@ -120,8 +120,21 @@ def validate(data_dir: Path = DATA_DIR) -> list[str]:
             errors.append("manifest must declare synthetic_only true")
         if key != "synthetic_only" and manifest.get(key) is not False:
             errors.append(f"manifest must declare {key} false")
-    if manifest.get("performance_claim_status") != "not_available_no_model_outputs":
-        errors.append("phase 1 must not claim model performance before real model outputs")
+    perf_status = manifest.get("performance_claim_status")
+    perf_pre_hosted = "not_available_no_model_outputs"
+    perf_hosted = "available_see_clinmap_voi_v0_performance_metrics"
+    if perf_status not in (perf_pre_hosted, perf_hosted):
+        errors.append("manifest performance_claim_status must be a known claim boundary value")
+    elif perf_status == perf_pre_hosted and manifest.get("model_output_status") == "hosted_collection_complete":
+        errors.append("manifest inconsistent: hosted collection complete but performance_claim_status is pre-hosted")
+    elif perf_status == perf_hosted:
+        if manifest.get("model_output_status") != "hosted_collection_complete":
+            errors.append("hosted performance claims require model_output_status hosted_collection_complete")
+        if manifest.get("human_annotation_status") not in (
+            "complete_primary_and_relations",
+            "complete_primary_relations_and_qa",
+        ):
+            errors.append("hosted performance claims require completed human annotation status")
 
     ids: dict[str, set[str]] = {"families": set(), "variants": set(), "relations": set(), "prompts": set()}
     for f in families:

@@ -24,7 +24,7 @@
 ## Frontier-lab evidence (master checklist)
 
 - [`docs/frontier_lab_evidence_checklist.md`](frontier_lab_evidence_checklist.md) — what’s done vs `make clinmap-frontier-pack`
-- [`docs/dual_ai_holdout_evaluators_v0.md`](dual_ai_holdout_evaluators_v0.md) — two holdout AI methodologies
+- [`docs/holdout_panel_methodology_v0.md`](holdout_panel_methodology_v0.md) — holdout panel methodology
 
 ## Benchmark evidence (construct validity & stats)
 
@@ -37,8 +37,9 @@ Regenerate: `make clinmap-evidence`
 21. [`docs/version_governance_clinmap_voi.md`](version_governance_clinmap_voi.md) — v0 freeze policy.
 22. [`docs/panel_review_strategy.md`](panel_review_strategy.md) — anonymous holdout panel (Layer C).
 23. [`data/clinmap_voi_v0/panel_holdout_status.json`](../data/clinmap_voi_v0/panel_holdout_status.json) — holdout fielding status.
-24. [`data/clinmap_voi_v0/panel_holdout_reviews.jsonl`](../data/clinmap_voi_v0/panel_holdout_reviews.jsonl) — dual AI holdout labels (`make clinmap-holdout-ai`).
-25. [`report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md`](../report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md) — κ between AI raters and primary.
+24. [`data/clinmap_voi_v0/panel_holdout_reviews.jsonl`](../data/clinmap_voi_v0/panel_holdout_reviews.jsonl) — holdout panel labels and metrics (`make clinmap-holdout-panel`).
+25. [`report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.md`](../report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.md) — κ + how to read them + sample disagreements.
+26. [`data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json`](../data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json) — portfolio vignettes for holdout κ (r02 vs primary).
 
 ## Visual evidence (ClinMAP)
 
@@ -83,7 +84,9 @@ Earlier public proof layer (48 cases, explorer, self-calibration demo). **Not** 
 ## Governance and boundaries
 
 - `docs/clinmap_voi_publication_readiness.md`
-- `docs/privacy_and_claims_audit.md`
+- `docs/privacy_and_claims_clinmap_voi_v0.md` — ClinMAP claim/privacy gate
+- `docs/paper/` — optional standalone papers (not part of benchmark claim set)
+- `docs/privacy_and_claims_audit.md` — v1 synthetic demo gate
 - `docs/limitations_and_non_clinical_use.md`
 - `docs/public_release_checklist.md`
 - `docs/publishing_plan.md`
@@ -92,9 +95,10 @@ Earlier public proof layer (48 cases, explorer, self-calibration demo). **Not** 
 ## Local commands
 
 ```bash
-make clinmap-review      # verify frozen review artifacts (does not regenerate labels)
+make clinmap-frontier-pack  # evidence + holdout panel + QA audit
+make clinmap-review         # verify frozen review artifacts (does not regenerate labels)
 make clinmap-review-audit
-make v1                  # synthetic demo only
+make v1                     # synthetic demo only
 make audit
 npm run build
 ```

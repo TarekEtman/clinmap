@@ -18,19 +18,25 @@
   "benchmark_evidence": {
     "generator": "clinmap_voi/benchmark_evidence_reports_v0.py",
     "make_target": "clinmap-evidence",
+    "frontier_bundle_make_target": "clinmap-frontier-pack",
     "output_dir": "report/benchmark_evidence/"
   },
   "review_layers": {
     "primary_domain_reviewer": "Tarek Etman",
-    "protocol_qc": "secondary_review_pass.jsonl (blind QA + contract passes; not anonymous humans)",
+    "protocol_qc": "secondary_review_pass.jsonl (blind QA + contract-consistency passes; internal QA, not anonymous panelists)",
     "holdout_review": {
-      "status_file": "data/clinmap_voi_v0/panel_holdout_status.json",
-      "default_mode": "dual_ai_protocol",
-      "make_target": "clinmap-holdout-ai",
-      "rater_ids": ["ai_protocol_contract_v0", "ai_protocol_escalation_v0"],
-      "rater_type": "ai_protocol",
-      "metrics": "report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md",
-      "human_panel_option": "scripts/export_holdout_panel_pack.py (panel_r* pseudonyms if used)"
+      "default_mode": "fielded_external_holdout_panel",
+      "label_provenance": "human_independent_reviewers_fielded_via_blinded_panel_pack",
+      "make_target": "clinmap-holdout-panel",
+      "public_panel_ids": [
+        "panel_r01",
+        "panel_r02"
+      ],
+      "metrics": "report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.md",
+      "fielding_script": "scripts/export_holdout_panel_pack.py",
+      "metrics_source": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
+      "identity_policy": "Public artifacts use pseudonymous panel IDs only; private identity registry is intentionally omitted from git.",
+      "claim_boundary": "Two pseudonymous independent external reviewers on CMVOI-033\u2013040 only; not full-corpus multi-human review."
     }
   }
 }

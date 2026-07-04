@@ -2,11 +2,11 @@
 
 ## Repository name
 
-`clinical-ai-eval-lab`
+`ClinMAP`
 
 ## Short description
 
-Evaluation systems for clinical model behavior: synthetic probes, safety rubrics, failure taxonomy, calibrated human judgment records, and reproducible eval summaries.
+ClinMAP-VOI: synthetic healthcare metamorphic probes, hosted multi-model outputs, primary domain review, holdout panel QA, and reproducible benchmark evidence.
 
 ## Website / homepage
 
@@ -30,9 +30,9 @@ model-reliability
 
 ## Social preview text
 
-Clinical Model Evaluation Systems Lab  
-Synthetic probes, operational rubrics, failure taxonomy, calibrated human judgment records, and reproducible summaries for healthcare-domain model behavior evaluation.
+ClinMAP-VOI  
+Synthetic healthcare metamorphic probes, hosted multi-model outputs, inspectable domain review, and reproducible benchmark evidence.
 
 ## Pinned repository blurb
 
-A neutral proof-of-work lab showing how clinical-safety model behavior can be evaluated through synthetic probes, calibrated rubrics, failure labels, structured human judgment records, and lightweight reproducible scripts.
+ClinMAP-VOI: a neutral proof-of-work benchmark for healthcare-domain model behavior using synthetic metamorphic probes, structured review, relation annotations, holdout QA, and reproducible evidence reports.

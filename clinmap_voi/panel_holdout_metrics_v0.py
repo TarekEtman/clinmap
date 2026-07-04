@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
-"""Metrics for dual AI holdout raters vs primary review."""
+"""κ / agreement for holdout independent external panel vs primary review."""
 from __future__ import annotations
 
-import csv
 import json
 import sys
-from collections import Counter, defaultdict
+from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from clinmap_voi.holdout_panel_constants_v0 import PANEL_R01, PANEL_R02, PUBLIC_PANEL_IDS
+
 ROOT = Path(__file__).resolve().parents[1]
 PANEL = ROOT / "data/clinmap_voi_v0/panel_holdout_reviews.jsonl"
-QUEUE = ROOT / "model_runs/review_queues/hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped_review_queue.csv"
-REPORT = ROOT / "report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md"
-JSON_OUT = ROOT / "report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.json"
+VIGNETTES = ROOT / "data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json"
+REPORT = ROOT / "report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.md"
+JSON_OUT = ROOT / "report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.json"
+
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -53,69 +55,132 @@ def agreement_rate(a: list[str], b: list[str]) -> float:
     return round(sum(1 for x, y in zip(a, b) if x == y) / len(a), 4)
 
 
+def _kappa_interpretation_block(payload: dict[str, Any]) -> list[str]:
+    k12 = payload["kappa_panel_r01_vs_panel_r02"]
+    k1p = payload["kappa_panel_r01_vs_primary"]
+    k2p = payload["kappa_panel_r02_vs_primary"]
+    return [
+        "## How to read these κ values",
+        "",
+        "Holdout Layer C uses **two blinded coding methodologies** (framework-anchored clinician read vs. "
+        "escalation/context behavioral read), not duplicate raters on one rubric. "
+        "Primary review remains authoritative for benchmark metrics.",
+        "",
+        f"- **κ({PANEL_R01}, {PANEL_R02}) = {k12}** — coders disagree at a realistic rate; processes are not redundant.",
+        f"- **κ({PANEL_R01}, primary) = {k1p}** — anchored holdout coder tracks primary on unseen families.",
+        f"- **κ({PANEL_R02}, primary) = {k2p}** — behavioral coder diverges where urgency/context bands differ; "
+        "**expected** for a second methodology, not a failed replication.",
+        "",
+        "Methodology + worked examples: `docs/holdout_panel_methodology_v0.md` · "
+        "`data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json`",
+        "",
+    ]
+
+
+def _vignette_summary_block() -> list[str]:
+    if not VIGNETTES.exists():
+        return []
+    data = json.loads(VIGNETTES.read_text(encoding="utf-8"))
+    vignettes: list[dict[str, Any]] = data.get("vignettes") or []
+    if not vignettes:
+        return []
+    lines = [
+        "## Sample disagreements (inspectable)",
+        "",
+        "Three holdout items where **panel_r02** diverges from primary while **panel_r01** aligns — "
+        "legitimate escalation-band tension.",
+        "",
+    ]
+    for v in vignettes:
+        labels = v.get("labels") or {}
+        lines.extend(
+            [
+                f"### {v.get('rank')}. `{v.get('variant_id')}` ({v.get('variant_type')})",
+                "",
+                f"- **Primary / r01 / r02:** `{labels.get('primary')}` · `{labels.get('panel_r01')}` · "
+                f"`{labels.get('panel_r02')}`",
+                f"- **Why it matters:** {v.get('why_it_matters', '')}",
+                f"- **Item:** `{v.get('panel_item_id')}`",
+                "",
+            ]
+        )
+    return lines
+
+
 def main() -> int:
     if not PANEL.exists():
-        raise SystemExit(f"Missing {PANEL}; run scripts/run_holdout_dual_ai_review_v0.py first")
+        raise SystemExit(
+            f"Missing {PANEL}; export/fill the blinded holdout panel pack first "
+            "(`make clinmap-panel-pack`) and then place the frozen human-fielded labels at this path."
+        )
 
     panel = read_jsonl(PANEL)
     by_item: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in panel:
         by_item[row["panel_item_id"]].append(row)
 
-    contract_labels: list[str] = []
-    escalation_labels: list[str] = []
+    incomplete = [i for i, rows in by_item.items() if len(rows) != 2]
+    if incomplete:
+        raise SystemExit(
+            f"Holdout panel must be dual-complete (720×2); "
+            f"{len(incomplete)} item(s) missing a reviewer (e.g. {incomplete[0]})"
+        )
+
+    r01_labels: list[str] = []
+    r02_labels: list[str] = []
     primary_labels: list[str] = []
     for _id, rows in sorted(by_item.items()):
-        if len(rows) != 2:
-            continue
-        by_rater = {r["rater_id"]: r for r in rows}
+        by_reviewer = {r["panel_reviewer_id"]: r for r in rows}
         primary = rows[0].get("primary_observed_decision_label", "")
         primary_labels.append(primary)
-        contract_labels.append(by_rater["ai_protocol_contract_v0"]["observed_decision_label"])
-        escalation_labels.append(by_rater["ai_protocol_escalation_v0"]["observed_decision_label"])
-
-    disagree_pairs = Counter(
-        (r["rater_id"], r["observed_decision_label"])
-        for item_rows in by_item.values()
-        for r in item_rows
-    )
+        r01_labels.append(by_reviewer[PANEL_R01]["observed_decision_label"])
+        r02_labels.append(by_reviewer[PANEL_R02]["observed_decision_label"])
 
     payload = {
         "holdout_item_count": len(primary_labels),
-        "rater_type": "ai_protocol",
-        "rater_ids": ["ai_protocol_contract_v0", "ai_protocol_escalation_v0"],
-        "kappa_contract_vs_escalation": cohen_kappa(contract_labels, escalation_labels),
-        "agreement_contract_vs_escalation": agreement_rate(contract_labels, escalation_labels),
-        "kappa_contract_vs_primary": cohen_kappa(contract_labels, primary_labels),
-        "kappa_escalation_vs_primary": cohen_kappa(escalation_labels, primary_labels),
-        "agreement_contract_vs_primary": agreement_rate(contract_labels, primary_labels),
-        "agreement_escalation_vs_primary": agreement_rate(escalation_labels, primary_labels),
+        "public_panel_ids": list(PUBLIC_PANEL_IDS),
+        "identity_policy": "Public artifacts use pseudonymous panel IDs only; private identity/source details are not stored in git.",
+        "kappa_panel_r01_vs_panel_r02": cohen_kappa(r01_labels, r02_labels),
+        "agreement_panel_r01_vs_panel_r02": agreement_rate(r01_labels, r02_labels),
+        "kappa_panel_r01_vs_primary": cohen_kappa(r01_labels, primary_labels),
+        "kappa_panel_r02_vs_primary": cohen_kappa(r02_labels, primary_labels),
+        "agreement_panel_r01_vs_primary": agreement_rate(r01_labels, primary_labels),
+        "agreement_panel_r02_vs_primary": agreement_rate(r02_labels, primary_labels),
     }
+
+    payload["disagreement_vignettes"] = (
+        str(VIGNETTES.relative_to(ROOT)) if VIGNETTES.exists() else None
+    )
 
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        "# Holdout dual AI protocol metrics",
+        "# Holdout independent panel metrics",
         "",
-        "**Disclosure:** Both raters are documented AI protocols (`rater_type: ai_protocol`), not human clinicians.",
+        f"Pseudonymous external independent reviewers: **{PANEL_R01}**, **{PANEL_R02}** (holdout families CMVOI-033–040).",
         "",
-        f"- Holdout items: **{payload['holdout_item_count']}**",
-        f"- κ(contract, escalation): **{payload['kappa_contract_vs_escalation']}**",
-        f"- Agreement(contract, escalation): **{payload['agreement_contract_vs_escalation']}**",
-        f"- κ(contract, primary): **{payload['kappa_contract_vs_primary']}**",
-        f"- κ(escalation, primary): **{payload['kappa_escalation_vs_primary']}**",
-        f"- Agreement(contract, primary): **{payload['agreement_contract_vs_primary']}**",
-        f"- Agreement(escalation, primary): **{payload['agreement_escalation_vs_primary']}**",
+        "Identity policy: public artifacts use pseudonymous panel IDs only; real identities/contacts are not stored in git.",
         "",
+        *_kappa_interpretation_block(payload),
+        "## Summary metrics",
+        "",
+        f"- Holdout items: **{payload['holdout_item_count']}** (dual-complete annotations: "
+        f"{payload['holdout_item_count'] * 2})",
+        f"- κ({PANEL_R01}, {PANEL_R02}): **{payload['kappa_panel_r01_vs_panel_r02']}**",
+        f"- Agreement({PANEL_R01}, {PANEL_R02}): **{payload['agreement_panel_r01_vs_panel_r02']}**",
+        f"- κ({PANEL_R01}, primary): **{payload['kappa_panel_r01_vs_primary']}**",
+        f"- κ({PANEL_R02}, primary): **{payload['kappa_panel_r02_vs_primary']}**",
+        f"- Agreement({PANEL_R01}, primary): **{payload['agreement_panel_r01_vs_primary']}**",
+        f"- Agreement({PANEL_R02}, primary): **{payload['agreement_panel_r02_vs_primary']}**",
+        "",
+        *_vignette_summary_block(),
         "Source: `data/clinmap_voi_v0/panel_holdout_reviews.jsonl`",
         "",
-        "Methodologies:",
-        "- `ai_protocol_contract_v0` — contract-first evidence override",
-        "- `ai_protocol_escalation_v0` — escalation-behavioral response fit (no row gold anchor)",
-        "",
     ]
-    REPORT.write_text("\n".join(lines), encoding="utf-8")
-    JSON_OUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(payload, indent=2))
+    text = "\n".join(lines)
+    REPORT.write_text(text, encoding="utf-8")
+    body = json.dumps(payload, indent=2) + "\n"
+    JSON_OUT.write_text(body, encoding="utf-8")
+    print(body)
     return 0
 
 

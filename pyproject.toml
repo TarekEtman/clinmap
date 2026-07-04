@@ -1,7 +1,7 @@
 [project]
-name = "clinical-ai-eval-lab"
+name = "clinmap"
 version = "0.1.0"
-description = "Neutral proof-of-work repository for clinical AI evaluation engineering."
+description = "ClinMAP proof-of-work repository for healthcare-domain model behavior evaluation engineering."
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

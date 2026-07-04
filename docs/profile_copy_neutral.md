@@ -1,27 +1,56 @@
-# Neutral Profile Copy
+# Neutral Profile Copy — gig + frontier positioning
 
-## Headline options
+**Full skills, signal words, paste blocks:** [`profile_signal_pack.md`](profile_signal_pack.md) ← start here.
 
-1. Healthcare-domain AI Evaluation Specialist | Clinical Safety Review | Rubric Calibration | RLHF Response Ranking
-2. Clinical Model Behavior Evaluator | Licensed Dentist + Global Health MPP | Safety-Critical LLM Review
-3. AI Evaluation Systems / Human Data Quality | Healthcare-Domain Safety, Rubrics, and Response Ranking
+Use the **same proof strip** on LinkedIn, CV page 1, applications, and landing page.
 
-## About section
+## Proof strip (paste everywhere)
 
-Licensed dentist and Global Health MPP focused on healthcare-domain AI evaluation. I review model behavior where the failure is not obvious wrongness, but unsafe certainty: false reassurance, missed escalation, missing context, medication-context gaps, unsupported claims, scope overreach, and rationales that do not actually support the answer.
+**ClinMAP-VOI v0** · 3,971 human-reviewed hosted responses · 17 models · 3,219 metamorphic relations · QA audit **pass** · pseudonymous holdout panel + inspectable disagreement · synthetic only · PDF: `report/clinmap_voi_v0_snapshot.pdf` · Repo after publish: `https://github.com/tareketman/clinmap`
 
-My work combines clinical judgment with evaluation-system discipline: metamorphic probe design, hosted model evaluation, rubric-based policy labeling, relation consistency checks, failure taxonomy, adjudication logic, and concise reviewer rationales. I built the Clinical Model Behavior Evaluation Lab with **ClinMAP-VOI v0** as the completed hosted benchmark (3971 reviewed rows, 17 models, QA audit)—plus an earlier 48-case synthetic demo (explorer, harness, PDF snapshot) showing separated evaluation objects and calibration workflow.
+**Producer:** Tarek Etman — framework design, primary review, relations, adjudication, metrics, QA audit.
 
-I am strongest in roles involving medical/healthcare AI response review, clinical safety evaluation, human data quality, RLHF preference ranking, rubric calibration, model behavior analysis, and applied evaluation operations.
+---
 
-## Featured project title
+## Headline (pick one)
 
-Clinical Model Behavior Evaluation Lab
+1. Healthcare-Domain AI Evaluation · ClinMAP-VOI v0 (3,971 reviewed) · Rubrics · Safety · Human Data Quality
+2. Medical AI Evaluator → Benchmark Producer | Metamorphic Probes · QA Audit · RLHF Rationales
+3. Clinical Model Behavior Evaluation | Licensed Dentist + Global Health MPP | Evaluation Systems
 
-## Featured project description
+## About — 4 blocks
 
-ClinMAP-VOI v0: synthetic healthcare metamorphic benchmark with hosted model outputs, human review queue, relation annotations, model metrics, and QA audit. Demonstrates clinical-safety judgment, metamorphic eval design, and audit-safe claim boundaries. Includes synthetic v1 demo layer for object-model and explorer evidence.
+**Hook:** The dangerous healthcare AI answer is rarely obviously wrong — it is calm, fluent, and confident too early. I evaluate that failure mode at scale.
 
-## Skills keywords
+**Proof:** ClinMAP-VOI v0 hosted benchmark — 40 families / 320 variants / 280 relations · 3,971 reviewed rows · 17 models · QA audit pass · pseudonymous holdout panel (panel_r01/r02) with worked disagreement vignettes · frontier evidence pack (Wilson CIs, failure atlas).
 
-Clinical AI evaluation; healthcare-domain model review; medical AI response evaluation; clinical safety review; rubric calibration; RLHF; response ranking; human data quality; model behavior analysis; false reassurance detection; escalation handling; medication-context review; missing-context analysis; scope control; factuality review; evaluator rationales; annotation QA; evaluation systems; synthetic eval design; Python; pandas; validation scripts; metrics reporting.
+**What I do:** Metamorphic probe design, hosted eval ops, policy labeling, relation consistency, adjudication, blind protocol QC, metrics, claim boundaries, reviewer rationales.
+
+**Fit:** Model behavior eval · human data quality · clinical safety evals · rubric calibration · RLHF ranking · eval systems engineering (entry–mid). Open to frontier labs and expert-network eval roles.
+
+## Featured (3 slots)
+
+1. **ClinMAP snapshot PDF** — `clinmap_voi_v0_snapshot.pdf` — title: *ClinMAP-VOI v0 — reviewer snapshot*
+2. **GitHub / landing URL** — `https://github.com/tareketman/clinmap` after publish; use the Pages URL once deployed
+3. **Optional:** LinkedIn technical post (see `linkedin_technical_post.md`)
+
+## Experience block (project entry)
+
+**ClinMAP-VOI v0 — Lead evaluator & framework producer**  
+Designed metamorphic healthcare probes; hosted multi-model collection; primary review of 3,971 responses; relation annotations; QA audit (κ vs blind QC, pseudonymous holdout panel); frontier evidence pack. Synthetic only; not clinical validation.
+
+## Skills — pin top
+
+Model evaluation · rubric design · human data quality · clinical safety (AI) · RLHF / response ranking · metamorphic eval · annotation QA · Python eval pipelines
+
+## Gig-platform angle (expert eval networks)
+
+Emphasize **throughput + consistency**: named reviewer, frozen queue, audit κ ~0.84, relation integrity 1.0, rationales with evidence spans — reliable expert judgment, not generic annotation.
+
+## Frontier angle
+
+Emphasize **system design**: metamorphic relations, pseudonymous holdout panel, disagreement vignettes, replication guide, explicit non-clinical claims — speaks to safety / applied eval teams.
+
+## Keywords
+
+Clinical AI evaluation; healthcare model review; medical AI response evaluation; clinical safety review; rubric calibration; RLHF; response ranking; human data quality; metamorphic evaluation; false reassurance; escalation handling; evaluation systems; synthetic eval design; Python; metrics reporting.

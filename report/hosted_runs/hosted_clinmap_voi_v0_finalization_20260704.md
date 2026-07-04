@@ -5,7 +5,7 @@ Hosted ClinMAP-VOI v0 corpus collection, expert review, relation annotation, and
 ## Corpus separation
 
 - **Main corpus** (core + configured supplementary in primary run): deduped separately.
-- **Supplementary free-provider corpora** (Z.AI, Cloudflare): merged from separate raw runs, deduped separately. Not relabeled into main.
+- **Supplementary free-provider corpora** (Z.AI, Cloudflare): merged from separate exploratory raw runs, deduped separately, and **excluded from the reviewed benchmark metrics**. They are retained only as collection/provenance probes and are not relabeled into main. See `report/hosted_runs/supplementary_provider_disposition_20260704.md`.
 
 ## Main corpus
 
@@ -50,6 +50,10 @@ Hosted ClinMAP-VOI v0 corpus collection, expert review, relation annotation, and
 - Summary: `report/hosted_runs/hosted_clinmap_voi_v0_supplementary_zai_glm45_merged_raw_deduped_summary.md`
 - Status (deduped): {'ok': 327}
 - Model counts: {'zai/zai_glm_4_5_flash_free/ok': 320, 'zai/zai_glm_4_7_flash_free/ok': 7}
+- Disposition: **archived collection probe only; not reviewed or benchmark-scored**.
+- Reason: most `ok` rows contain empty `response_text` and therefore cannot support response-behavior review:
+  - `zai_glm_4_5_flash_free`: 320 `ok`, 30 non-empty `response_text`, 290 empty.
+  - `zai_glm_4_7_flash_free`: 7 `ok`, 0 non-empty `response_text`, 7 empty.
 
 ## Supplementary Cloudflare corpus (partial; collection stopped)
 
@@ -58,6 +62,11 @@ Hosted ClinMAP-VOI v0 corpus collection, expert review, relation annotation, and
 - Summary: `report/hosted_runs/hosted_clinmap_voi_v0_supplementary_cloudflare_merged_raw_deduped_summary.md`
 - Status (deduped): {'failed': 17, 'ok': 43}
 - Model counts: {'cloudflare_workers_ai/cloudflare_glm_4_7_flash_free_alloc/failed': 11, 'cloudflare_workers_ai/cloudflare_glm_4_7_flash_free_alloc/ok': 9, 'cloudflare_workers_ai/cloudflare_gpt_oss_120b_free_alloc/failed': 5, 'cloudflare_workers_ai/cloudflare_gpt_oss_120b_free_alloc/ok': 15, 'cloudflare_workers_ai/cloudflare_qwen3_30b_a3b_free_alloc/failed': 1, 'cloudflare_workers_ai/cloudflare_qwen3_30b_a3b_free_alloc/ok': 19}
+- Disposition: **archived collection probe only; not reviewed or benchmark-scored**.
+- Reason: partial collection plus many empty `ok` response bodies:
+  - `cloudflare_glm_4_7_flash_free_alloc`: 20 rows, 9 `ok`, 0 non-empty `response_text`.
+  - `cloudflare_gpt_oss_120b_free_alloc`: 20 rows, 15 `ok`, 4 non-empty `response_text`.
+  - `cloudflare_qwen3_30b_a3b_free_alloc`: 20 rows, 19 `ok`, 1 non-empty `response_text`.
 
 ## Runners
 
@@ -81,3 +90,4 @@ Hosted ClinMAP-VOI v0 corpus collection, expert review, relation annotation, and
 - DeepSeek direct API attempt failed with HTTP 402; not included.
 - xAI API attempts failed with permission/credits errors; not included.
 - Cloudflare GLM-4.7 full run was stopped early due to very high latency; kept as partial supplementary only.
+- Z.AI and Cloudflare are intentionally absent from `report/clinmap_voi_v0_performance_metrics.md`, `report/benchmark_evidence/`, and the 3,971-row review corpus.

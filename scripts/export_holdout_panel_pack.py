@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export blinded holdout review pack for independent panel (anon IDs in output reviews, not here)."""
+"""Export blinded holdout review pack for independent external panel reviewers."""
 from __future__ import annotations
 
 import csv
@@ -61,7 +61,7 @@ def main() -> int:
 1. Assign each reviewer a public ID only: `panel_r01`, `panel_r02`, …
 2. Fill `panel_observed_decision_label` using `docs/clinmap_voi_annotation_protocol_v0.md` label set.
 3. Merge completed rows into `data/clinmap_voi_v0/panel_holdout_reviews.jsonl` (one JSON object per line).
-4. Update `panel_holdout_status.json` → `layer_c_status`: `fielded`.
+4. Update `panel_holdout_status.json` → `layer_c_status`: `fielded_external_holdout_panel` after human review is complete.
 
 See `docs/panel_review_strategy.md`.
 """

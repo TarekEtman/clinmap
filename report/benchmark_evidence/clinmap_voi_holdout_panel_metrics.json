@@ -1,0 +1,15 @@
+{
+  "holdout_item_count": 720,
+  "public_panel_ids": [
+    "panel_r01",
+    "panel_r02"
+  ],
+  "identity_policy": "Public artifacts use pseudonymous panel IDs only; private identity/source details are not stored in git.",
+  "kappa_panel_r01_vs_panel_r02": 0.5021,
+  "agreement_panel_r01_vs_panel_r02": 0.5986,
+  "kappa_panel_r01_vs_primary": 0.7678,
+  "kappa_panel_r02_vs_primary": 0.513,
+  "agreement_panel_r01_vs_primary": 0.8167,
+  "agreement_panel_r02_vs_primary": 0.6139,
+  "disagreement_vignettes": "data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json"
+}

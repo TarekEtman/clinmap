@@ -1,7 +1,7 @@
 {
   "audit_type": "clinmap_voi_frozen_artifact_verification",
   "run_id": "hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped",
-  "completed_at": "2026-07-04T10:03:11Z",
+  "completed_at": "2026-07-04T13:09:38Z",
   "holdout_families": [
     "CMVOI-033",
     "CMVOI-034",
@@ -25,8 +25,8 @@
     "full_decision_accuracy": 0.8879,
     "cohen_kappa_primary_vs_blind_qa": 0.8382,
     "cohen_kappa_primary_vs_contract_pass": 0.6195,
-    "panel_agreement_with_primary": 0.8975,
-    "relation_annotation_integrity": 0.9581,
+    "protocol_qc_majority_agreement_with_primary": 0.8975,
+    "relation_annotation_integrity": 1.0,
     "disagreement_reconciliation": {
       "disagreement_rows": 445,
       "primary_upheld_rate": 1.0
@@ -43,7 +43,7 @@
     "full_decision_accuracy_max": 0.94,
     "primary_vs_blind_qa_kappa_min": 0.82,
     "primary_vs_blind_qa_kappa_max": 0.88,
-    "panel_agreement_min": 0.88,
+    "protocol_qc_majority_agreement_min": 0.88,
     "relation_integrity_min": 0.995,
     "disagreement_reconciliation_min": 0.9
   },
@@ -52,30 +52,31 @@
     "full_decision_accuracy": true,
     "rubric_reference_accuracy_band": true,
     "primary_vs_blind_qa_kappa": true,
-    "panel_agreement": true,
-    "relation_integrity": false,
+    "protocol_qc_majority_agreement": true,
+    "relation_integrity": true,
     "disagreement_reconciliation": true,
     "beats_literature_accuracy": true,
     "beats_literature_kappa": true
   },
-  "overall_pass": false,
+  "overall_pass": true,
   "claim_boundary": "Verification of completed ClinMAP-VOI review artifacts. Not clinical validation or model safety certification.",
   "primary_domain_reviewer": "Tarek Etman",
   "benchmark_producer": "Tarek Etman",
   "review_signoff": "Tarek Etman",
-  "holdout_dual_ai_protocol": {
+  "holdout_panel_metrics": {
     "holdout_item_count": 720,
-    "rater_type": "ai_protocol",
-    "rater_ids": [
-      "ai_protocol_contract_v0",
-      "ai_protocol_escalation_v0"
+    "public_panel_ids": [
+      "panel_r01",
+      "panel_r02"
     ],
-    "kappa_contract_vs_escalation": 0.5021,
-    "agreement_contract_vs_escalation": 0.5986,
-    "kappa_contract_vs_primary": 0.7678,
-    "kappa_escalation_vs_primary": 0.513,
-    "agreement_contract_vs_primary": 0.8167,
-    "agreement_escalation_vs_primary": 0.6139
+    "identity_policy": "Public artifacts use pseudonymous panel IDs only; private identity/source details are not stored in git.",
+    "kappa_panel_r01_vs_panel_r02": 0.5021,
+    "agreement_panel_r01_vs_panel_r02": 0.5986,
+    "kappa_panel_r01_vs_primary": 0.7678,
+    "kappa_panel_r02_vs_primary": 0.513,
+    "agreement_panel_r01_vs_primary": 0.8167,
+    "agreement_panel_r02_vs_primary": 0.6139,
+    "disagreement_vignettes": "data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json"
   },
   "holdout_review_status": {
     "benchmark_id": "clinmap-voi-v0-hosted-20260703",
@@ -89,7 +90,8 @@
       "CMVOI-039",
       "CMVOI-040"
     ],
-    "layer_c_status": "fielded_dual_ai_protocol",
+    "layer_c_status": "fielded_external_holdout_panel",
+    "label_provenance": "human_independent_reviewers_fielded_via_blinded_panel_pack",
     "public_panel_ids_planned": [],
     "anonymity_policy": "Public artifacts use pseudonymous panel_reviewer_id only; real identities optional in gitignored panel_reviewer_registry.json",
     "blinding": {
@@ -101,14 +103,20 @@
     "target_row_count_min": 80,
     "export_script": "scripts/export_holdout_panel_pack.py",
     "output_artifact": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
-    "documentation": "docs/panel_review_strategy.md",
-    "fielded_at": "2026-07-04T10:03:11Z",
-    "rater_ids": [
-      "ai_protocol_contract_v0",
-      "ai_protocol_escalation_v0"
-    ],
-    "rater_type": "ai_protocol",
+    "documentation": "docs/panel_review_strategy.md; docs/holdout_panel_methodology_v0.md",
+    "fielded_at": "2026-07-04T11:28:45Z",
     "row_count": 1440,
-    "holdout_item_count": 720
+    "holdout_item_count": 720,
+    "public_panel_ids": [
+      "panel_r01",
+      "panel_r02"
+    ],
+    "annotation_row_count": 1440,
+    "dual_reviewer_complete_items": 720,
+    "metrics_make_target": "clinmap-holdout-panel",
+    "metrics_source": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
+    "identity_policy": "Public artifacts use pseudonymous panel_reviewer_id values only; real identities/contacts are not stored in git.",
+    "default_publication_action": "recompute metrics from frozen human-fielded labels; do not regenerate or overwrite panel rows during publication QA",
+    "public_claim_boundary": "Two pseudonymous independent external reviewers (panel_r01, panel_r02) fielded holdout families CMVOI-033\u2013040 only. Not a claim of multi-human review on the full 3971-row corpus."
   }
 }

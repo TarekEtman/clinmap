@@ -1,8 +1,8 @@
 # Agent instructions
 
-**Canonical project root:** `/Users/nati/Documents/JOB/clinical-ai-eval-lab-v1` (this repository).
+**Canonical project root:** `/Users/nati/Documents/JOB/ClinMAP` (this repository).
 
-**If the agent cannot run terminal commands:** workspace path may be wrong (`clinical-ai-eval-lab` vs `-v1`). See `docs/WORKSPACE_SETUP.md` — symlink script `scripts/fix_workspace_symlink.sh` or reopen this folder in Grok/Cursor.
+**If the agent cannot run terminal commands:** reopen this folder in Grok/Cursor. See `docs/WORKSPACE_SETUP.md`.
 
 **Primary deliverable:** ClinMAP-VOI v0 hosted benchmark — review complete. Start with `README.md` and `docs/deliverables_index.md`.
 
@@ -19,8 +19,10 @@
 ## Key commands
 
 ```bash
-make clinmap-frontier-pack   # evidence + holdout dual AI + QA audit
+make clinmap-frontier-pack   # evidence + holdout panel + QA audit
 make clinmap-review-audit
 make audit
 python3 -m unittest discover -s tests
 ```
+
+Holdout-panel publication QA uses frozen `data/clinmap_voi_v0/panel_holdout_reviews.jsonl`; recompute metrics with `make clinmap-holdout-panel`. Do not regenerate panel labels during routine audit.

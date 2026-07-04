@@ -23,7 +23,11 @@ class ClinMapVoiPhase1Tests(unittest.TestCase):
         self.assertEqual(manifest["metamorphic_relation_count"], 280)
         self.assertTrue(manifest["synthetic_only"])
         self.assertFalse(manifest["contains_patient_data"])
-        self.assertEqual(manifest["performance_claim_status"], "not_available_no_model_outputs")
+        self.assertEqual(
+            manifest["performance_claim_status"],
+            "available_see_clinmap_voi_v0_performance_metrics",
+        )
+        self.assertEqual(manifest["model_output_status"], "hosted_collection_complete")
 
     def test_every_family_has_full_relation_oracle(self):
         data = load_dataset(ROOT / "data" / "clinmap_voi_v0")

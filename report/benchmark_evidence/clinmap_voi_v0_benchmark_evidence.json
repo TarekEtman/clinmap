@@ -195,7 +195,7 @@
       },
       "full_decision_accuracy": 0.8879,
       "holdout_decision_accuracy": 0.9028,
-      "panel_agreement_with_primary": 0.8975,
+      "protocol_qc_majority_agreement_with_primary": 0.8975,
       "relation_annotation_integrity": 1.0
     },
     "by_model_risk_gap": {
@@ -874,7 +874,7 @@
     },
     "voi_miss_count": 195
   },
-  "generated_at": "2026-07-04T10:03:11Z",
+  "generated_at": "2026-07-04T13:09:38Z",
   "gold_stats": {
     "by_domain": {
       "antibiotic_stewardship": {

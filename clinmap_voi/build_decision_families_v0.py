@@ -983,7 +983,7 @@ def build() -> None:
     }
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
     write_jsonl(EXPORT / "clinmap_voi_v0_prompt_pack.jsonl", prompts)
-    write_jsonl(EXPORT / "clinmap_voi_v0_relation_oracle.jsonl", relations)
+    write_jsonl(EXPORT / "clinmap_voi_v0_metamorphic_relations_export.jsonl", relations)
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ This is **not** clinical validation, patient-outcome evidence, or production saf
 
 Demonstrate ability to:
 
-- design metamorphic decision families and relation oracles;
+- design metamorphic decision families and pairwise relation constraints;
 - run reproducible hosted model collection on a fixed prompt pack;
 - produce a reviewer-operable queue with policy labels, dimension scores, and rationales;
 - enforce pairwise metamorphic constraints across variants;
@@ -47,12 +47,15 @@ Demonstrate ability to:
 
 Full tables: `report/clinmap_voi_v0_performance_metrics.md`
 
-## Holdout dual AI protocol (Layer C)
+## Holdout independent panel (Layer C)
 
-- Families **CMVOI-033–040** (720 response-level items in canonical run)
-- Raters: `ai_protocol_contract_v0`, `ai_protocol_escalation_v0` (`rater_type: ai_protocol`)
-- Metrics: `report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md`
-- Methodology: `docs/dual_ai_holdout_evaluators_v0.md`
+- Families **CMVOI-033–040** (720 response-level items)
+- Reviewers: `panel_r01`, `panel_r02` (pseudonymous external independent reviewers; identities not stored in git)
+- Metrics (κ interpretation + sample disagreements): `report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.md`
+- Methodology: `docs/holdout_panel_methodology_v0.md`
+- Worked disagreement vignettes: `data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json`
+
+Holdout reports **two coding methodologies**; κ(panel_r02, primary) is moderate by design (behavioral vs framework-anchored read), with inspectable examples — not a single-rater reliability target and not a claim that the full corpus had multi-human review.
 
 ## QA audit
 

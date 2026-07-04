@@ -1,4 +1,4 @@
-.PHONY: eval agreement dimensions charts v1-build v1-validate v1-schema v1-metrics v1-report v1-charts v1-explorer v1-export-openai v1-pdf v1 clinmap-voi-build clinmap-voi-validate clinmap-voi-metrics clinmap-voi clinmap-pdf install-deps audit
+.PHONY: eval agreement dimensions charts v1-build v1-validate v1-schema v1-metrics v1-report v1-charts v1-explorer v1-export-openai v1-pdf v1 clinmap-voi-build clinmap-voi-validate clinmap-voi-metrics clinmap-voi clinmap-pdf install-deps audit clinmap-panel-pack clinmap-holdout-panel clinmap-frontier-pack
 
 eval:
 	python3 eval_harness/run_eval.py --cases data/synthetic_cases.jsonl --scores data/scored_examples.csv
@@ -20,6 +20,7 @@ audit:
 	python3 adapters/openai_evals/export_v1_openai_evals.py
 	python3 clinmap_voi/validate_v0.py
 	python3 clinmap_voi/metrics_v0.py
+	python3 clinmap_voi/review_quality_audit.py
 	python3 eval_harness/agreement_metrics.py --scores data/scored_examples.csv
 	python3 eval_harness/dimension_summary.py --dimensions data/dimension_scores.csv
 	python3 eval_harness/generate_charts.py --scores data/scored_examples.csv --dimensions data/dimension_scores.csv --outdir report/charts
@@ -85,11 +86,10 @@ clinmap-evidence:
 clinmap-panel-pack:
 	python3 scripts/export_holdout_panel_pack.py
 
-clinmap-holdout-ai:
-	python3 scripts/run_holdout_dual_ai_review_v0.py
+clinmap-holdout-panel:
 	python3 clinmap_voi/panel_holdout_metrics_v0.py
 
-clinmap-frontier-pack: clinmap-evidence clinmap-holdout-ai clinmap-review-audit
+clinmap-frontier-pack: clinmap-holdout-panel clinmap-review-audit clinmap-evidence
 
 clinmap-hosted: clinmap-voi clinmap-review
 

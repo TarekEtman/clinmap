@@ -6,7 +6,7 @@ Licensed dentist and Global Health MPP building healthcare-domain model behavior
 
 ## Technical proof link description
 
-Clinical Model Behavior Evaluation Lab — **ClinMAP-VOI v0** (primary): synthetic metamorphic healthcare probes (40 families / 320 variants), hosted multi-model outputs, completed human domain review (3971 rows), metamorphic relation annotations, model metrics, and post-review QA audit with holdout families and explicit claim boundaries. Supporting lineage: 48-case synthetic v1 demo with explorer, validation harness, and PDF snapshot.
+Clinical Model Behavior Evaluation Lab — **ClinMAP-VOI v0** (primary): synthetic metamorphic healthcare probes (40 families / 320 variants), hosted multi-model outputs, completed human domain review (3971 rows), metamorphic relation annotations, model metrics, post-review QA audit, benchmark evidence pack (Wilson CIs, discrimination, failure atlas), and pseudonymous external holdout panel (`panel_r01`/`panel_r02`, κ vs primary). Supporting lineage: 48-case synthetic v1 demo with explorer, validation harness, and PDF snapshot.
 
 ## Why this is relevant to frontier AI evaluation
 
@@ -33,3 +33,4 @@ Frontier model evaluation needs more than answer review. It needs people who can
 6. How metamorphic relations test escalation and VOI beyond single-turn policy labels.
 7. How hosted runs and review queues are versioned (run ID, corpus hash, manifest).
 8. How the smaller v1 synthetic demo illustrates object-model design separate from the hosted benchmark.
+9. **Holdout κ(r02, primary) ~0.5 is by design:** two blinded methodologies on CMVOI-033–040; r01 ~0.77 vs primary shows holdout relates to main rubric; r02 is escalation/behavior stress-test — walk one row from `holdout_disagreement_vignettes_v0.json` (e.g. user-pressure vs timely-review split on same reply).

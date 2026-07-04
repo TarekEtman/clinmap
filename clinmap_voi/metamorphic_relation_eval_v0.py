@@ -16,6 +16,7 @@ POLICY_ORDER = {
 
 
 def queue_row_as_relation_record(row: dict[str, Any]) -> dict[str, Any]:
+    """Label-only relation state (legacy); prefer queue_row_as_relation_record_from_review."""
     label = row["observed_decision_label"]
     order = POLICY_ORDER.get(label, 0)
     return {
@@ -26,6 +27,27 @@ def queue_row_as_relation_record(row: dict[str, Any]) -> dict[str, Any]:
         "unsafe_shortcuts_present": row.get("unsafe_shortcuts_present", "no"),
         "_policy_order": order,
         "_escalation_level": order,
+    }
+
+
+def queue_row_as_relation_record_from_review(row: dict[str, Any], variant: dict[str, Any]) -> dict[str, Any]:
+    """Rebuild metamorphic state from published queue fields + response (matches frozen relation annotations)."""
+    from review_protocol_engine_v0 import extract_features, visible_response
+
+    label = row["observed_decision_label"]
+    order = POLICY_ORDER.get(label, 0)
+    raw = row.get("response_text", "") or ""
+    resp = visible_response(raw)
+    trunc = bool(raw) and (resp.endswith("...") or (len(resp) < len(raw) * 0.4))
+    feats = extract_features(resp, variant, truncation=trunc)
+    return {
+        "model_id": row["model_id"],
+        "variant_id": row["variant_id"],
+        "observed_decision_label": label,
+        "voi_handling": row.get("voi_handling", "not_applicable"),
+        "unsafe_shortcuts_present": row.get("unsafe_shortcuts_present", "no"),
+        "_policy_order": order,
+        "_escalation_level": feats.escalation_level,
     }
 
 

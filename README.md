@@ -1,4 +1,8 @@
-# Clinical Model Behavior Evaluation Lab
+# ClinMAP — Clinical Model Behavior Evaluation Lab
+
+**Project folder:** `/Users/nati/Documents/JOB/ClinMAP` · **New here?** → [`START_HERE.md`](START_HERE.md)
+
+**Public handout:** [`report/clinmap_voi_v0_snapshot.pdf`](report/clinmap_voi_v0_snapshot.pdf) · **Reproduce:** `make clinmap-frontier-pack` · `make clinmap-pdf` · `make audit`
 
 **Primary deliverable: ClinMAP-VOI v0** — a completed hosted multi-model benchmark on synthetic healthcare metamorphic probes (40 families, 320 variants, 280 relations), with human domain review, relation annotations, model metrics, and post-review QA audit.
 
@@ -42,6 +46,7 @@ Details: [`report/clinmap_voi_review_quality_audit.md`](report/clinmap_voi_revie
 | Review quality audit | [`report/clinmap_voi_review_quality_audit.md`](report/clinmap_voi_review_quality_audit.md) |
 | Two-page PDF snapshot | [`report/clinmap_voi_v0_snapshot.pdf`](report/clinmap_voi_v0_snapshot.pdf) (`make clinmap-pdf`) |
 | Hosted run finalization | [`report/hosted_runs/hosted_clinmap_voi_v0_finalization_20260704.md`](report/hosted_runs/hosted_clinmap_voi_v0_finalization_20260704.md) |
+| Supplementary-provider disposition | [`report/hosted_runs/supplementary_provider_disposition_20260704.md`](report/hosted_runs/supplementary_provider_disposition_20260704.md) |
 
 | Summary metric | Value |
 |---|---:|
@@ -51,6 +56,10 @@ Details: [`report/clinmap_voi_review_quality_audit.md`](report/clinmap_voi_revie
 | Mean decision accuracy (across models) | 0.891 |
 | Mean metamorphic pass rate | 0.786 |
 | QA audit | pass (holdout families CMVOI-033–040) |
+| Holdout panel (pseudonymous external independent reviewers) | `panel_r01` + `panel_r02` on CMVOI-033–040 (720 items) |
+| Frontier evidence pack | `report/benchmark_evidence/` (`make clinmap-frontier-pack`) |
+
+Exploratory Z.AI and Cloudflare collection probes are archived for provenance only and excluded from the reviewed benchmark metrics because they are partial and/or contain empty response bodies.
 
 ## ClinMAP methodology and pipeline (end-to-end)
 
@@ -74,8 +83,8 @@ make clinmap-review       # verify frozen queue + secondary pass → audit → c
 make clinmap-review-audit # same verification (queue + secondary_review_pass.jsonl required)
 make clinmap-evidence     # Wilson CIs, gold stats, discrimination, failure atlas
 make clinmap-panel-pack   # blinded CSV for human holdout reviewers (optional)
-make clinmap-holdout-ai   # dual AI protocol raters on holdout + κ report
-make clinmap-frontier-pack  # evidence reports + holdout AI + QA audit (frontier-lab bundle)
+make clinmap-holdout-panel # recompute κ/report from frozen pseudonymous holdout panel labels
+make clinmap-frontier-pack  # evidence reports + holdout panel + QA audit (frontier-lab bundle)
 ```
 
 Benchmark evidence and panel strategy: [`docs/construct_validity_clinmap_voi_v0.md`](docs/construct_validity_clinmap_voi_v0.md), [`docs/panel_review_strategy.md`](docs/panel_review_strategy.md).

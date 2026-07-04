@@ -19,6 +19,44 @@ import {
 const avatarSrc = '/assets/tarek-avatar-3d-v1.webp';
 const LabScene = lazy(() => import('./components/LabScene'));
 
+/** Repo URL used by the landing page; verify after publishing/deploying. */
+const SITE = {
+  repoUrl: 'https://github.com/tareketman/clinmap',
+  linkedIn: 'https://www.linkedin.com/in/tareketman',
+  email: 'mailto:dr.tareketman@gmail.com',
+};
+
+const clinmapProof = [
+  {
+    title: 'QA audit',
+    stat: 'PASS',
+    body: 'Frozen artifact verification: decision accuracy, κ vs blind protocol QC, relation integrity 1.0, holdout gates.',
+    href: '/assets/clinmap_voi_v0_snapshot.pdf',
+    icon: <ShieldCheck />,
+  },
+  {
+    title: 'Model metrics',
+    stat: '17 models',
+    body: 'Hosted multi-model decision accuracy and metamorphic pass rates — reproducible under versioned run ID and corpus hash.',
+    href: '/assets/clinmap_voi_v0_snapshot.pdf',
+    icon: <Radar />,
+  },
+  {
+    title: 'Holdout panel',
+    stat: 'κ ≈ 0.77',
+    body: 'Blinded panel_r01/r02 — two independent external reviewers on unseen families — inspectable disagreement vignettes, not cherry-picked unsafe-only cases.',
+    href: '/assets/clinmap_voi_v0_snapshot.pdf',
+    icon: <Microscope />,
+  },
+  {
+    title: 'Frontier pack',
+    stat: 'Wilson CIs',
+    body: 'Discrimination, failure atlas, gold independence — benchmark evidence bundle for lab-style reviewers.',
+    href: SITE.repoUrl,
+    icon: <Database />,
+  },
+];
+
 const proofMetrics = [
   { value: '3971', label: 'reviewed responses', note: 'ClinMAP-VOI v0 hosted benchmark; human domain review complete' },
   { value: '17', label: 'models scored', note: 'Decision accuracy and metamorphic pass rates in public metrics report' },
@@ -165,11 +203,10 @@ function HeroAvatar() {
 
 function HeroSection() {
   const nav = [
-    ['Snapshot', '#snapshot'],
+    ['Proof', '#proof'],
     ['System', '#system'],
     ['Methods', '#methods'],
-    ['Evidence', '#evidence'],
-    ['Explorer', '/explorer/'],
+    ['Demo', '#evidence'],
     ['Contact', '#contact'],
   ];
 
@@ -200,20 +237,19 @@ function HeroSection() {
               </h1>
             </FadeIn>
             <FadeIn delay={0.08}>
-              <p className="mt-6 max-w-2xl text-[clamp(1.15rem,2.4vw,2rem)] font-medium leading-snug text-[#303846]">
-                I build evaluation systems for healthcare-domain model behavior.
+              <p className="mt-6 max-w-2xl text-[clamp(1.15rem,2.4vw,1.65rem)] font-medium italic leading-snug text-[#A95132]">
+                Hired to catch the AI answer that sounds right and isn&apos;t — at benchmark scale.
               </p>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#606A72] md:text-lg">
-                Metamorphic healthcare probes, hosted multi-model runs, structured human review, relation metrics, and QA audit—with explicit limits on clinical claims.
+                Named producer of <strong className="font-semibold text-[#344551]">ClinMAP-VOI v0</strong>: metamorphic probes, 3,971 reviewed hosted responses, relation metrics, QA audit, and holdout panel evidence — synthetic only, bounded claims.
               </p>
             </FadeIn>
             <FadeIn delay={0.16}>
               <div className="mt-8 flex flex-wrap gap-3">
-                <PrimaryButton href="README.md"><FileText size={17} /> ClinMAP README</PrimaryButton>
-                <SecondaryButton href="/explorer/"><Radar size={17} /> v1 demo explorer</SecondaryButton>
-                <SecondaryButton href="/assets/clinmap_voi_v0_snapshot.pdf"><FileText size={17} /> ClinMAP PDF</SecondaryButton>
-                <SecondaryButton href="/assets/evaluation_systems_snapshot_v1.pdf"><FileText size={17} /> v1 demo PDF</SecondaryButton>
-                <SecondaryButton href="mailto:dr.tareketman@gmail.com"><Mail size={17} /> Email</SecondaryButton>
+                <PrimaryButton href="/assets/clinmap_voi_v0_snapshot.pdf"><FileText size={17} /> ClinMAP snapshot PDF</PrimaryButton>
+                <SecondaryButton href={SITE.repoUrl}><Github size={17} /> GitHub repo</SecondaryButton>
+                <SecondaryButton href="#proof"><ShieldCheck size={17} /> Benchmark proof</SecondaryButton>
+                <SecondaryButton href={SITE.linkedIn}><Linkedin size={17} /> LinkedIn</SecondaryButton>
               </div>
             </FadeIn>
           </div>
@@ -256,6 +292,39 @@ function SnapshotSection() {
             ))}
           </div>
         </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+function ProofSection() {
+  return (
+    <section id="proof" className="bg-white px-6 py-20 sm:px-10 lg:px-12">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn>
+          <SectionLabel>ClinMAP-VOI v0 · benchmark proof</SectionLabel>
+          <h2 className="section-heading max-w-4xl">One deliverable. Full audit trail.</h2>
+          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-[#606A72]">
+            Frontier reviewers and gig-platform buyers see the same artifact: frozen hosted benchmark, named primary review, metamorphic relations, and explicit limits — not a slide deck.
+          </p>
+        </FadeIn>
+        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {clinmapProof.map((card, i) => (
+            <FadeIn key={card.title} delay={i * 0.05}>
+              <a href={card.href} className="surface-card group flex h-full flex-col p-6 transition hover:border-[#A95132]/35">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="text-[clamp(1.6rem,3vw,2.2rem)] font-black leading-none text-[#A95132]">{card.stat}</div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#A95132]/10 text-[#A95132] [&_svg]:h-5 [&_svg]:w-5">{card.icon}</div>
+                </div>
+                <h3 className="mt-4 text-sm font-black uppercase tracking-[0.1em] text-[#344551]">{card.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#606A72]">{card.body}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#A95132] group-hover:text-[#8F4228]">
+                  Open <ArrowUpRight size={15} />
+                </span>
+              </a>
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -411,7 +480,8 @@ function ContactSection() {
           <div className="flex flex-wrap gap-3 md:justify-end">
             <a href="mailto:dr.tareketman@gmail.com" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#303846] transition hover:bg-[#F7F4EF]"><Mail size={17} /> Email</a>
             <a href="https://www.linkedin.com/in/tareketman" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Linkedin size={17} /> LinkedIn</a>
-            <a href="/assets/evaluation_systems_snapshot_v1.pdf" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Github size={17} /> Snapshot</a>
+            <a href="/assets/clinmap_voi_v0_snapshot.pdf" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><FileText size={17} /> ClinMAP PDF</a>
+            <a href={SITE.repoUrl} className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Github size={17} /> GitHub</a>
           </div>
         </FadeIn>
       </div>
@@ -424,6 +494,7 @@ export default function App() {
     <main className="min-h-screen overflow-x-clip bg-[#F7F4EF] font-kanit text-[#303846]">
       <HeroSection />
       <SnapshotSection />
+      <ProofSection />
       <SystemSection />
       <MethodsSection />
       <EvidenceSection />

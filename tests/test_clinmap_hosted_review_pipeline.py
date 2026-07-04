@@ -37,6 +37,23 @@ class ClinMapHostedReviewTests(unittest.TestCase):
         lines = [ln for ln in REL.read_text(encoding="utf-8").splitlines() if ln.strip()]
         self.assertGreater(len(lines), 3000)
 
+    def test_relation_integrity_recomputes_from_published_queue(self):
+        import csv
+        import sys
+
+        pkg = ROOT / "clinmap_voi"
+        if str(pkg) not in sys.path:
+            sys.path.insert(0, str(pkg))
+        from common import read_jsonl  # noqa: WPS433
+        from review_quality_audit import relation_integrity  # noqa: WPS433
+
+        with QUEUE.open(encoding="utf-8", newline="") as f:
+            queue_rows = list(csv.DictReader(f))
+        variants = {v["variant_id"]: v for v in read_jsonl(ROOT / "data/clinmap_voi_v0/variants.jsonl")}
+        stored = [json.loads(ln) for ln in REL.read_text(encoding="utf-8").splitlines() if ln.strip()]
+        score = relation_integrity(queue_rows, stored, variants)
+        self.assertGreaterEqual(score, 0.995)
+
     def test_quality_audit_pass_when_present(self):
         if not AUDIT.exists():
             self.skipTest("audit not run yet")

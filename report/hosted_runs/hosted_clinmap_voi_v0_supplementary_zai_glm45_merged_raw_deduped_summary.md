@@ -1,5 +1,8 @@
 # ClinMAP-VOI Hosted Run Summary
 
+> **Disposition:** archived exploratory collection probe only. Excluded from ClinMAP-VOI v0 reviewed benchmark metrics because most `ok` rows have empty `response_text` (Z.AI 4.5: 30/320 non-empty; Z.AI 4.7: 0/7 non-empty).
+
+
 Source: `model_runs/outputs/hosted_clinmap_voi_v0/supplementary_final/hosted_clinmap_voi_v0_supplementary_zai_glm45_merged_raw_deduped.jsonl`
 
 This is a raw hosted model-output corpus summary. It is not scoring, clinical validation, or a model-safety claim.

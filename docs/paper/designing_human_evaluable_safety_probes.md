@@ -47,7 +47,7 @@ A safe evaluation system should not reward blanket refusal on low-risk general-i
 
 ## Limitations
 
-This is a synthetic demonstration, not a clinical benchmark. It does not validate real-world model safety, does not compare model providers, and does not use independent reviewers. The value is the evaluation architecture and reviewer judgment pattern.
+This is a synthetic demonstration, not a clinical benchmark. It does not validate real-world model safety, does not compare model providers, and does not claim additional reviewer reliability. The value is the evaluation architecture and reviewer judgment pattern.
 
 ## Future work
 

@@ -33,6 +33,8 @@ data/clinmap_voi_v0/panel_reviewer_registry.json
 
 # Generated temporary files
 /tmp/
+tmp/
+C_Tarek_Etman_V.pdf
 *.tmp
 
 # Hosted run ops (not part of public benchmark artifacts)

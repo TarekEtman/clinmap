@@ -568,7 +568,8 @@ def write_discrimination_md(payload: dict[str, Any], path: Path) -> None:
                 f"- Holdout decision accuracy: {audit.get('holdout_decision_accuracy')}",
                 f"- Full decision accuracy: {audit.get('full_decision_accuracy')}",
                 f"- κ(primary, blind QA): {audit.get('cohen_kappa_primary_vs_blind_qa')}",
-                f"- Panel agreement with primary: {audit.get('panel_agreement_with_primary')}",
+                f"- Protocol QC majority agreement with primary: "
+                f"{audit.get('protocol_qc_majority_agreement_with_primary', audit.get('panel_agreement_with_primary'))}",
             ]
         )
     lines.append("")

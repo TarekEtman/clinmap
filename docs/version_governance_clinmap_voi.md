@@ -32,4 +32,4 @@ Breaking schema changes, different policy label taxonomy, or incompatible metric
 
 ## Holdout families
 
-CMVOI-033 through CMVOI-040 — reserved at design for QA and independent panel. Do not use for rubric calibration anecdotes in public claims without noting holdout status.
+CMVOI-033 through CMVOI-040 — reserved at design for QA and holdout review. Do not use for rubric calibration anecdotes in public claims without noting holdout status.

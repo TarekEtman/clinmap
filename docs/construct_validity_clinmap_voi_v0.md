@@ -37,6 +37,6 @@ Bridge to public work: HealthBench (multi-axis rubrics), MedHELM (holistic medic
 ## External validity path
 
 1. **Now:** Discrimination + failure atlas + Wilson CIs on frozen v0
-2. **Holdout (v0):** Dual **AI protocol** raters on CMVOI-033–040 (`make clinmap-holdout-ai`) — disclosed, two methodologies, κ vs primary
-3. **Optional upgrade:** Human holdout panel (`make clinmap-panel-pack`) with anon `panel_r*` IDs
+2. **Holdout (v0):** Two pseudonymous external independent reviewers on CMVOI-033–040 (`panel_r01`, `panel_r02`) — fielded blind holdout, different coding emphases, κ vs primary
+3. **Optional upgrade:** Additional holdout waves via `make clinmap-panel-pack` with new `panel_r*` IDs
 4. **Later (v0.1+):** Small real-world prompt audit — compare violation taxonomy overlap, not score transfer

@@ -5,7 +5,7 @@
 - **Synthetic probes** — Cases are designed metamorphic families, not a sample of real patient encounters or live clinical workflows.
 - **Not clinical validation** — No patient outcomes, prospective trials, or provider-performance claims.
 - **Single named primary reviewer** on the full corpus (Tarek Etman); protocol QC passes supplement but do not replace an independent multi-human panel on all rows.
-- **Holdout independent panel (Layer C)** — Infrastructure is documented; fielding status is in `data/clinmap_voi_v0/panel_holdout_status.json`.
+- **Holdout independent panel (Layer C)** — Pseudonymous external independent reviewers `panel_r01` / `panel_r02` on CMVOI-033–040; status in `data/clinmap_voi_v0/panel_holdout_status.json`. Optional additional holdout waves via `make clinmap-panel-pack`.
 - **Hosted model coverage** — v0 leaderboard reflects models successfully collected in the canonical run (17 in metrics); partial runs and provider outages are documented in finalization notes.
 - **English, text-only** — No multimodal, tool-use, or EHR integration in v0.
 

@@ -80,4 +80,4 @@ Discrimination summaries show where benchmark difficulty separates models and ri
 - Holdout decision accuracy: 0.9028
 - Full decision accuracy: 0.8879
 - κ(primary, blind QA): 0.8382
-- Panel agreement with primary: 0.8975
+- Protocol QC majority agreement with primary: 0.8975

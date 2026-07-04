@@ -28,7 +28,7 @@ For pairwise response ranking, I first identify the highest-impact failure mode:
 
 ## 7. Evaluation systems / engineering-adjacent answer
 
-I can contribute beyond single-task review because I think in evaluation systems: case construction, response provenance, annotation schema, rubric versioning, adjudication records, metrics, and release boundaries. My portfolio includes a synthetic v1 evaluation dataset, validation scripts, metrics scripts, SVG chart generation, CI/audit checks, and a two-page reviewer snapshot. The point is to make expert judgment inspectable and reproducible.
+I produce evaluation systems, not one-off labels. For **ClinMAP-VOI v0** I designed metamorphic decision families (40/320/280), ran hosted multi-model collection with versioned manifests, built the review queue schema, led primary review on 3,971 responses, relation annotations (3,219), adjudication, QA audit (pass), and a frontier evidence pack (Wilson CIs, discrimination, failure atlas). Supporting v1 demo: separated objects, validation scripts, charts, CI/audit checks, PDF snapshot. Goal: make expert judgment inspectable, frozen, and reproducible under explicit claim boundaries.
 
 ## 8. Strengths answer
 
@@ -40,7 +40,7 @@ I am careful not to overclaim medical authority. My background is dentistry and 
 
 ## 10. Portfolio link description
 
-Clinical Model Behavior Evaluation Lab — **ClinMAP-VOI v0**: synthetic metamorphic healthcare benchmark with hosted multi-model outputs, completed human review (3971 rows), relation annotations, model metrics, and QA audit. Supporting 48-case synthetic v1 demo with explorer, harness, and PDF snapshot.
+**ClinMAP-VOI v0** (producer: Tarek Etman): hosted metamorphic healthcare benchmark — 40 families / 320 variants / 280 relations; 3,971 reviewed responses across 17 models; relation annotations; QA audit pass; pseudonymous external holdout panel (two independent reviewers) + disagreement vignettes; frontier evidence pack. Two-page reviewer PDF + reproducible repo. Synthetic only; not clinical validation. Supporting 48-case v1 demo (explorer, harness).
 
 ## 11. Ultra-short version
 

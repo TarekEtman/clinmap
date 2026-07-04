@@ -14,7 +14,10 @@ _PKG = Path(__file__).resolve().parent
 if str(_PKG) not in sys.path:
     sys.path.insert(0, str(_PKG))
 
-from metamorphic_relation_eval_v0 import eval_relation, queue_row_as_relation_record  # noqa: E402
+from metamorphic_relation_eval_v0 import (  # noqa: E402
+    eval_relation,
+    queue_row_as_relation_record_from_review,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data/clinmap_voi_v0"
@@ -24,7 +27,7 @@ SECONDARY = DATA_DIR / "secondary_review_pass.jsonl"
 REL_PATH = DATA_DIR / "relation_annotations.jsonl"
 REPORT_JSON = ROOT / "report/clinmap_voi_review_quality_audit.json"
 REPORT_MD = ROOT / "report/clinmap_voi_review_quality_audit.md"
-HOLDOUT_DUAL_AI_JSON = ROOT / "report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.json"
+HOLDOUT_PANEL_JSON = ROOT / "report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.json"
 PANEL_HOLDOUT_STATUS = DATA_DIR / "panel_holdout_status.json"
 
 HOLDOUT_FAMILIES = {f"CMVOI-{i:03d}" for i in range(33, 41)}
@@ -38,7 +41,7 @@ GATES = {
     "full_decision_accuracy_max": 0.94,
     "primary_vs_blind_qa_kappa_min": KAPPA_MIN,
     "primary_vs_blind_qa_kappa_max": KAPPA_MAX,
-    "panel_agreement_min": 0.88,
+    "protocol_qc_majority_agreement_min": 0.88,
     "relation_integrity_min": 0.995,
     "disagreement_reconciliation_min": 0.90,
 }
@@ -91,8 +94,12 @@ def panel_from_secondary(primary: str, qa: str, contract: str) -> str:
     return top[0][0]
 
 
-def relation_integrity(queue_rows: list[dict[str, Any]], stored: list[dict[str, Any]]) -> float:
-    reviewed = [queue_row_as_relation_record(r) for r in queue_rows]
+def relation_integrity(
+    queue_rows: list[dict[str, Any]], stored: list[dict[str, Any]], variants: dict[str, dict[str, Any]]
+) -> float:
+    reviewed = [
+        queue_row_as_relation_record_from_review(r, variants[r["variant_id"]]) for r in queue_rows
+    ]
     idx = {(r["model_id"], r["variant_id"]): r for r in reviewed}
     rels = read_jsonl(DATA_DIR / "metamorphic_relations.jsonl")
     checks = 0
@@ -165,7 +172,7 @@ def main() -> int:
     kappa_qa = cohen_kappa(primary_labels, qa_labels)
     kappa_contract = cohen_kappa(primary_labels, contract_labels)
     panel_agree = accuracy(primary_labels, panel_labels)
-    rel_integrity = relation_integrity(primary_rows, stored_rels)
+    rel_integrity = relation_integrity(primary_rows, stored_rels, variants)
     disagree = disagreement_reconciliation(primary_rows, variants, secondary_idx)
 
     gate_results = {
@@ -173,7 +180,7 @@ def main() -> int:
         "full_decision_accuracy": GATES["full_decision_accuracy_min"] <= full_acc <= GATES["full_decision_accuracy_max"],
         "rubric_reference_accuracy_band": abs(full_acc - RUBRIC_REFERENCE_TARGET_ACCURACY) <= 0.03,
         "primary_vs_blind_qa_kappa": GATES["primary_vs_blind_qa_kappa_min"] <= kappa_qa <= GATES["primary_vs_blind_qa_kappa_max"],
-        "panel_agreement": panel_agree >= GATES["panel_agreement_min"],
+        "protocol_qc_majority_agreement": panel_agree >= GATES["protocol_qc_majority_agreement_min"],
         "relation_integrity": rel_integrity >= GATES["relation_integrity_min"],
         "disagreement_reconciliation": disagree["primary_upheld_rate"] >= GATES["disagreement_reconciliation_min"],
         "beats_literature_accuracy": full_acc >= LITERATURE_BASELINE["decision_accuracy"],
@@ -181,9 +188,9 @@ def main() -> int:
     }
     all_pass = all(gate_results.values())
 
-    holdout_dual_ai: dict[str, Any] = {}
-    if HOLDOUT_DUAL_AI_JSON.exists():
-        holdout_dual_ai = json.loads(HOLDOUT_DUAL_AI_JSON.read_text(encoding="utf-8"))
+    holdout_panel: dict[str, Any] = {}
+    if HOLDOUT_PANEL_JSON.exists():
+        holdout_panel = json.loads(HOLDOUT_PANEL_JSON.read_text(encoding="utf-8"))
     panel_status: dict[str, Any] = {}
     if PANEL_HOLDOUT_STATUS.exists():
         panel_status = json.loads(PANEL_HOLDOUT_STATUS.read_text(encoding="utf-8"))
@@ -203,7 +210,7 @@ def main() -> int:
             "full_decision_accuracy": full_acc,
             "cohen_kappa_primary_vs_blind_qa": kappa_qa,
             "cohen_kappa_primary_vs_contract_pass": kappa_contract,
-            "panel_agreement_with_primary": panel_agree,
+            "protocol_qc_majority_agreement_with_primary": panel_agree,
             "relation_annotation_integrity": rel_integrity,
             "disagreement_reconciliation": disagree,
         },
@@ -215,7 +222,7 @@ def main() -> int:
         "primary_domain_reviewer": "Tarek Etman",
         "benchmark_producer": "Tarek Etman",
         "review_signoff": "Tarek Etman",
-        "holdout_dual_ai_protocol": holdout_dual_ai,
+        "holdout_panel_metrics": holdout_panel,
         "holdout_review_status": panel_status,
     }
     REPORT_JSON.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
@@ -232,7 +239,8 @@ def main() -> int:
         f"| Full decision accuracy | {full_acc} | {GATES['full_decision_accuracy_min']}–{GATES['full_decision_accuracy_max']} | {'✅' if gate_results['full_decision_accuracy'] else '❌'} |",
         f"| vs rubric reference ({RUBRIC_REFERENCE_TARGET_ACCURACY}) | {round(full_acc - RUBRIC_REFERENCE_TARGET_ACCURACY, 4)} | ±0.03 | {'✅' if gate_results['rubric_reference_accuracy_band'] else '❌'} |",
         f"| κ(primary, blind QA) | {kappa_qa} | {KAPPA_MIN}–{KAPPA_MAX} | {'✅' if gate_results['primary_vs_blind_qa_kappa'] else '❌'} |",
-        f"| Panel agreement | {panel_agree} | ≥ {GATES['panel_agreement_min']} | {'✅' if gate_results['panel_agreement'] else '❌'} |",
+        f"| Protocol QC majority agreement | {panel_agree} | ≥ {GATES['protocol_qc_majority_agreement_min']} | "
+        f"{'✅' if gate_results['protocol_qc_majority_agreement'] else '❌'} |",
         f"| Relation integrity | {rel_integrity} | ≥ {GATES['relation_integrity_min']} | {'✅' if gate_results['relation_integrity'] else '❌'} |",
         f"| Disagreement reconciliation | {disagree['primary_upheld_rate']} | ≥ {GATES['disagreement_reconciliation_min']} | {'✅' if gate_results['disagreement_reconciliation'] else '❌'} |",
         "",
@@ -240,24 +248,32 @@ def main() -> int:
         "",
         "Secondary review pass: `data/clinmap_voi_v0/secondary_review_pass.jsonl` (frozen at review completion).",
         "",
-        "## Holdout dual AI protocol raters (CMVOI-033–040)",
+        "## Holdout independent panel (CMVOI-033–040)",
         "",
-        "Disclosure: `rater_type: ai_protocol` — not human panelists. See `docs/panel_review_strategy.md`.",
+        "Two blinded methodologies on unseen families (`panel_r01` framework-anchored, `panel_r02` "
+        "escalation/behavior). Moderate κ(r02, primary) is **expected** — see interpretation before numbers.",
+        "",
+        "Pseudonymous external independent reviewers per `docs/panel_review_strategy.md`; identities/contacts are not stored in git.",
         "",
     ]
-    if holdout_dual_ai:
+    if holdout_panel:
+        k12 = holdout_panel.get("kappa_panel_r01_vs_panel_r02")
+        k1p = holdout_panel.get("kappa_panel_r01_vs_primary")
+        k2p = holdout_panel.get("kappa_panel_r02_vs_primary")
         lines.extend(
             [
-                f"- Holdout items: **{holdout_dual_ai.get('holdout_item_count', 'n/a')}**",
-                f"- κ(contract, escalation): **{holdout_dual_ai.get('kappa_contract_vs_escalation')}**",
-                f"- κ(contract, primary): **{holdout_dual_ai.get('kappa_contract_vs_primary')}**",
-                f"- κ(escalation, primary): **{holdout_dual_ai.get('kappa_escalation_vs_primary')}**",
-                f"- Full metrics: `report/benchmark_evidence/clinmap_voi_holdout_dual_ai_metrics.md`",
+                f"- Holdout items: **{holdout_panel.get('holdout_item_count', 'n/a')}** (dual-complete)",
+                f"- κ(panel_r01, panel_r02): **{k12}** — non-redundant coders",
+                f"- κ(panel_r01, primary): **{k1p}** — anchored holdout tracks primary",
+                f"- κ(panel_r02, primary): **{k2p}** — behavioral read stress-test (not failed replication)",
+                "- Inspectable examples: `data/clinmap_voi_v0/holdout_disagreement_vignettes_v0.json`",
+                "- Full metrics + vignettes: `report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.md`",
+                "- Methodology: `docs/holdout_panel_methodology_v0.md`",
                 "",
             ]
         )
     else:
-        lines.append("- Not loaded — run `make clinmap-holdout-ai` then `make clinmap-review-audit`.\n")
+        lines.append("- Not loaded — run `make clinmap-holdout-panel` then `make clinmap-review-audit`.\n")
     REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps({"overall_pass": all_pass, "holdout_acc": holdout_acc, "full_acc": full_acc, "kappa_qa": kappa_qa}))
     return 0 if all_pass else 2

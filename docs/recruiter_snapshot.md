@@ -29,7 +29,8 @@ This is a compact proof system for turning healthcare-domain judgment into inspe
 | v1 technical spec (lineage) | `eval_spec/clinical_model_behavior_eval_spec_v1.md` | Earlier 48-case separated-object demo |
 | v1 separated data | `data/v1/` | 48 cases, 96 responses, 192 annotations, 2 adjudications, source anchors, manifests |
 | v1 technical report | `report/v1_synthetic_demo_report.md` | Coverage, response origins, two-pass consistency, limitations, sample walkthrough |
-| Two-page PDF snapshot | `report/evaluation_systems_snapshot_v1.pdf` | Fast reviewer-facing summary with sample ranking and scope boundary |
+| Two-page ClinMAP PDF snapshot | `report/clinmap_voi_v0_snapshot.pdf` | Fast reviewer-facing summary of the hosted benchmark, QA audit, and claim boundary |
+| v1 PDF snapshot (lineage) | `report/evaluation_systems_snapshot_v1.pdf` | Earlier demo summary; supporting lineage only |
 | v1 SVG charts | `report/v1_charts/` | Visual summaries for coverage, provenance, outcomes, failure tags, and dimensions |
 | Rubrics and taxonomy | `rubrics/`, `taxonomy/` | Reviewer-operable scoring and failure-mode language |
 | Harness | `eval_harness/v1_validate.py`, `v1_metrics.py`, `v1_generate_report.py` | Reproducible validation and reporting |

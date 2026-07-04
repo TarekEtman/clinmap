@@ -11,6 +11,7 @@
 | Metamorphic relation review | `data/clinmap_voi_v0/relation_annotations.jsonl` |
 | Adjudication | `data/clinmap_voi_v0/adjudications.jsonl` — `adjudicator`: Tarek Etman |
 | Metrics and QA audit | `report/clinmap_voi_v0_performance_metrics.md`, `report/clinmap_voi_review_quality_audit.md` |
+| Frontier evidence (stats + holdout panel) | `report/benchmark_evidence/` — `make clinmap-frontier-pack` |
 
 Machine-readable record: [`data/clinmap_voi_v0/benchmark_provenance.json`](../data/clinmap_voi_v0/benchmark_provenance.json).
 
