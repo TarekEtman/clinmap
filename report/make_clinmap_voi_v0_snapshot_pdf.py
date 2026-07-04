@@ -18,13 +18,15 @@ from clinmap_pdf_style_v0 import (  # noqa: E402
     COL_R,
     COL_R_W,
     FONT,
+    FONT_BOLD,
+    INK,
     M,
     MUTED,
-    PAGE_H,
     PAGE_W,
+    RUST,
     bullet_list,
     draw_text,
-    model_rank_table,
+    hrule,
     pull_quote,
     ruled_table,
     section_label,
@@ -35,27 +37,64 @@ OUT = BASE / "report" / "clinmap_voi_v0_snapshot.pdf"
 METRICS = BASE / "report" / "clinmap_voi_v0_performance_metrics.json"
 AUDIT = BASE / "report" / "clinmap_voi_review_quality_audit.json"
 VIGNETTES = BASE / "data" / "clinmap_voi_v0" / "holdout_disagreement_vignettes_v0.json"
-REPO = "github.com/tareketman/clinmap"
+REPO = "github.com/TarekEtman/clinmap"
+
+
+def _display_names(names: list[str]) -> dict[str, str]:
+    """Short display names; keep provider prefix when short forms collide."""
+    shorts: dict[str, list[str]] = {}
+    for n in names:
+        shorts.setdefault(n.split("/")[-1], []).append(n)
+    out: dict[str, str] = {}
+    for short, full_list in shorts.items():
+        for full in full_list:
+            out[full] = full if len(full_list) > 1 else short
+    return out
 
 
 def _sorted_models(metrics: dict) -> list[tuple[str, float, float]]:
+    disp = _display_names(list(metrics["models"].keys()))
     rows = [
-        (name, data["decision_accuracy"], data["metamorphic_pass_rate"])
+        (disp[name], data["decision_accuracy"], data["metamorphic_pass_rate"])
         for name, data in metrics["models"].items()
     ]
     return sorted(rows, key=lambda r: r[1], reverse=True)
 
 
+def _big_model_table(c: canvas.Canvas, models: list[tuple[str, float, float]], y: float) -> float:
+    """Full-width ranked model table sized to breathe."""
+    x, w = M, PAGE_W - 2 * M
+    y = section_label(c, "All 17 models — decision accuracy & metamorphic pass rate", x, y)
+    row_h = 15.2
+    y -= row_h
+    hrule(c, y, x, x + w)
+    c.setFont(FONT_BOLD, 7)
+    c.setFillColor(MUTED)
+    c.drawString(x + 2, y + 4.5, "MODEL")
+    c.drawRightString(x + w * 0.82, y + 4.5, "DECISION ACC")
+    c.drawRightString(x + w - 2, y + 4.5, "METAMORPHIC")
+    for i, (name, acc, meta) in enumerate(models):
+        y -= row_h
+        hrule(c, y, x, x + w)
+        c.setFont(FONT_BOLD if i == 0 else FONT, 7.6)
+        c.setFillColor(INK)
+        c.drawString(x + 2, y + 4.5, name)
+        c.drawRightString(x + w * 0.82, y + 4.5, f"{acc:.3f}")
+        c.drawRightString(x + w - 2, y + 4.5, f"{meta:.3f}")
+    return y - 10
+
+
 def _page1(pg: LayoutPage, metrics: dict, agg: dict, audit: dict) -> None:
     pg.start()
+    pg.y -= 9  # clear the running header line
     pg.title_band(
         title="CLINMAP-VOI v0",
-        subtitle="Healthcare-domain metamorphic benchmark",
+        subtitle="Healthcare-domain metamorphic benchmark · produced, reviewed, and audited by one accountable reviewer",
         hook="Hired to catch the AI answer that sounds right and isn't.",
         right_rows=[
             ("Producer", "Tarek Etman"),
             ("QA audit", "PASS"),
-            ("", f"{REPO} · clinmap_voi_v0_snapshot.pdf"),
+            ("", REPO),
         ],
     )
 
@@ -63,10 +102,10 @@ def _page1(pg: LayoutPage, metrics: dict, agg: dict, audit: dict) -> None:
         lambda c, y: stat_row(
             c,
             [
-                (str(metrics["reviewed_row_count"]), "reviewed responses"),
-                (str(agg["model_count"]), "models scored"),
-                (f"{agg['mean_decision_accuracy']:.3f}", "mean decision accuracy"),
-                (f"{agg['mean_metamorphic_pass_rate']:.3f}", "metamorphic pass rate"),
+                (f"{metrics['reviewed_row_count']:,}", "responses reviewed with policy labels, dimension scores, evidence spans"),
+                (str(agg["model_count"]), "models scored under one frozen run ID and corpus hash"),
+                (f"{agg['mean_decision_accuracy']:.3f}", "mean decision accuracy on rubric-anchored labels"),
+                (f"{agg['mean_metamorphic_pass_rate']:.3f}", "metamorphic pass rate when the case quietly changes"),
             ],
             y,
         )
@@ -79,53 +118,25 @@ def _page1(pg: LayoutPage, metrics: dict, agg: dict, audit: dict) -> None:
                 cc,
                 "Tarek Etman · human_domain_reviewer\nLicensed dentist · Global Health MPP\n"
                 "Framework design · primary review · relations · adjudication · QA audit",
-                COL_L, yy, size=7.5, width=COL_L_W, leading=9,
+                COL_L, yy, size=7.5, width=COL_L_W, leading=9.4,
             ),
         )
-        return pg.section(
+        y -= 4
+        y = pg.section(
             c, COL_L, COL_L_W, y, "Corpus",
             lambda cc, yy: bullet_list(
                 cc,
                 [
                     "40 synthetic decision families (CMVOI-001–040)",
-                    "320 prompt variants across escalation & VOI probes",
+                    "320 prompt variants across escalation & value-of-information probes",
                     "280 metamorphic relations with oracle labels",
-                    f"{metrics['relation_annotation_count']} relation annotations in frozen export",
-                    "Holdout families CMVOI-033–040 (720 items, independent external panel)",
+                    f"{metrics['relation_annotation_count']:,} relation annotations in the frozen export",
+                    "Holdout: families CMVOI-033–040, 720 items, independent external panel",
                 ],
-                COL_L, yy, COL_L_W, size=7.2, leading=8.8,
+                COL_L, yy, COL_L_W, size=7.3, leading=9.2,
             ),
         )
-
-    def right_a(c, y):
-        y = pg.section(
-            c, COL_R, COL_R_W, y, "What this is",
-            lambda cc, yy: draw_text(
-                cc,
-                "Hosted multi-model evaluation on synthetic dental/oral-health decision probes. "
-                "Completed human review queue, relation annotations, post-review QA audit, and blinded "
-                "pseudonymous external holdout-panel metrics — reproducible under versioned run ID and corpus hash.",
-                COL_R, yy, size=7.8, width=COL_R_W, leading=9.5,
-            ),
-        )
-        return pg.section(
-            c, COL_R, COL_R_W, y, "Methodology",
-            lambda cc, yy: bullet_list(
-                cc,
-                [
-                    "Metamorphic relations test escalation & VOI beyond single-turn labels",
-                    "Six dimension scores (0–4) + observed policy labels + evidence spans",
-                    "Holdout CMVOI-033–040 · independent reviewers panel_r01 / panel_r02 · disagreement vignettes",
-                    "Frontier pack: Wilson CIs, discrimination, failure atlas, gold stats",
-                    "Primary vs blind QC κ + protocol QC majority agreement gates",
-                ],
-                COL_R, yy, COL_R_W, size=7.5, leading=9,
-            ),
-        )
-
-    pg.two_columns(left_a, right_a, name="two_col_a")
-
-    def left_b(c, y):
+        y -= 4
         return pg.section(
             c, COL_L, COL_L_W, y, "Scoring dimensions",
             lambda cc, yy: bullet_list(
@@ -135,56 +146,70 @@ def _page1(pg: LayoutPage, metrics: dict, agg: dict, audit: dict) -> None:
                     "Medication safety · uncertainty · scope control",
                     "Observed policy labels + evidence spans per row",
                 ],
-                COL_L, yy, COL_L_W, size=7.2, leading=8.8,
+                COL_L, yy, COL_L_W, size=7.3, leading=9.2,
             ),
         )
 
-    def right_b(c, y):
+    def right_a(c, y):
         y = pg.section(
-            c, COL_R, COL_R_W, y, "Claim boundary",
+            c, COL_R, COL_R_W, y, "What this is",
             lambda cc, yy: draw_text(
                 cc,
-                "Synthetic probes only. Metrics = rubric alignment + metamorphic consistency. "
-                "Not patient outcomes, bedside deployment, or production safety certification.",
-                COL_R, yy, size=7.3, color=MUTED, width=COL_R_W, leading=8.8,
+                "Hosted multi-model evaluation on synthetic dental and oral-health decision probes. "
+                "Every response passed through a completed human review queue, relation annotation, "
+                "a post-review QA audit, and blinded external holdout-panel metrics. The whole chain "
+                "is reproducible under a versioned run ID and corpus hash: the corpus you can download "
+                "is the corpus that was reviewed.",
+                COL_R, yy, size=7.8, width=COL_R_W, leading=9.8,
             ),
         )
+        y -= 4
         y = pg.section(
-            c, COL_R, COL_R_W, y, "Artifacts",
+            c, COL_R, COL_R_W, y, "Methodology",
             lambda cc, yy: bullet_list(
                 cc,
                 [
-                    "data/clinmap_voi_v0/review_queue.csv",
-                    "data/clinmap_voi_v0/relation_annotations.jsonl",
-                    "report/clinmap_voi_review_quality_audit.md",
-                    "report/benchmark_evidence/",
-                    "docs/PRODUCER.md",
+                    "Metamorphic relations test escalation and VOI judgment beyond single-turn labels",
+                    "Six dimension scores (0–4), observed policy labels, and evidence spans on every row",
+                    "Holdout CMVOI-033–040 recoded by independent reviewers panel_r01 and panel_r02",
+                    "Disagreements published as worked vignettes, with both readings and the adjudication",
+                    "Primary review checked against blind QC (κ) and protocol QC majority gates",
+                    "Evidence pack: Wilson CIs, discrimination analysis, failure atlas, gold independence",
                 ],
-                COL_R, yy, COL_R_W, size=6.8, leading=8.2,
+                COL_R, yy, COL_R_W, size=7.5, leading=9.4,
             ),
         )
+        y -= 4
         return pg.section(
-            c, COL_R, COL_R_W, y, "Run ID",
-            lambda cc, yy: draw_text(cc, metrics["run_id"], COL_R, yy, size=6.5, color=MUTED, width=COL_R_W, leading=7.5),
+            c, COL_R, COL_R_W, y, "Claim boundary",
+            lambda cc, yy: draw_text(
+                cc,
+                "Synthetic probes only. Metrics mean rubric alignment plus metamorphic consistency. "
+                "Not patient outcomes, not bedside deployment, not production safety certification.",
+                COL_R, yy, size=7.4, color=MUTED, width=COL_R_W, leading=9.2,
+            ),
         )
 
-    pg.two_columns(left_b, right_b, name="two_col_b")
+    pg.two_columns(left_a, right_a, name="two_col_a")
 
     ranked = _sorted_models(metrics)
-    pg.component(
-        lambda c, y: model_rank_table(
-            c, ranked, M, y, PAGE_W - 2 * M, title="All models — decision accuracy & metamorphic pass",
-        )
-    )
+    pg.component(lambda c, y: _big_model_table(c, ranked, y))
+
     def review_completion(c, y):
-        y = section_label(c, "Review completion", M, y)
-        return draw_text(
+        y -= 2
+        y = section_label(c, "Review completion & provenance", M, y)
+        y = draw_text(
             c,
             f"Primary reviewer: {metrics['primary_reviewer']} · "
             f"Metrics frozen {metrics['completed_at'][:10]} · "
             f"QA verified {audit['completed_at'][:10]} · "
             f"Sign-off: {audit.get('review_signoff', metrics['primary_reviewer'])}",
-            M, y, size=7, color=MUTED, width=PAGE_W - 2 * M, leading=8.5,
+            M, y, size=7.2, color=INK, width=PAGE_W - 2 * M, leading=9,
+        )
+        return draw_text(
+            c,
+            f"Run ID: {metrics['run_id']} · full artifact map in the repository README",
+            M, y, size=6.6, color=MUTED, width=PAGE_W - 2 * M, leading=8,
         )
 
     pg.component(review_completion)
@@ -197,6 +222,7 @@ def _page2(pg: LayoutPage, metrics: dict, audit: dict, holdout: dict, vignettes:
     lit = audit.get("literature_single_reviewer_baseline") or {}
 
     pg.start()
+    pg.y -= 6
 
     def left_qa(c, y):
         return pg.section(
@@ -208,17 +234,17 @@ def _page2(pg: LayoutPage, metrics: dict, audit: dict, holdout: dict, vignettes:
                     ("Full corpus accuracy", f"{m['full_decision_accuracy']:.4f}"),
                     ("κ(primary, blind QC)", f"{m['cohen_kappa_primary_vs_blind_qa']:.4f}"),
                     ("κ(primary, contract pass)", f"{m['cohen_kappa_primary_vs_contract_pass']:.4f}"),
-                    ("Protocol QC majority agreement", f"{m['protocol_qc_majority_agreement_with_primary']:.4f}"),
+                    ("Protocol QC majority", f"{m['protocol_qc_majority_agreement_with_primary']:.4f}"),
                     ("Relation integrity", f"{m['relation_annotation_integrity']:.4f}"),
                     ("Disagreement rows reconciled", str(m["disagreement_reconciliation"]["disagreement_rows"])),
                     ("Overall QA pass", "YES" if audit.get("overall_pass") else "NO"),
                 ],
-                COL_L, yy, COL_L_W,
+                COL_L, yy, COL_L_W, row_h=17, label_size=7.4, val_size=7.6,
             ),
         )
 
     def right_holdout(c, y):
-        return pg.section(
+        y = pg.section(
             c, COL_R, COL_R_W, y, "Independent external holdout panel",
             lambda cc, yy: ruled_table(
                 cc,
@@ -229,9 +255,20 @@ def _page2(pg: LayoutPage, metrics: dict, audit: dict, holdout: dict, vignettes:
                     ("Agreement r01 vs primary", f"{holdout.get('agreement_panel_r01_vs_primary', 0):.4f}"),
                     ("Agreement r02 vs primary", f"{holdout.get('agreement_panel_r02_vs_primary', 0):.4f}"),
                     ("Holdout items", str(holdout.get("holdout_item_count", 720))),
-                    ("Disagreement vignettes", "holdout_disagreement_vignettes_v0.json"),
                 ],
-                COL_R, yy, COL_R_W,
+                COL_R, yy, COL_R_W, row_h=17, label_size=7.4, val_size=7.6,
+            ),
+        )
+        y -= 3
+        return pg.section(
+            c, COL_R, COL_R_W, y, "How to read holdout κ",
+            lambda cc, yy: draw_text(
+                cc,
+                "Two blinded methodologies on unseen families, not duplicate raters on one rubric. "
+                "κ(r01, primary) ≈ 0.77 relates the holdout read to the main review. κ(r02, primary) ≈ 0.5 "
+                "is the expected tension between a behavioral read and a framework read. Both are reported "
+                "because both are true.",
+                COL_R, yy, size=7.4, color=MUTED, width=COL_R_W, leading=9.2,
             ),
         )
 
@@ -254,28 +291,28 @@ def _page2(pg: LayoutPage, metrics: dict, audit: dict, holdout: dict, vignettes:
     ]
 
     def left_gates(c, y):
-        y = pg.section(
-            c, COL_L, COL_L_W, y, "QA gates (1/2)",
-            lambda cc, yy: ruled_table(cc, gate_rows[:4], COL_L, yy, COL_L_W, row_h=14, label_size=7, val_size=7),
-        )
         return pg.section(
-            c, COL_L, COL_L_W, y, "QA gates (2/2)",
-            lambda cc, yy: ruled_table(cc, gate_rows[4:], COL_L, yy, COL_L_W, row_h=14, label_size=7, val_size=7),
+            c, COL_L, COL_L_W, y, "QA gates — all eight, none waived",
+            lambda cc, yy: ruled_table(cc, gate_rows, COL_L, yy, COL_L_W, row_h=15.5, label_size=7.2, val_size=7.4),
         )
 
     def right_lit(c, y):
         y = pg.section(
-            c, COL_R, COL_R_W, y, "vs literature baseline",
-            lambda cc, yy: ruled_table(cc, lit_rows, COL_R, yy, COL_R_W, row_h=14, label_size=7, val_size=7),
+            c, COL_R, COL_R_W, y, "vs single-reviewer literature baseline",
+            lambda cc, yy: ruled_table(cc, lit_rows, COL_R, yy, COL_R_W, row_h=15.5, label_size=7.2, val_size=7.4),
         )
+        y -= 3
         return pg.section(
-            c, COL_R, COL_R_W, y, "How to read holdout κ",
-            lambda cc, yy: draw_text(
+            c, COL_R, COL_R_W, y, "Check the work in ten minutes",
+            lambda cc, yy: bullet_list(
                 cc,
-                "Two blinded methodologies on unseen families — not duplicate raters on one rubric. "
-                "κ(r01, primary) ~0.77 relates holdout to main review; κ(r02, primary) ~0.5 is expected "
-                "behavioral vs framework tension.",
-                COL_R, yy, size=7.2, color=MUTED, width=COL_R_W, leading=8.5,
+                [
+                    "Open review_queue.csv, pick any row, follow its evidence span into the response text",
+                    "Run make clinmap-review-audit and watch the gates recompute from the frozen queue",
+                    "Read one disagreement vignette: both panel readings plus the adjudication",
+                    "Verify the corpus SHA256 in the run manifest against the file you downloaded",
+                ],
+                COL_R, yy, COL_R_W, size=7.4, leading=9.4,
             ),
         )
 
@@ -290,32 +327,31 @@ def _page2(pg: LayoutPage, metrics: dict, audit: dict, holdout: dict, vignettes:
 
     def left_frontier(c, y):
         return pg.section(
-            c, COL_L, COL_L_W, y, "Frontier pack outputs",
+            c, COL_L, COL_L_W, y, "Evidence pack files",
             lambda cc, yy: bullet_list(
                 cc,
                 [
-                    "clinmap_voi_v0_benchmark_evidence.json",
-                    "clinmap_voi_v0_benchmark_discrimination.md",
-                    "clinmap_voi_holdout_panel_metrics.md",
-                    "clinmap_voi_v0_metamorphic_relations_export.jsonl",
-                    "data/clinmap_voi_v0/benchmark_provenance.json",
+                    "benchmark_evidence.json",
+                    "benchmark_discrimination.md",
+                    "holdout_panel_metrics.md",
+                    "metamorphic_relations_export.jsonl",
+                    "benchmark_provenance.json",
                 ],
-                COL_L, yy, COL_L_W, size=6.8, leading=8.2,
+                COL_L, yy, COL_L_W, size=7.2, leading=9.2,
             ),
         )
 
     def right_repro(c, y):
         return pg.section(
-            c, COL_R, COL_R_W, y, "Reproducibility",
+            c, COL_R, COL_R_W, y, "Reproduce everything",
             lambda cc, yy: bullet_list(
                 cc,
                 [
-                    "make clinmap-frontier-pack",
-                    "make clinmap-pdf",
-                    "make audit",
-                    "python3 -m unittest discover -s tests",
+                    "make clinmap-frontier-pack — evidence, holdout panel, QA audit",
+                    "make clinmap-pdf — this document, from the frozen data",
+                    "make audit · python3 -m unittest discover -s tests",
                 ],
-                COL_R, yy, COL_R_W, size=7, leading=8.5,
+                COL_R, yy, COL_R_W, size=7.4, leading=9.4,
             ),
         )
 
@@ -325,11 +361,11 @@ def _page2(pg: LayoutPage, metrics: dict, audit: dict, holdout: dict, vignettes:
         y = section_label(c, "Limitations", M, y)
         return draw_text(
             c,
-            audit.get(
-                "claim_boundary",
-                "Verification of completed ClinMAP-VOI review artifacts. Not clinical validation or model safety certification.",
-            ),
-            M, y, size=7, color=MUTED, width=PAGE_W - 2 * M, leading=8.5,
+            "One primary reviewer with QC layers, not a full multi-human panel; the audit states which is which. "
+            "Synthetic text probes; no EHR, multimodal, or outcome-linked validation. "
+            "Not clinical validation and not a model safety certification. The value of this document is that "
+            "every number on it can be recomputed from the repository by someone who does not trust the author.",
+            M, y, size=7.2, color=MUTED, width=PAGE_W - 2 * M, leading=9.2,
         )
 
     pg.component(limitations)
@@ -345,7 +381,7 @@ def main() -> None:
     if VIGNETTES.exists():
         vignettes = json.loads(VIGNETTES.read_text(encoding="utf-8")).get("vignettes", [])
 
-    c = canvas.Canvas(str(OUT), pagesize=(PAGE_W, PAGE_H))
+    c = canvas.Canvas(str(OUT), pagesize=(PAGE_W, letter_h()))
     _page1(LayoutPage(c, "Tarek Etman", "ClinMAP-VOI v0 · reviewer snapshot",
                        "Synthetic benchmark · not clinical validation", 1, 2), metrics, metrics["aggregate"], audit)
     c.showPage()
@@ -358,6 +394,11 @@ def main() -> None:
     public_copy.parent.mkdir(parents=True, exist_ok=True)
     public_copy.write_bytes(OUT.read_bytes())
     print(f"Wrote {OUT} and {public_copy}")
+
+
+def letter_h() -> float:
+    from clinmap_pdf_style_v0 import PAGE_H
+    return PAGE_H
 
 
 if __name__ == "__main__":

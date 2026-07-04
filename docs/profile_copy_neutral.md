@@ -6,7 +6,7 @@ Use the **same proof strip** on LinkedIn, CV page 1, applications, and landing p
 
 ## Proof strip (paste everywhere)
 
-**ClinMAP-VOI v0** · 3,971 human-reviewed hosted responses · 17 models · 3,219 metamorphic relations · QA audit **pass** · pseudonymous holdout panel + inspectable disagreement · synthetic only · PDF: `report/clinmap_voi_v0_snapshot.pdf` · Repo after publish: `https://github.com/tareketman/clinmap`
+**ClinMAP-VOI v0** · 3,971 human-reviewed hosted responses · 17 models · 3,219 metamorphic relations · QA audit **pass** · pseudonymous holdout panel + inspectable disagreement · synthetic only · PDF: `report/clinmap_voi_v0_snapshot.pdf` · Repo after publish: `https://github.com/TarekEtman/clinmap`
 
 **Producer:** Tarek Etman — framework design, primary review, relations, adjudication, metrics, QA audit.
 
@@ -31,7 +31,7 @@ Use the **same proof strip** on LinkedIn, CV page 1, applications, and landing p
 ## Featured (3 slots)
 
 1. **ClinMAP snapshot PDF** — `clinmap_voi_v0_snapshot.pdf` — title: *ClinMAP-VOI v0 — reviewer snapshot*
-2. **GitHub / landing URL** — `https://github.com/tareketman/clinmap` after publish; use the Pages URL once deployed
+2. **GitHub / landing URL** — `https://github.com/TarekEtman/clinmap` after publish; use the Pages URL once deployed
 3. **Optional:** LinkedIn technical post (see `linkedin_technical_post.md`)
 
 ## Experience block (project entry)

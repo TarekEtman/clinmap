@@ -45,3 +45,8 @@ HANDOFF_*.md
 # Keep generated report artifacts intentionally tracked if publishing.
 !report/*.pdf
 !report/charts/*.svg
+
+# private launch materials
+Tarek_Etman_CV.pdf
+report/make_cv_pdf.py
+.review_private/

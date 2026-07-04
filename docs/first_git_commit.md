@@ -13,14 +13,14 @@ Push only after explicit approval:
 
 ```bash
 git branch -M main
-git remote add origin git@github.com:tareketman/clinmap.git
+git remote add origin git@github.com:TarekEtman/clinmap.git
 git push -u origin main
 ```
 
 If the remote already exists:
 
 ```bash
-git remote set-url origin git@github.com:tareketman/clinmap.git
+git remote set-url origin git@github.com:TarekEtman/clinmap.git
 ```
 
 GitHub Pages deployment is handled by `.github/workflows/deploy-pages.yml` after Pages is configured to use GitHub Actions.

@@ -31,7 +31,7 @@ ClinMAP-VOI v0 · Producer: Tarek Etman
 3,971 human-reviewed hosted responses · 17 models · 3,219 metamorphic relations
 QA audit PASS · pseudonymous holdout panel + inspectable disagreement vignettes
 40 families / 320 variants / 280 relations · synthetic only · not clinical validation
-PDF: report/clinmap_voi_v0_snapshot.pdf · Repo after publish: https://github.com/tareketman/clinmap
+PDF: report/clinmap_voi_v0_snapshot.pdf · Repo after publish: https://github.com/TarekEtman/clinmap
 ```
 
 ---
@@ -154,7 +154,7 @@ Model Evaluation · Human Data Quality · Clinical Safety (AI) · Rubric Design 
 ```
 TECHNICAL PROOF — CLINMAP-VOI v0 (Producer: Tarek Etman)
 Hosted metamorphic healthcare benchmark · 3,971 reviewed · 17 models · QA audit pass
-PDF: report/clinmap_voi_v0_snapshot.pdf · GitHub after publish: https://github.com/tareketman/clinmap
+PDF: report/clinmap_voi_v0_snapshot.pdf · GitHub after publish: https://github.com/TarekEtman/clinmap
 
 · Framework: 40 families, 320 variants, 280 metamorphic relations
 · Hosted eval ops, corpus dedupe, frozen review queue, relation integrity 1.0

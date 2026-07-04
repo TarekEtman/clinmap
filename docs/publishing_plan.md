@@ -70,14 +70,14 @@ cd /Users/nati/Documents/JOB/ClinMAP
 ./scripts/stage_clinmap_v0_commit.sh --stage
 git commit -m "ClinMAP-VOI v0: hosted benchmark, review artifacts, methodology, and landing"
 git branch -M main
-git remote add origin git@github.com:tareketman/clinmap.git
+git remote add origin git@github.com:TarekEtman/clinmap.git
 git push -u origin main
 ```
 
 If the remote already exists, use:
 
 ```bash
-git remote set-url origin git@github.com:tareketman/clinmap.git
+git remote set-url origin git@github.com:TarekEtman/clinmap.git
 ```
 
 ## Post-publish profile links
@@ -86,8 +86,8 @@ Use the landing page as the primary public link. Use the GitHub repo when the re
 
 Canonical proof links after publishing:
 
-- Repo: `https://github.com/tareketman/clinmap`
-- PDF in repo: `https://github.com/tareketman/clinmap/blob/main/report/clinmap_voi_v0_snapshot.pdf`
+- Repo: `https://github.com/TarekEtman/clinmap`
+- PDF in repo: `https://github.com/TarekEtman/clinmap/blob/main/report/clinmap_voi_v0_snapshot.pdf`
 - Pages URL: use the GitHub Pages URL shown after deployment.
 
 ## Do not publish if

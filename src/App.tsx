@@ -1,505 +1,280 @@
-import { lazy, ReactNode, Suspense, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { ReactNode } from 'react';
 import {
   ArrowUpRight,
-  BrainCircuit,
-  CheckCircle2,
-  Database,
   FileText,
   Github,
   Linkedin,
   Mail,
-  Microscope,
-  Radar,
   ShieldCheck,
-  Stethoscope,
-  Workflow,
 } from 'lucide-react';
-
-const avatarSrc = '/assets/tarek-avatar-3d-v1.webp';
-const LabScene = lazy(() => import('./components/LabScene'));
 
 /** Repo URL used by the landing page; verify after publishing/deploying. */
 const SITE = {
-  repoUrl: 'https://github.com/tareketman/clinmap',
+  repoUrl: 'https://github.com/TarekEtman/clinmap',
   linkedIn: 'https://www.linkedin.com/in/tareketman',
   email: 'mailto:dr.tareketman@gmail.com',
+  pdf: '/assets/clinmap_voi_v0_snapshot.pdf',
 };
 
-const clinmapProof = [
+const STATS: Array<{ value: string; label: string }> = [
+  { value: '3,971', label: 'responses reviewed, one at a time, by a licensed clinician' },
+  { value: '17', label: 'models scored across hosted providers under one frozen run ID' },
+  { value: '3,219', label: 'metamorphic relation annotations with oracle labels' },
+  { value: 'PASS', label: 'post-review QA audit, including the gates that could have failed' },
+];
+
+const METHOD: Array<{ step: string; title: string; body: string }> = [
+  {
+    step: '01',
+    title: 'Design the probes',
+    body:
+      '40 synthetic clinical decision families, 320 prompt variants, 280 metamorphic relations. Each relation is a promise: if the model understood the first case, its answer to the paired case must move in a known direction.',
+  },
+  {
+    step: '02',
+    title: 'Run the models',
+    body:
+      'Hosted collection across 17 models, deduplicated into a frozen corpus with a versioned run ID and SHA256 hash. The corpus you can download is the corpus that was reviewed.',
+  },
+  {
+    step: '03',
+    title: 'Review like it matters',
+    body:
+      'Every one of the 3,971 responses got a policy label, six dimension scores, and evidence spans tied to the text. Rubrics decide, not mood. Hard calls went to a written adjudication trail.',
+  },
+  {
+    step: '04',
+    title: 'Audit the reviewer',
+    body:
+      'A blind protocol QC pass agreed with the primary review at kappa 0.84. An independent external panel re-coded 720 holdout items. Where they disagreed, the disagreements were published as worked vignettes rather than smoothed over.',
+  },
+];
+
+const EVIDENCE: Array<{ title: string; stat: string; body: string; href: string }> = [
   {
     title: 'QA audit',
     stat: 'PASS',
-    body: 'Frozen artifact verification: decision accuracy, κ vs blind protocol QC, relation integrity 1.0, holdout gates.',
-    href: '/assets/clinmap_voi_v0_snapshot.pdf',
-    icon: <ShieldCheck />,
+    body: 'Frozen artifact verification: holdout accuracy, kappa against blind protocol QC, relation integrity 1.00, majority-agreement gates.',
+    href: SITE.pdf,
   },
   {
     title: 'Model metrics',
     stat: '17 models',
-    body: 'Hosted multi-model decision accuracy and metamorphic pass rates — reproducible under versioned run ID and corpus hash.',
-    href: '/assets/clinmap_voi_v0_snapshot.pdf',
-    icon: <Radar />,
+    body: 'Decision accuracy and metamorphic pass rate per model, reproducible from the frozen queue with one make target.',
+    href: SITE.pdf,
   },
   {
     title: 'Holdout panel',
-    stat: 'κ ≈ 0.77',
-    body: 'Blinded panel_r01/r02 — two independent external reviewers on unseen families — inspectable disagreement vignettes, not cherry-picked unsafe-only cases.',
-    href: '/assets/clinmap_voi_v0_snapshot.pdf',
-    icon: <Microscope />,
+    stat: '720 items',
+    body: 'Two independent external reviewers re-coded unseen families. Their agreement, and their disagreement, are both in the record.',
+    href: SITE.pdf,
   },
   {
-    title: 'Frontier pack',
+    title: 'Evidence pack',
     stat: 'Wilson CIs',
-    body: 'Discrimination, failure atlas, gold independence — benchmark evidence bundle for lab-style reviewers.',
+    body: 'Confidence intervals, discrimination analysis, failure atlas, gold-label independence. Built for reviewers who check.',
     href: SITE.repoUrl,
-    icon: <Database />,
   },
 ];
 
-const proofMetrics = [
-  { value: '3971', label: 'reviewed responses', note: 'ClinMAP-VOI v0 hosted benchmark; human domain review complete' },
-  { value: '17', label: 'models scored', note: 'Decision accuracy and metamorphic pass rates in public metrics report' },
-  { value: '280', label: 'metamorphic relations', note: 'Pairwise behavior constraints across synthetic decision families' },
-  { value: '0', label: 'private-source examples', note: 'Synthetic probes only; no patient data or client rubrics' },
+const BOUNDARY: string[] = [
+  'Synthetic probes only. No patients, no records, no clinical claims.',
+  'This measures model behavior against rubrics and metamorphic consistency. It does not measure patient outcomes.',
+  'One primary reviewer with QC layers, not a full multi-human panel. The audit says exactly which is which.',
+  'Not a healthcare leaderboard. Rankings hold within this framework and its stated limits.',
 ];
 
-const systemLayers = [
-  {
-    title: 'Case probes',
-    body: 'Healthcare-domain prompts designed to expose false reassurance, escalation gaps, missing context, and unsupported certainty.',
-    icon: <FileText />,
-  },
-  {
-    title: 'Rubric rules',
-    body: 'Score anchors, cap rules, severity labels, and reviewer instructions that turn judgment into repeatable criteria.',
-    icon: <Workflow />,
-  },
-  {
-    title: 'Review records',
-    body: 'Structured scoring fields, rationales, failure tags, and review records for auditability.',
-    icon: <Database />,
-  },
-  {
-    title: 'Analysis outputs',
-    body: 'Agreement checks, dimension summaries, failure-frequency reporting, limitations, and reproducible run logs.',
-    icon: <Radar />,
-  },
-];
-
-const methods = [
-  ['Evaluation design', 'Define the test surface: risk pattern, prompt context, expected safe behavior, failure tags, scoring dimensions, and review protocol.'],
-  ['Clinical safety review', 'Apply dental/health-domain judgment to spot unsafe reassurance, missing escalation, medication-context gaps, and scope overreach.'],
-  ['Rubric calibration', 'Convert ambiguous review decisions into score anchors, cap rules, adjudication notes, and reusable reviewer guidance.'],
-  ['Response ranking', 'Compare outputs by safety, evidence alignment, uncertainty handling, usefulness, and rationale faithfulness.'],
-  ['Metamorphic consistency', 'Check whether model policy behavior moves correctly when decisive facts change and stays stable under nuisance shifts.'],
-  ['Reproducibility', 'Run manifests, corpus hashes, validation scripts, metrics, and audit gates—inspectable without private data.'],
-];
-
-const evidenceCards = [
-  {
-    number: '01',
-    title: 'Clinical triage risk',
-    category: 'Safety boundary',
-    href: './cases/01_false_reassurance_triage.md',
-    signal: 'Tests whether the model under-escalates risk when the prompt sounds ordinary but contains red-flag context.',
-    tags: ['false reassurance', 'escalation omission', 'severity cap'],
-    icon: <ShieldCheck />,
-  },
-  {
-    number: '02',
-    title: 'Dental medication context',
-    category: 'Domain constraints',
-    href: './cases/02_dental_medication_context.md',
-    signal: 'Checks whether the response avoids unsafe certainty when oral-health, medication, or contraindication context is missing.',
-    tags: ['medication context', 'scope control', 'missing history'],
-    icon: <Stethoscope />,
-  },
-  {
-    number: '03',
-    title: 'Public-health misinformation',
-    category: 'Evidence quality',
-    href: './cases/03_public_health_misinformation.md',
-    signal: 'Evaluates uncertainty, evidence strength, population framing, and access constraints without amplifying unsupported claims.',
-    tags: ['unsupported claim', 'uncertainty', 'population context'],
-    icon: <Microscope />,
-  },
-  {
-    number: '04',
-    title: 'Reasoning faithfulness',
-    category: 'Auditability',
-    href: './cases/04_reasoning_faithfulness_medical_qa.md',
-    signal: 'Checks whether the reviewer rationale actually supports the score, failure tags, and preference decision.',
-    tags: ['rationale audit', 'score trace', 'calibration'],
-    icon: <BrainCircuit />,
-  },
-];
-
-type FadeInProps = {
-  children: ReactNode;
-  delay?: number;
-  duration?: number;
-  x?: number;
-  y?: number;
-  className?: string;
-};
-
-function FadeIn({ children, className }: FadeInProps) {
-  return <div className={className}>{children}</div>;
-}
-
-function PrimaryButton({ href, children }: { href: string; children: ReactNode }) {
+function Button({ href, children, primary }: { href: string; children: ReactNode; primary?: boolean }) {
   return (
     <a
       href={href}
-      className="inline-flex items-center gap-2 rounded-full bg-[#A95132] px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(169,81,50,0.18)] transition hover:-translate-y-0.5 hover:bg-[#8F4228]"
+      target={href.startsWith('http') ? '_blank' : undefined}
+      rel="noreferrer"
+      className={
+        primary
+          ? 'inline-flex items-center gap-2 rounded-full bg-[#344551] px-6 py-3 text-sm font-medium text-[#F7F4EF] transition hover:bg-[#42586a]'
+          : 'inline-flex items-center gap-2 rounded-full border border-[#344551]/25 px-6 py-3 text-sm font-medium text-[#344551] transition hover:border-[#344551]/50 hover:bg-white/50'
+      }
     >
       {children}
-      <ArrowUpRight size={17} />
     </a>
   );
 }
 
-function SecondaryButton({ href, children }: { href: string; children: ReactNode }) {
-  return (
-    <a
-      href={href}
-      className="inline-flex items-center gap-2 rounded-full border border-[#303846]/18 bg-white/70 px-5 py-3 text-sm font-semibold text-[#303846] transition hover:-translate-y-0.5 hover:border-[#A95132]/50 hover:bg-white"
-    >
-      {children}
-      <ArrowUpRight size={17} />
-    </a>
-  );
-}
-
-function SectionLabel({ children }: { children: ReactNode }) {
+function Label({ children }: { children: ReactNode }) {
   return <p className="section-label mb-4">{children}</p>;
-}
-
-function HeroAvatar() {
-  return (
-    <motion.div
-      className="avatar-stage relative mx-auto h-[360px] w-[280px] sm:h-[430px] sm:w-[340px] lg:h-[500px] lg:w-[400px]"
-      animate={{ y: [0, -8, 0], rotateY: [-2, 2, -2] }}
-      transition={{ repeat: Infinity, duration: 9, ease: 'easeInOut' }}
-      style={{ transformStyle: 'preserve-3d' }}
-    >
-      <div className="absolute inset-x-[12%] bottom-[8%] top-[14%] rounded-[42%] bg-[#0E2630]/18 blur-[52px]" />
-      <div className="avatar-ring absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#A95132]/18" />
-      <div className="avatar-ring avatar-ring-2 absolute left-1/2 top-1/2 h-[70%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#303846]/14" />
-      <div className="avatar-ring avatar-ring-3 absolute left-1/2 top-1/2 h-[88%] w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#A95132]/14" />
-
-      <motion.div
-        className="avatar-card absolute left-1/2 top-[51%] h-[88%] w-[100%] -translate-x-1/2 -translate-y-1/2"
-        whileHover={{ scale: 1.015, rotateY: 3 }}
-        transition={{ type: 'spring', stiffness: 110, damping: 18 }}
-      >
-        <img src={avatarSrc} alt="3D avatar inspired by Tarek" className="avatar-image h-full w-full scale-[1.08] object-cover object-center" />
-        <div className="portrait-glint pointer-events-none absolute inset-0" />
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function HeroSection() {
-  const nav = [
-    ['Proof', '#proof'],
-    ['System', '#system'],
-    ['Methods', '#methods'],
-    ['Demo', '#evidence'],
-    ['Contact', '#contact'],
-  ];
-
-  return (
-    <section className="relative overflow-hidden bg-[#F7F4EF]">
-      <div className="absolute left-0 top-0 h-full w-[5px] bg-[#A95132] sm:left-10" />
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col px-6 py-6 sm:px-10 lg:px-12">
-        <FadeIn y={-10}>
-          <nav className="flex items-center justify-between border-b border-[#303846]/15 pb-5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#303846]/70">
-            <a href="#top" className="text-[#303846]">Tarek Etman</a>
-            <div className="hidden gap-7 md:flex">
-              {nav.map(([label, href]) => (
-                <a key={label} href={href} className="transition hover:text-[#A95132]">
-                  {label}
-                </a>
-              ))}
-            </div>
-          </nav>
-        </FadeIn>
-
-        <div id="top" className="grid flex-1 items-center gap-10 py-12 lg:grid-cols-[1.02fr_0.98fr] lg:py-16">
-          <div>
-            <FadeIn>
-              <SectionLabel>ClinMAP-VOI v0 · hosted benchmark</SectionLabel>
-              <h1 className="max-w-4xl text-[clamp(3rem,8.7vw,7.6rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-[#303846]">
-                <span className="block">Tarek</span>
-                <span className="block">Etman</span>
-              </h1>
-            </FadeIn>
-            <FadeIn delay={0.08}>
-              <p className="mt-6 max-w-2xl text-[clamp(1.15rem,2.4vw,1.65rem)] font-medium italic leading-snug text-[#A95132]">
-                Hired to catch the AI answer that sounds right and isn&apos;t — at benchmark scale.
-              </p>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#606A72] md:text-lg">
-                Named producer of <strong className="font-semibold text-[#344551]">ClinMAP-VOI v0</strong>: metamorphic probes, 3,971 reviewed hosted responses, relation metrics, QA audit, and holdout panel evidence — synthetic only, bounded claims.
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.16}>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <PrimaryButton href="/assets/clinmap_voi_v0_snapshot.pdf"><FileText size={17} /> ClinMAP snapshot PDF</PrimaryButton>
-                <SecondaryButton href={SITE.repoUrl}><Github size={17} /> GitHub repo</SecondaryButton>
-                <SecondaryButton href="#proof"><ShieldCheck size={17} /> Benchmark proof</SecondaryButton>
-                <SecondaryButton href={SITE.linkedIn}><Linkedin size={17} /> LinkedIn</SecondaryButton>
-              </div>
-            </FadeIn>
-          </div>
-
-          <FadeIn delay={0.12}>
-            <div className="relative rounded-[34px] border border-[#303846]/12 bg-[#FFFFFF]/78 p-4 shadow-[0_28px_90px_rgba(48,56,70,0.12)] backdrop-blur md:p-6">
-              <div className="absolute inset-0 overflow-hidden rounded-[34px] opacity-50">
-                <Suspense fallback={null}><LabScene /></Suspense>
-              </div>
-              <div className="relative z-10 rounded-[28px] border border-[#303846]/10 bg-gradient-to-br from-white/76 via-[#F7F4EF]/80 to-[#EDE4DC]/72 p-4">
-                <HeroAvatar />
-                <div className="mt-2 grid gap-2 border-t border-[#303846]/12 pt-4 text-sm text-[#303846]/72 sm:grid-cols-3">
-                  <span>Licensed dentist</span>
-                  <span>Global Health MPP</span>
-                  <span>Model evaluation</span>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SnapshotSection() {
-  return (
-    <section id="snapshot" className="bg-white px-6 py-14 sm:px-10 lg:px-12">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn>
-          <div className="grid gap-3 md:grid-cols-4">
-            {proofMetrics.map((item, i) => (
-              <div key={item.label} className="surface-card p-5">
-                <div className="text-[clamp(2.1rem,4vw,3.8rem)] font-black leading-none text-[#A95132]">{item.value}</div>
-                <div className="mt-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#303846]">{item.label}</div>
-                <div className="mt-3 text-sm leading-relaxed text-[#6D747B]">{item.note}</div>
-                <div className="mt-5 h-px bg-[#303846]/12" />
-                <div className="mt-3 text-xs font-semibold text-[#303846]/52">0{i + 1}</div>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
-      </div>
-    </section>
-  );
-}
-
-function ProofSection() {
-  return (
-    <section id="proof" className="bg-white px-6 py-20 sm:px-10 lg:px-12">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn>
-          <SectionLabel>ClinMAP-VOI v0 · benchmark proof</SectionLabel>
-          <h2 className="section-heading max-w-4xl">One deliverable. Full audit trail.</h2>
-          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-[#606A72]">
-            Frontier reviewers and gig-platform buyers see the same artifact: frozen hosted benchmark, named primary review, metamorphic relations, and explicit limits — not a slide deck.
-          </p>
-        </FadeIn>
-        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {clinmapProof.map((card, i) => (
-            <FadeIn key={card.title} delay={i * 0.05}>
-              <a href={card.href} className="surface-card group flex h-full flex-col p-6 transition hover:border-[#A95132]/35">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="text-[clamp(1.6rem,3vw,2.2rem)] font-black leading-none text-[#A95132]">{card.stat}</div>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#A95132]/10 text-[#A95132] [&_svg]:h-5 [&_svg]:w-5">{card.icon}</div>
-                </div>
-                <h3 className="mt-4 text-sm font-black uppercase tracking-[0.1em] text-[#344551]">{card.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#606A72]">{card.body}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#A95132] group-hover:text-[#8F4228]">
-                  Open <ArrowUpRight size={15} />
-                </span>
-              </a>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SystemSection() {
-  return (
-    <section id="system" className="bg-[#F7F4EF] px-6 py-20 sm:px-10 lg:px-12">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
-          <FadeIn>
-            <SectionLabel>ClinMAP-VOI v0</SectionLabel>
-            <h2 className="section-heading">Judgment made inspectable.</h2>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#606A72]">
-              Hosted benchmark plus methodology: metamorphic families, review queue, relation annotations, model metrics, QA audit, and bounded claims—not a clinical outcomes study.
-            </p>
-          </FadeIn>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {systemLayers.map((layer, i) => (
-            <FadeIn key={layer.title} delay={i * 0.05}>
-              <div className="surface-card min-h-[220px] p-6">
-                <div className="mb-8 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#A95132]/10 text-[#A95132] [&_svg]:h-5 [&_svg]:w-5">{layer.icon}</div>
-                <h3 className="text-xl font-black uppercase tracking-[-0.02em] text-[#303846]">{layer.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-[#667078]">{layer.body}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MethodsSection() {
-  return (
-    <section id="methods" className="bg-white px-6 py-20 sm:px-10 lg:px-12">
-      <div className="mx-auto max-w-6xl">
-        <FadeIn>
-          <SectionLabel>Evaluation methods</SectionLabel>
-          <h2 className="section-heading max-w-4xl">Designed for review, calibration, and reproducibility.</h2>
-        </FadeIn>
-        <div className="mt-12 divide-y divide-[#303846]/12 border-y border-[#303846]/12">
-          {methods.map(([title, body], i) => (
-            <FadeIn key={title} delay={i * 0.04}>
-              <div className="grid gap-5 py-7 md:grid-cols-[120px_0.8fr_1.2fr] md:items-start">
-                <div className="text-3xl font-black text-[#A95132]">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="text-xl font-black uppercase text-[#303846]">{title}</h3>
-                <p className="text-base leading-relaxed text-[#606A72]">{body}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function EvidenceCard({ card, index }: { card: (typeof evidenceCards)[number]; index: number }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
-  const y = useTransform(scrollYProgress, [0, 1], [24, 0]);
-  return (
-    <motion.article ref={ref} style={{ y }} className="surface-card flex h-full flex-col p-6">
-      <div className="flex items-start justify-between gap-5">
-        <div>
-          <div className="text-sm font-black text-[#A95132]">{card.number}</div>
-          <h3 className="mt-4 text-2xl font-black uppercase leading-tight text-[#303846]">{card.title}</h3>
-        </div>
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#0E2630]/8 text-[#0E2630] [&_svg]:h-6 [&_svg]:w-6">{card.icon}</div>
-      </div>
-      <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#303846]/48">{card.category}</p>
-      <p className="mt-5 flex-1 text-sm leading-relaxed text-[#606A72]">{card.signal}</p>
-      <div className="mt-6 flex flex-wrap gap-2">
-        {card.tags.map((tag) => (
-          <span key={tag} className="rounded-full border border-[#303846]/12 px-3 py-1.5 text-xs font-medium text-[#303846]/70">{tag}</span>
-        ))}
-      </div>
-      <a href={card.href} className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#A95132] hover:text-[#8F4228]">
-        Open case file <ArrowUpRight size={15} />
-      </a>
-    </motion.article>
-  );
-}
-
-function EvidenceSection() {
-  return (
-    <section id="evidence" className="bg-[#F7F4EF] px-6 py-20 sm:px-10 lg:px-12">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn>
-          <div className="flex flex-col justify-between gap-6 border-b border-[#303846]/12 pb-8 md:flex-row md:items-end">
-            <div>
-              <SectionLabel>Case evidence</SectionLabel>
-              <h2 className="section-heading max-w-4xl">Synthetic v1 demo probes (supporting lineage).</h2>
-            </div>
-            <SecondaryButton href="/explorer/">Open explorer</SecondaryButton>
-          </div>
-        </FadeIn>
-        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {evidenceCards.map((card, index) => (
-            <FadeIn key={card.title} delay={index * 0.05}>
-              <EvidenceCard card={card} index={index} />
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BackgroundSection() {
-  return (
-    <section id="background" className="bg-white px-6 py-20 sm:px-10 lg:px-12">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-        <FadeIn>
-          <SectionLabel>Background</SectionLabel>
-          <h2 className="section-heading">Clinical judgment plus evaluator craft.</h2>
-        </FadeIn>
-        <FadeIn delay={0.08}>
-          <div className="grid gap-4">
-            {[
-              ['Licensed dentist', 'Domain sensitivity to patient communication, missing context, oral-health constraints, and safety boundaries.'],
-              ['Sciences Po Global Health MPP', 'Population context, policy reasoning, evidence review, access constraints, and scientific communication.'],
-              ['Medical AI evaluator', 'Hands-on review of medical AI responses, preference rationales, response ranking, QA, and rubric calibration.'],
-            ].map(([title, body]) => (
-              <div key={title} className="flex gap-4 border-b border-[#303846]/10 pb-5 last:border-b-0">
-                <CheckCircle2 className="mt-1 shrink-0 text-[#A95132]" size={20} />
-                <div>
-                  <h3 className="font-black uppercase text-[#303846]">{title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-[#606A72]">{body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
-      </div>
-    </section>
-  );
-}
-
-function ContactSection() {
-  return (
-    <section id="contact" className="bg-[#303846] px-6 py-16 text-white sm:px-10 lg:px-12">
-      <div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row md:items-center">
-        <FadeIn>
-          <SectionLabel>Contact</SectionLabel>
-          <h2 className="max-w-3xl text-[clamp(2.2rem,5vw,5rem)] font-black uppercase leading-[0.95] tracking-[-0.04em]">Open to model evaluation and clinical AI safety work.</h2>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/70">
-            Evaluation systems, rubric design, human data quality, healthcare-domain model behavior review, and response-ranking work.
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.08}>
-          <div className="flex flex-wrap gap-3 md:justify-end">
-            <a href="mailto:dr.tareketman@gmail.com" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#303846] transition hover:bg-[#F7F4EF]"><Mail size={17} /> Email</a>
-            <a href="https://www.linkedin.com/in/tareketman" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Linkedin size={17} /> LinkedIn</a>
-            <a href="/assets/clinmap_voi_v0_snapshot.pdf" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><FileText size={17} /> ClinMAP PDF</a>
-            <a href={SITE.repoUrl} className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"><Github size={17} /> GitHub</a>
-          </div>
-        </FadeIn>
-      </div>
-    </section>
-  );
 }
 
 export default function App() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#F7F4EF] font-kanit text-[#303846]">
-      <HeroSection />
-      <SnapshotSection />
-      <ProofSection />
-      <SystemSection />
-      <MethodsSection />
-      <EvidenceSection />
-      <BackgroundSection />
-      <ContactSection />
-    </main>
+    <div className="relative dreamwash grain min-h-screen">
+      <div className="relative z-10 mx-auto max-w-5xl px-6">
+        {/* Nav */}
+        <header className="flex items-center justify-between py-8">
+          <p className="font-serif-display text-lg font-medium tracking-tight">Tarek Etman</p>
+          <nav className="flex items-center gap-5 text-sm text-[#344551]/80">
+            <a href="#method" className="hidden hover:text-[#344551] sm:block">Method</a>
+            <a href="#evidence" className="hidden hover:text-[#344551] sm:block">Evidence</a>
+            <a href="#boundary" className="hidden hover:text-[#344551] sm:block">Limits</a>
+            <a href={SITE.repoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#344551]">
+              <Github size={16} /> GitHub
+            </a>
+          </nav>
+        </header>
+
+        {/* Hero */}
+        <section className="pb-20 pt-16 sm:pt-24">
+          <Label>ClinMAP-VOI v0 · a healthcare-domain model behavior benchmark</Label>
+          <h1 className="font-serif-display max-w-3xl text-4xl font-medium leading-[1.08] tracking-tight text-[#2e3c47] sm:text-6xl">
+            The dangerous answer is rarely the wrong one. It is the confident one, given too early.
+          </h1>
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-[#344551]/85 sm:text-lg">
+            I am a licensed dentist and Sciences Po Global Health MPP who evaluates medical AI for a living.
+            After reviewing 850+ responses under contract, I built my own benchmark to test the failure mode
+            the clinic taught me to fear. Then I audited my own reviewing, and published what the audit found.
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Button href={SITE.pdf} primary><FileText size={16} /> Read the 2-page snapshot</Button>
+            <Button href={SITE.repoUrl}><Github size={16} /> Inspect the repo</Button>
+            <Button href={SITE.linkedIn}><Linkedin size={16} /> LinkedIn</Button>
+          </div>
+        </section>
+
+        {/* Stats */}
+        <section className="rule grid grid-cols-2 gap-x-8 py-10 lg:grid-cols-4">
+          {STATS.map((s) => (
+            <div key={s.label} className="py-3">
+              <p className="font-serif-display text-4xl font-medium text-[#A95F37]">{s.value}</p>
+              <p className="mt-2 text-xs leading-relaxed text-[#344551]/70">{s.label}</p>
+            </div>
+          ))}
+        </section>
+
+        {/* What this is */}
+        <section className="rule py-20">
+          <Label>What this is</Label>
+          <div className="grid gap-10 lg:grid-cols-2">
+            <h2 className="font-serif-display text-3xl font-medium leading-snug tracking-tight sm:text-4xl">
+              Expert review, made inspectable.
+            </h2>
+            <div className="space-y-5 text-[15px] leading-relaxed text-[#344551]/85">
+              <p>
+                Plenty of people can tell you a model answer feels unsafe. The hard part is turning that feeling
+                into probes, labels, metrics, and an audit trail that a stranger can check without trusting you.
+                That is what this project does, end to end.
+              </p>
+              <p>
+                ClinMAP-VOI v0 asks one question with discipline: when a clinical decision quietly changes under
+                the surface of a prompt, does the model notice? Escalation timing, missing context, medication risk.
+                The cases are synthetic. The judgment applied to them is not.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Method */}
+        <section id="method" className="rule py-20">
+          <Label>How it works</Label>
+          <h2 className="font-serif-display mb-12 max-w-xl text-3xl font-medium leading-snug tracking-tight sm:text-4xl">
+            Four stages. Every one of them leaves evidence.
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {METHOD.map((m) => (
+              <div key={m.step} className="card p-7">
+                <p className="section-label">{m.step}</p>
+                <h3 className="font-serif-display mt-3 text-xl font-medium">{m.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#344551]/80">{m.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Vignette */}
+        <section className="rule py-20">
+          <Label>From the disagreement record</Label>
+          <div className="card p-8 sm:p-10">
+            <div className="flex items-start gap-4">
+              <ShieldCheck className="mt-1 shrink-0 text-[#A95F37]" size={22} />
+              <div>
+                <p className="font-serif-display text-xl font-medium leading-relaxed sm:text-2xl">
+                  Two blinded reviewers read the same safe-looking answer and disagreed. Not about whether it was
+                  unsafe, but about how firmly it should have escalated once the user pushed back.
+                </p>
+                <p className="mt-5 text-sm leading-relaxed text-[#344551]/75">
+                  That disagreement is published as a worked vignette, with both readings and the adjudication.
+                  A benchmark that hides its hard cases is advertising. This one keeps them on the record,
+                  because the hard cases are where evaluation actually lives.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Evidence */}
+        <section id="evidence" className="rule py-20">
+          <Label>Evidence</Label>
+          <h2 className="font-serif-display mb-12 max-w-xl text-3xl font-medium leading-snug tracking-tight sm:text-4xl">
+            Check the work. That is the point of it.
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {EVIDENCE.map((e) => (
+              <a key={e.title} href={e.href} target="_blank" rel="noreferrer" className="card group p-7 transition hover:-translate-y-0.5">
+                <div className="flex items-center justify-between">
+                  <p className="section-label">{e.title}</p>
+                  <ArrowUpRight size={16} className="text-[#344551]/40 transition group-hover:text-[#A95F37]" />
+                </div>
+                <p className="font-serif-display mt-3 text-2xl font-medium text-[#A95F37]">{e.stat}</p>
+                <p className="mt-3 text-sm leading-relaxed text-[#344551]/80">{e.body}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* Boundary */}
+        <section id="boundary" className="rule py-20">
+          <Label>Claim boundary</Label>
+          <div className="grid gap-10 lg:grid-cols-2">
+            <h2 className="font-serif-display text-3xl font-medium leading-snug tracking-tight sm:text-4xl">
+              What this does not claim.
+            </h2>
+            <ul className="space-y-4 text-[15px] leading-relaxed text-[#344551]/85">
+              {BOUNDARY.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#A95F37]" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* About / CTA */}
+        <section className="rule py-20">
+          <div className="card p-8 sm:p-12">
+            <Label>The person behind it</Label>
+            <h2 className="font-serif-display max-w-2xl text-3xl font-medium leading-snug tracking-tight sm:text-4xl">
+              Five years in a clinic. A public policy degree. And a benchmark that says so.
+            </h2>
+            <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-[#344551]/85">
+              I practiced dentistry for five years in Cairo, took a Global Health MPP at Sciences Po, and spent the
+              last year evaluating medical AI under contract: 850+ responses reviewed, 94% of my rationales adopted
+              without revision. ClinMAP is the part of the work I can show you. If you run evaluation, human data,
+              or safety review and want someone who treats labels like they carry weight, I would like to talk.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href={SITE.email} primary><Mail size={16} /> dr.tareketman@gmail.com</Button>
+              <Button href={SITE.linkedIn}><Linkedin size={16} /> LinkedIn</Button>
+              <Button href={SITE.repoUrl}><Github size={16} /> GitHub</Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="flex flex-col items-start justify-between gap-3 py-10 text-xs text-[#344551]/60 sm:flex-row sm:items-center">
+          <p>Tarek Etman · Licensed dentist · Global Health MPP · Clinical AI evaluation</p>
+          <p>Synthetic benchmark · not clinical validation · ClinMAP-VOI v0</p>
+        </footer>
+      </div>
+    </div>
   );
 }
