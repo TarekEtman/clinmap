@@ -1,0 +1,108 @@
+{
+  "allowed_moves": [
+    "general_information_with_boundary",
+    "ask_targeted_context_before_guidance",
+    "recommend_timely_professional_review",
+    "recommend_urgent_assessment",
+    "avoid_medication_or_treatment_approval",
+    "summarize_and_flag_uncertainty"
+  ],
+  "contains_patient_data": false,
+  "contains_platform_tasks": false,
+  "contains_proprietary_rubrics": false,
+  "created_at": "2026-07-03T12:00:00Z",
+  "created_by": "Tarek Etman",
+  "benchmark_producer": "Tarek Etman",
+  "primary_domain_reviewer": "Tarek Etman",
+  "dimensions": [
+    "clinical_safety",
+    "escalation_handling",
+    "missing_context_detection",
+    "medication_contraindication_safety",
+    "factuality_claim_control",
+    "uncertainty_calibration",
+    "scope_control",
+    "usefulness",
+    "reasoning_consistency",
+    "communication_clarity"
+  ],
+  "domain_counts": {
+    "antibiotic_stewardship": 1,
+    "chronic_condition_boundary": 1,
+    "clinical_summarization": 2,
+    "dental_oral_health": 4,
+    "geriatric_context": 1,
+    "immunocompromised_context": 1,
+    "infectious_risk": 1,
+    "lab_interpretation": 1,
+    "medication_safety": 5,
+    "mental_health_safety": 1,
+    "multi_turn_correction": 1,
+    "over_refusal_control": 2,
+    "pediatric_triage": 3,
+    "poisoning_toxicology": 1,
+    "postoperative_context": 1,
+    "pregnancy_context": 2,
+    "public_health_misinformation": 1,
+    "reasoning_faithfulness": 1,
+    "research_assistance": 1,
+    "respiratory_triage": 1,
+    "urgent_triage": 8
+  },
+  "family_count": 40,
+  "framework_version": "clinmap-voi-v0.1",
+  "human_annotation_status": "complete_primary_and_relations",
+  "metamorphic_relation_count": 280,
+  "metamorphic_relation_counts": {
+    "contraindication_sensitivity": 40,
+    "directional_safety_monotonicity": 40,
+    "nuisance_invariance": 40,
+    "pressure_resistance": 40,
+    "safety_hysteresis_update": 40,
+    "urgent_red_flag_dominance": 40,
+    "voi_request_increase": 40
+  },
+  "model_output_status": "hosted_collection_complete",
+  "next_gate": "public_portfolio_release_optional_v0_1_extension",
+  "optimal_move_counts": {
+    "ask_targeted_context_before_guidance": 80,
+    "avoid_medication_or_treatment_approval": 40,
+    "general_information_with_boundary": 80,
+    "recommend_timely_professional_review": 80,
+    "recommend_urgent_assessment": 40
+  },
+  "performance_claim_status": "available_see_clinmap_voi_v0_performance_metrics",
+  "prohibited_sources": [
+    "patient_data",
+    "platform_tasks",
+    "client_materials",
+    "proprietary_rubrics",
+    "confidential_evaluation_work"
+  ],
+  "prompt_count": 320,
+  "public_scope": "synthetic methodology and evaluation-harness design",
+  "relation_direction_counts": {
+    "increase": 200,
+    "invariant": 80
+  },
+  "relations_per_family": 7,
+  "release_status": "v0_review_complete",
+  "split_counts": {
+    "calibration": 8,
+    "dev": 24,
+    "holdout": 8
+  },
+  "synthetic_only": true,
+  "variant_count": 320,
+  "variant_type_counts": {
+    "contraindication_or_medication_risk": 40,
+    "followup_correction": 40,
+    "high_risk_context_shift": 40,
+    "low_risk_control": 40,
+    "missing_context": 40,
+    "nuisance_invariance": 40,
+    "urgent_red_flag": 40,
+    "user_pressure": 40
+  },
+  "variants_per_family": 8
+}

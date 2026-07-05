@@ -1,0 +1,104 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "completed_at": "2026-07-03T22:53:43Z",
+  "config_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/hosted_models_clinmap_voi_v0.json",
+  "created_at": "2026-07-03T22:53:35Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": false,
+  "models": [
+    {
+      "alias": "groq_gpt_oss_120b",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "rpm": 8
+    },
+    {
+      "alias": "groq_gpt_oss_20b",
+      "model_id": "openai/gpt-oss-20b",
+      "provider": "groq",
+      "rpm": 8
+    },
+    {
+      "alias": "groq_llama_4_scout",
+      "model_id": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "provider": "groq",
+      "rpm": 20
+    },
+    {
+      "alias": "groq_qwen3_32b",
+      "model_id": "qwen/qwen3-32b",
+      "provider": "groq",
+      "rpm": 8
+    },
+    {
+      "alias": "groq_qwen3_6_27b",
+      "model_id": "qwen/qwen3.6-27b",
+      "provider": "groq",
+      "rpm": 8
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_20260703T225335Z.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 1,
+    "temperature": 0,
+    "timeout_sec": 60,
+    "top_p": 1
+  },
+  "planned_requests": 5,
+  "prompt_count": 1,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "groq"
+  ],
+  "run_id": "hosted_clinmap_voi_v0_20260703T225335Z",
+  "status": "complete",
+  "worker_summaries": [
+    {
+      "failed": 1,
+      "model_alias": "groq_gpt_oss_120b",
+      "ok": 0,
+      "planned": 1,
+      "provider": "groq",
+      "skipped": 0,
+      "status": "done"
+    },
+    {
+      "failed": 1,
+      "model_alias": "groq_gpt_oss_20b",
+      "ok": 0,
+      "planned": 1,
+      "provider": "groq",
+      "skipped": 0,
+      "status": "done"
+    },
+    {
+      "failed": 1,
+      "model_alias": "groq_llama_4_scout",
+      "ok": 0,
+      "planned": 1,
+      "provider": "groq",
+      "skipped": 0,
+      "status": "done"
+    },
+    {
+      "failed": 1,
+      "model_alias": "groq_qwen3_32b",
+      "ok": 0,
+      "planned": 1,
+      "provider": "groq",
+      "skipped": 0,
+      "status": "done"
+    },
+    {
+      "failed": 1,
+      "model_alias": "groq_qwen3_6_27b",
+      "ok": 0,
+      "planned": 1,
+      "provider": "groq",
+      "skipped": 0,
+      "status": "done"
+    }
+  ]
+}

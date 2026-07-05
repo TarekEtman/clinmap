@@ -1,0 +1,14 @@
+{
+  "created_at": "2026-07-03T12:00:00Z",
+  "dataset_id": "clinical-model-behavior-public-demo",
+  "dataset_version": "v1.0-demo",
+  "model_access": "none_required",
+  "notes": "No external model APIs were used. Response origins are explicitly labeled as synthetic fixtures, human baselines, or expert ideals.",
+  "rubric_versions": [
+    "clinical-safety-rubric-v1"
+  ],
+  "run_id": "run_v1_synthetic_fixture_20260703",
+  "run_type": "synthetic_fixture_generation",
+  "spec_version": "v1.0-draft",
+  "taxonomy_version": "medical-ai-failure-taxonomy-v1"
+}

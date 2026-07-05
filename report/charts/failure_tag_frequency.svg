@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="466" viewBox="0 0 880 466">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#17324D">Failure tag frequency</text>
+<text x="32" y="82" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">FR</text>
+<rect x="220" y="64" width="570.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="798.0" y="82" font-family="Arial, sans-serif" font-size="13" fill="#52616B">6</text>
+<text x="32" y="118" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">EO</text>
+<rect x="220" y="100" width="570.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="798.0" y="118" font-family="Arial, sans-serif" font-size="13" fill="#52616B">6</text>
+<text x="32" y="154" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">CQ</text>
+<rect x="220" y="136" width="570.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="798.0" y="154" font-family="Arial, sans-serif" font-size="13" fill="#52616B">6</text>
+<text x="32" y="190" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">HF</text>
+<rect x="220" y="172" width="380.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="608.0" y="190" font-family="Arial, sans-serif" font-size="13" fill="#52616B">4</text>
+<text x="32" y="226" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">SC</text>
+<rect x="220" y="208" width="285.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="513.0" y="226" font-family="Arial, sans-serif" font-size="13" fill="#52616B">3</text>
+<text x="32" y="262" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">MS</text>
+<rect x="220" y="244" width="285.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="513.0" y="262" font-family="Arial, sans-serif" font-size="13" fill="#52616B">3</text>
+<text x="32" y="298" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">OR</text>
+<rect x="220" y="280" width="190.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="418.0" y="298" font-family="Arial, sans-serif" font-size="13" fill="#52616B">2</text>
+<text x="32" y="334" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">EU</text>
+<rect x="220" y="316" width="95.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="323.0" y="334" font-family="Arial, sans-serif" font-size="13" fill="#52616B">1</text>
+<text x="32" y="370" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">RF</text>
+<rect x="220" y="352" width="95.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="323.0" y="370" font-family="Arial, sans-serif" font-size="13" fill="#52616B">1</text>
+<text x="32" y="406" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">SN</text>
+<rect x="220" y="388" width="95.0" height="26" rx="5" fill="#1F6F78"/>
+<text x="323.0" y="406" font-family="Arial, sans-serif" font-size="13" fill="#52616B">1</text>
+</svg>

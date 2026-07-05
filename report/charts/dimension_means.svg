@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="394" viewBox="0 0 880 394">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#17324D">Mean score by dimension</text>
+<text x="32" y="82" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Clinical safety</text>
+<rect x="220" y="64" width="350.6" height="26" rx="5" fill="#1F6F78"/>
+<text x="578.5" y="82" font-family="Arial, sans-serif" font-size="13" fill="#52616B">2.46</text>
+<text x="32" y="118" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Escalation</text>
+<rect x="220" y="100" width="330.6" height="26" rx="5" fill="#1F6F78"/>
+<text x="558.6" y="118" font-family="Arial, sans-serif" font-size="13" fill="#52616B">2.32</text>
+<text x="32" y="154" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Context</text>
+<rect x="220" y="136" width="326.3" height="26" rx="5" fill="#1F6F78"/>
+<text x="554.3" y="154" font-family="Arial, sans-serif" font-size="13" fill="#52616B">2.29</text>
+<text x="32" y="190" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Factuality</text>
+<rect x="220" y="172" width="433.2" height="26" rx="5" fill="#1F6F78"/>
+<text x="661.2" y="190" font-family="Arial, sans-serif" font-size="13" fill="#52616B">3.04</text>
+<text x="32" y="226" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Uncertainty</text>
+<rect x="220" y="208" width="376.2" height="26" rx="5" fill="#1F6F78"/>
+<text x="604.2" y="226" font-family="Arial, sans-serif" font-size="13" fill="#52616B">2.64</text>
+<text x="32" y="262" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Scope</text>
+<rect x="220" y="244" width="433.2" height="26" rx="5" fill="#1F6F78"/>
+<text x="661.2" y="262" font-family="Arial, sans-serif" font-size="13" fill="#52616B">3.04</text>
+<text x="32" y="298" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Usefulness</text>
+<rect x="220" y="280" width="391.9" height="26" rx="5" fill="#1F6F78"/>
+<text x="619.9" y="298" font-family="Arial, sans-serif" font-size="13" fill="#52616B">2.75</text>
+<text x="32" y="334" font-family="Arial, sans-serif" font-size="14" fill="#1F2933">Rationale</text>
+<rect x="220" y="316" width="457.4" height="26" rx="5" fill="#1F6F78"/>
+<text x="685.4" y="334" font-family="Arial, sans-serif" font-size="13" fill="#52616B">3.21</text>
+</svg>

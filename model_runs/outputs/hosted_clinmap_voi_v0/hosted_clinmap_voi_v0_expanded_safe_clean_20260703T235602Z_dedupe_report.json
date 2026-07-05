@@ -1,0 +1,47 @@
+{
+  "deduped_path": "model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped.jsonl",
+  "deduped_rows": 5335,
+  "duplicate_attempt_rows_removed": 147,
+  "duplicate_keys_seen": 147,
+  "model_counts_deduped": {
+    "cerebras/cerebras_gemma_4_31b/ok": 320,
+    "cerebras/cerebras_gpt_oss_120b/ok": 320,
+    "cerebras/cerebras_zai_glm_4_7/ok": 320,
+    "google/google_gemini_3_5_flash/ok": 21,
+    "google/google_gemini_3_5_flash/rate_limited": 21,
+    "groq/groq_gpt_oss_120b/ok": 320,
+    "groq/groq_gpt_oss_20b/ok": 320,
+    "groq/groq_llama_4_scout/ok": 320,
+    "groq/groq_qwen3_32b/ok": 320,
+    "groq/groq_qwen3_6_27b/ok": 320,
+    "mistral/mistral_large_2512/ok": 320,
+    "mistral/mistral_magistral_medium_2509/ok": 320,
+    "mistral/mistral_medium_2508/ok": 320,
+    "mistral/mistral_small_2603/ok": 320,
+    "nvidia/nvidia_deepseek_v4_pro/ok": 137,
+    "nvidia/nvidia_deepseek_v4_pro/rate_limited": 123,
+    "nvidia/nvidia_glm_5_2/ok": 90,
+    "nvidia/nvidia_glm_5_2/rate_limited": 143,
+    "nvidia/nvidia_llama_3_3_70b_baseline/ok": 320,
+    "nvidia/nvidia_nemotron_primary/ok": 320,
+    "nvidia/nvidia_secondary_chat/ok": 320
+  },
+  "provider_counts_deduped": {
+    "cerebras": 960,
+    "google": 42,
+    "groq": 1600,
+    "mistral": 1280,
+    "nvidia": 1453
+  },
+  "raw_rows": 5482,
+  "selection_policy": "one row per provider/model_id/prompt_id; prefer ok over non-ok; otherwise later appended row",
+  "source_path": "model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z.jsonl",
+  "status_counts_deduped": {
+    "ok": 5048,
+    "rate_limited": 287
+  },
+  "status_counts_raw": {
+    "ok": 5060,
+    "rate_limited": 422
+  }
+}

@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #F7F4EF;
+  color: #344551;
+  font-family: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(169, 95, 55, 0.2);
+  color: #344551;
+}
+
+.font-serif-display {
+  font-family: 'Fraunces', serif;
+}
+
+.section-label {
+  color: #A95F37;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.dreamwash {
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(199, 212, 220, 0.55), transparent 62%),
+    radial-gradient(900px 480px at 88% 4%, rgba(234, 217, 191, 0.5), transparent 60%),
+    radial-gradient(760px 420px at 55% 112%, rgba(213, 216, 196, 0.45), transparent 62%),
+    #F7F4EF;
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.card {
+  border: 1px solid rgba(52, 69, 81, 0.1);
+  background: rgba(255, 253, 248, 0.75);
+  border-radius: 18px;
+  box-shadow: 0 14px 44px rgba(52, 69, 81, 0.06);
+}
+
+.rule {
+  border-top: 1px solid rgba(52, 69, 81, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.2, 0.65, 0.2, 1);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lattice-wrap {
+    display: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* Feathers: drift in on scroll, then sway forever */
+.feather-drift {
+  opacity: 0;
+  transform: translateY(-46px) rotate(-14deg);
+  transition: opacity 1.6s ease, transform 2.2s cubic-bezier(0.16, 0.6, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.feather-drift.is-in {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+}
+
+.feather-sway {
+  animation: feather-sway 10s ease-in-out infinite alternate;
+  transform-origin: 50% 8%;
+}
+
+@keyframes feather-sway {
+  from { transform: rotate(-5deg) translateY(0); }
+  to { transform: rotate(6deg) translateY(10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feather-sway { animation: none; }
+  .feather-drift { opacity: 1; transform: none; transition: none; }
+}
+
+
+.feather-far {
+  filter: blur(2.2px) saturate(0.9);
+}
+
+.parallax {
+  will-change: transform;
+}

@@ -1,0 +1,15 @@
+{
+  "_comment": "Copy to data/clinmap_voi_v0/panel_reviewer_registry.json (gitignored) if you need a private mapping. Never publish legal names, employers, contacts, license numbers, invoices, or other PII.",
+  "panel_r01": {
+    "credential_class": "licensed_clinician",
+    "fielded_at": "YYYY-MM-DD",
+    "holdout_wave": "holdout_v0_wave1",
+    "contact": "redacted"
+  },
+  "panel_r02": {
+    "credential_class": "clinical_safety_annotator",
+    "fielded_at": "YYYY-MM-DD",
+    "holdout_wave": "holdout_v0_wave2",
+    "contact": "redacted"
+  }
+}

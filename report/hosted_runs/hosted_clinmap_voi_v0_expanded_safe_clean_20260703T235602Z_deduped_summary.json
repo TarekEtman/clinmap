@@ -1,0 +1,382 @@
+{
+  "claim_boundary": "Raw hosted model-output corpus summary only. This is not scoring, clinical validation, or a model-safety claim.",
+  "mean_latency_ms": 4715.89,
+  "models": {
+    "cerebras/cerebras_gemma_4_31b": {
+      "mean_latency_ms": 491.68,
+      "p95_latency_ms": 660.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 51982,
+        "prompt_tokens": 30614,
+        "total_tokens": 82596
+      }
+    },
+    "cerebras/cerebras_gpt_oss_120b": {
+      "mean_latency_ms": 505.37,
+      "p95_latency_ms": 763.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 57479,
+        "prompt_tokens": 47807,
+        "total_tokens": 105286
+      }
+    },
+    "cerebras/cerebras_zai_glm_4_7": {
+      "mean_latency_ms": 601.19,
+      "p95_latency_ms": 755.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 57600,
+        "prompt_tokens": 26199,
+        "total_tokens": 83799
+      }
+    },
+    "google/google_gemini_3_5_flash": {
+      "mean_latency_ms": 6833.14,
+      "p95_latency_ms": 37736.0,
+      "rows": 42,
+      "status_counts": {
+        "ok": 21,
+        "rate_limited": 21
+      },
+      "unique_families": 6,
+      "unique_variants": 42,
+      "usage": {
+        "completion_tokens": 137,
+        "prompt_tokens": 1589,
+        "total_tokens": 5285
+      }
+    },
+    "groq/groq_gpt_oss_120b": {
+      "mean_latency_ms": 754.3,
+      "p95_latency_ms": 1134.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 57460,
+        "prompt_tokens": 47807,
+        "total_tokens": 105267
+      }
+    },
+    "groq/groq_gpt_oss_20b": {
+      "mean_latency_ms": 604.78,
+      "p95_latency_ms": 937.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 56962,
+        "prompt_tokens": 47807,
+        "total_tokens": 104769
+      }
+    },
+    "groq/groq_llama_4_scout": {
+      "mean_latency_ms": 581.5,
+      "p95_latency_ms": 809.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 47939,
+        "prompt_tokens": 29662,
+        "total_tokens": 77601
+      }
+    },
+    "groq/groq_qwen3_32b": {
+      "mean_latency_ms": 698.95,
+      "p95_latency_ms": 869.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 57600,
+        "prompt_tokens": 28446,
+        "total_tokens": 86046
+      }
+    },
+    "groq/groq_qwen3_6_27b": {
+      "mean_latency_ms": 606.69,
+      "p95_latency_ms": 708.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 57600,
+        "prompt_tokens": 29070,
+        "total_tokens": 86670
+      }
+    },
+    "mistral/mistral_large_2512": {
+      "mean_latency_ms": 3420.36,
+      "p95_latency_ms": 4145.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 53956,
+        "prompt_tokens": 27214,
+        "total_tokens": 81170
+      }
+    },
+    "mistral/mistral_magistral_medium_2509": {
+      "mean_latency_ms": 5017.23,
+      "p95_latency_ms": 7619.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 56246,
+        "prompt_tokens": 27214,
+        "total_tokens": 83460
+      }
+    },
+    "mistral/mistral_medium_2508": {
+      "mean_latency_ms": 2687.12,
+      "p95_latency_ms": 4643.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 55769,
+        "prompt_tokens": 27214,
+        "total_tokens": 82983
+      }
+    },
+    "mistral/mistral_small_2603": {
+      "mean_latency_ms": 1285.93,
+      "p95_latency_ms": 1749.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 38710,
+        "prompt_tokens": 31054,
+        "total_tokens": 69764
+      }
+    },
+    "nvidia/nvidia_deepseek_v4_pro": {
+      "mean_latency_ms": 11957.77,
+      "p95_latency_ms": 28171.0,
+      "rows": 260,
+      "status_counts": {
+        "ok": 137,
+        "rate_limited": 123
+      },
+      "unique_families": 33,
+      "unique_variants": 260,
+      "usage": {
+        "completion_tokens": 20313,
+        "prompt_tokens": 10396,
+        "total_tokens": 30709
+      }
+    },
+    "nvidia/nvidia_glm_5_2": {
+      "mean_latency_ms": 6078.86,
+      "p95_latency_ms": 12366.0,
+      "rows": 233,
+      "status_counts": {
+        "ok": 90,
+        "rate_limited": 143
+      },
+      "unique_families": 30,
+      "unique_variants": 233,
+      "usage": {
+        "completion_tokens": 15517,
+        "prompt_tokens": 7044,
+        "total_tokens": 22561
+      }
+    },
+    "nvidia/nvidia_llama_3_3_70b_baseline": {
+      "mean_latency_ms": 32831.52,
+      "p95_latency_ms": 90302.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 39841,
+        "prompt_tokens": 35486,
+        "total_tokens": 75327
+      }
+    },
+    "nvidia/nvidia_nemotron_primary": {
+      "mean_latency_ms": 12569.96,
+      "p95_latency_ms": 39401.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 56868,
+        "prompt_tokens": 30734,
+        "total_tokens": 87602
+      }
+    },
+    "nvidia/nvidia_secondary_chat": {
+      "mean_latency_ms": 4458.97,
+      "p95_latency_ms": 11209.0,
+      "rows": 320,
+      "status_counts": {
+        "ok": 320
+      },
+      "unique_families": 40,
+      "unique_variants": 320,
+      "usage": {
+        "completion_tokens": 57600,
+        "prompt_tokens": 30734,
+        "total_tokens": 88334
+      }
+    }
+  },
+  "ok_count": 5048,
+  "p95_latency_ms": 22997.0,
+  "providers": {
+    "cerebras": {
+      "models": [
+        "cerebras_gemma_4_31b",
+        "cerebras_gpt_oss_120b",
+        "cerebras_zai_glm_4_7"
+      ],
+      "rows": 960,
+      "status_counts": {
+        "ok": 960
+      },
+      "usage": {
+        "completion_tokens": 167061,
+        "prompt_tokens": 104620,
+        "total_tokens": 271681
+      }
+    },
+    "google": {
+      "models": [
+        "google_gemini_3_5_flash"
+      ],
+      "rows": 42,
+      "status_counts": {
+        "ok": 21,
+        "rate_limited": 21
+      },
+      "usage": {
+        "completion_tokens": 137,
+        "prompt_tokens": 1589,
+        "total_tokens": 5285
+      }
+    },
+    "groq": {
+      "models": [
+        "groq_gpt_oss_120b",
+        "groq_gpt_oss_20b",
+        "groq_llama_4_scout",
+        "groq_qwen3_32b",
+        "groq_qwen3_6_27b"
+      ],
+      "rows": 1600,
+      "status_counts": {
+        "ok": 1600
+      },
+      "usage": {
+        "completion_tokens": 277561,
+        "prompt_tokens": 182792,
+        "total_tokens": 460353
+      }
+    },
+    "mistral": {
+      "models": [
+        "mistral_large_2512",
+        "mistral_magistral_medium_2509",
+        "mistral_medium_2508",
+        "mistral_small_2603"
+      ],
+      "rows": 1280,
+      "status_counts": {
+        "ok": 1280
+      },
+      "usage": {
+        "completion_tokens": 204681,
+        "prompt_tokens": 112696,
+        "total_tokens": 317377
+      }
+    },
+    "nvidia": {
+      "models": [
+        "nvidia_deepseek_v4_pro",
+        "nvidia_glm_5_2",
+        "nvidia_llama_3_3_70b_baseline",
+        "nvidia_nemotron_primary",
+        "nvidia_secondary_chat"
+      ],
+      "rows": 1453,
+      "status_counts": {
+        "ok": 1187,
+        "rate_limited": 266
+      },
+      "usage": {
+        "completion_tokens": 190139,
+        "prompt_tokens": 114394,
+        "total_tokens": 304533
+      }
+    }
+  },
+  "row_count": 5335,
+  "source_path": "model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped.jsonl",
+  "status_counts": {
+    "ok": 5048,
+    "rate_limited": 287
+  },
+  "unique_families": 40,
+  "unique_prompts": 320,
+  "unique_variants": 320,
+  "usage": {
+    "completion_tokens": 839579,
+    "prompt_tokens": 516091,
+    "total_tokens": 1359229
+  }
+}

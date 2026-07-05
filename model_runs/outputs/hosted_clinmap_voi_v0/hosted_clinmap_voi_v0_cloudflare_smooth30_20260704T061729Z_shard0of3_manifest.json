@@ -1,0 +1,32 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "config_path": "model_runs/tmp/hosted_clinmap_voi_v0_cloudflare_smooth30_20260704T061729Z/cloudflare_rpm10_config.json",
+  "created_at": "2026-07-04T06:17:30Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": true,
+  "models": [
+    {
+      "alias": "cloudflare_glm_4_7_flash_free_alloc",
+      "model_id": "@cf/zai-org/glm-4.7-flash",
+      "provider": "cloudflare_workers_ai",
+      "rpm": 10
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_cloudflare_smooth30_20260704T061729Z_shard0of3.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 3,
+    "temperature": 0,
+    "timeout_sec": 120,
+    "top_p": 1
+  },
+  "planned_requests": 107,
+  "prompt_count": 107,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "cloudflare_workers_ai"
+  ],
+  "run_id": "hosted_clinmap_voi_v0_cloudflare_smooth30_20260704T061729Z_shard0of3",
+  "status": "running"
+}

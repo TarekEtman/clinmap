@@ -1,0 +1,41 @@
+{
+  "benchmark_id": "clinmap-voi-v0-hosted-20260703",
+  "holdout_families": [
+    "CMVOI-033",
+    "CMVOI-034",
+    "CMVOI-035",
+    "CMVOI-036",
+    "CMVOI-037",
+    "CMVOI-038",
+    "CMVOI-039",
+    "CMVOI-040"
+  ],
+  "layer_c_status": "fielded_external_holdout_panel",
+  "label_provenance": "human_independent_reviewers_fielded_via_blinded_panel_pack",
+  "public_panel_ids_planned": [],
+  "anonymity_policy": "Public artifacts use pseudonymous panel_reviewer_id only; real identities optional in gitignored panel_reviewer_registry.json",
+  "blinding": {
+    "model_id_hidden_in_panel_pack": true,
+    "variant_text_visible": true,
+    "response_text_visible": true,
+    "framework_gold_hidden_in_panel_pack": true
+  },
+  "target_row_count_min": 80,
+  "export_script": "scripts/export_holdout_panel_pack.py",
+  "output_artifact": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
+  "documentation": "docs/panel_review_strategy.md; docs/holdout_panel_methodology_v0.md",
+  "fielded_at": "2026-07-04T11:28:45Z",
+  "row_count": 1440,
+  "holdout_item_count": 720,
+  "public_panel_ids": [
+    "panel_r01",
+    "panel_r02"
+  ],
+  "annotation_row_count": 1440,
+  "dual_reviewer_complete_items": 720,
+  "metrics_make_target": "clinmap-holdout-panel",
+  "metrics_source": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
+  "identity_policy": "Public artifacts use pseudonymous panel_reviewer_id values only; real identities/contacts are not stored in git.",
+  "default_publication_action": "recompute metrics from frozen human-fielded labels; do not regenerate or overwrite panel rows during publication QA",
+  "public_claim_boundary": "Two pseudonymous independent external reviewers (panel_r01, panel_r02) fielded holdout families CMVOI-033–040 only. Not a claim of multi-human review on the full 3971-row corpus."
+}

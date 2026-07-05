@@ -1,0 +1,43 @@
+{
+  "adjudication_count": 2,
+  "annotation_count": 192,
+  "case_count": 48,
+  "created_at": "2026-07-03T12:00:00Z",
+  "dataset_id": "clinical-model-behavior-public-demo",
+  "dataset_version": "v1.0-demo",
+  "hashes": {
+    "annotations": "70a19fbd20e0ce86",
+    "cases": "3f945eb2286860eb",
+    "responses": "96c5425be9b7769b"
+  },
+  "known_limitations": [
+    "Synthetic public demo only; not a clinical benchmark.",
+    "Responses are synthetic fixtures or expert ideals unless response_origin states otherwise.",
+    "Scoring uses two-pass self-calibration, not independent inter-rater reliability."
+  ],
+  "last_updated_at": "2026-07-03T16:45:00Z",
+  "prohibited_sources": [
+    "patient_data",
+    "PHI",
+    "platform_tasks",
+    "client_materials",
+    "proprietary_rubrics"
+  ],
+  "release_status": "draft",
+  "response_count": 96,
+  "rubric_versions": [
+    "clinical-safety-rubric-v1"
+  ],
+  "spec_version": "v1.0-draft",
+  "splits": {
+    "dev": 39,
+    "holdout": 9
+  },
+  "strata_targets": {
+    "cases_per_task_type": 4,
+    "pairwise_winner_position_balance": "45-55%",
+    "task_types": 12
+  },
+  "synthetic_only": true,
+  "taxonomy_version": "medical-ai-failure-taxonomy-v1"
+}

@@ -1,0 +1,100 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "config_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/hosted_models_clinmap_voi_v0.json",
+  "created_at": "2026-07-03T22:42:03Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": false,
+  "models": [
+    {
+      "alias": "cerebras_gemma_4_31b",
+      "model_id": "gemma-4-31b",
+      "provider": "cerebras",
+      "rpm": 4
+    },
+    {
+      "alias": "cerebras_gpt_oss_120b",
+      "model_id": "gpt-oss-120b",
+      "provider": "cerebras",
+      "rpm": 4
+    },
+    {
+      "alias": "cerebras_zai_glm_4_7",
+      "model_id": "zai-glm-4.7",
+      "provider": "cerebras",
+      "rpm": 4
+    },
+    {
+      "alias": "groq_gpt_oss_120b",
+      "model_id": "openai/gpt-oss-120b",
+      "provider": "groq",
+      "rpm": 8
+    },
+    {
+      "alias": "groq_gpt_oss_20b",
+      "model_id": "openai/gpt-oss-20b",
+      "provider": "groq",
+      "rpm": 8
+    },
+    {
+      "alias": "groq_llama_4_scout",
+      "model_id": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "provider": "groq",
+      "rpm": 20
+    },
+    {
+      "alias": "groq_qwen3_32b",
+      "model_id": "qwen/qwen3-32b",
+      "provider": "groq",
+      "rpm": 8
+    },
+    {
+      "alias": "groq_qwen3_6_27b",
+      "model_id": "qwen/qwen3.6-27b",
+      "provider": "groq",
+      "rpm": 8
+    },
+    {
+      "alias": "mistral_large_2512",
+      "model_id": "mistral-large-2512",
+      "provider": "mistral",
+      "rpm": 3.5
+    },
+    {
+      "alias": "mistral_magistral_medium_2509",
+      "model_id": "magistral-medium-2509",
+      "provider": "mistral",
+      "rpm": 4
+    },
+    {
+      "alias": "mistral_medium_2508",
+      "model_id": "mistral-medium-2508",
+      "provider": "mistral",
+      "rpm": 18
+    },
+    {
+      "alias": "mistral_small_2603",
+      "model_id": "mistral-small-2603",
+      "provider": "mistral",
+      "rpm": 30
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_20260703T224203Z.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 3,
+    "temperature": 0,
+    "timeout_sec": 120,
+    "top_p": 1
+  },
+  "planned_requests": 192,
+  "prompt_count": 16,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "cerebras",
+    "groq",
+    "mistral"
+  ],
+  "run_id": "hosted_clinmap_voi_v0_20260703T224203Z",
+  "status": "running"
+}

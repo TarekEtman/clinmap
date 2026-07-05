@@ -1,0 +1,40 @@
+{
+  "claim_boundary": "Raw hosted model-output corpus summary only. This is not scoring, clinical validation, or a model-safety claim.",
+  "mean_latency_ms": null,
+  "models": {
+    "deepseek/deepseek_direct_v4_pro": {
+      "mean_latency_ms": null,
+      "p95_latency_ms": null,
+      "rows": 67,
+      "status_counts": {
+        "failed": 67
+      },
+      "unique_families": 9,
+      "unique_variants": 67,
+      "usage": {}
+    }
+  },
+  "ok_count": 0,
+  "p95_latency_ms": null,
+  "providers": {
+    "deepseek": {
+      "models": [
+        "deepseek_direct_v4_pro"
+      ],
+      "rows": 67,
+      "status_counts": {
+        "failed": 67
+      },
+      "usage": {}
+    }
+  },
+  "row_count": 67,
+  "source_path": "model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_deepseek_direct_v4_pro_20260704T040853Z.jsonl",
+  "status_counts": {
+    "failed": 67
+  },
+  "unique_families": 9,
+  "unique_prompts": 67,
+  "unique_variants": 67,
+  "usage": {}
+}

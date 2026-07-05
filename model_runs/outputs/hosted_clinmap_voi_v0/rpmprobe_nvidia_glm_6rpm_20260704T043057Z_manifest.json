@@ -1,0 +1,44 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "completed_at": "2026-07-04T04:33:10Z",
+  "config_path": "model_runs/hosted_models_clinmap_voi_v0_nvidia_glm_6rpm_probe.json",
+  "created_at": "2026-07-04T04:30:57Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": true,
+  "models": [
+    {
+      "alias": "nvidia_glm_5_2",
+      "model_id": "z-ai/glm-5.2",
+      "provider": "nvidia",
+      "rpm": 6.0
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/rpmprobe_nvidia_glm_6rpm_20260704T043057Z.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 2,
+    "temperature": 0,
+    "timeout_sec": 120,
+    "top_p": 1
+  },
+  "planned_requests": 12,
+  "prompt_count": 12,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "nvidia"
+  ],
+  "run_id": "rpmprobe_nvidia_glm_6rpm_20260704T043057Z",
+  "status": "complete",
+  "worker_summaries": [
+    {
+      "failed": 0,
+      "model_alias": "nvidia_glm_5_2",
+      "ok": 12,
+      "planned": 12,
+      "provider": "nvidia",
+      "skipped": 0,
+      "status": "done"
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "claim_boundary": "ClinMAP-VOI v0 metrics after completed review queue and relation annotation.",
+  "run_id": "hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped",
+  "reviewed_row_count": 3971,
+  "relation_annotation_count": 3219,
+  "primary_reviewer": "Tarek Etman",
+  "completed_at": "2026-07-04T08:45:44Z",
+  "models": {
+    "gemma-4-31b": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.497,
+      "escalation_score_0_4": 3.728,
+      "missing_context_score_0_4": 3.669,
+      "medication_safety_score_0_4": 3.719,
+      "uncertainty_score_0_4": 3.075,
+      "scope_control_score_0_4": 3.319,
+      "decision_accuracy": 0.859,
+      "metamorphic_pass_rate": 0.75
+    },
+    "meta-llama/llama-4-scout-17b-16e-instruct": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.591,
+      "escalation_score_0_4": 3.816,
+      "missing_context_score_0_4": 3.806,
+      "medication_safety_score_0_4": 3.797,
+      "uncertainty_score_0_4": 3.444,
+      "scope_control_score_0_4": 3.447,
+      "decision_accuracy": 0.903,
+      "metamorphic_pass_rate": 0.814
+    },
+    "meta/llama-3.3-70b-instruct": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.728,
+      "escalation_score_0_4": 3.859,
+      "missing_context_score_0_4": 3.831,
+      "medication_safety_score_0_4": 3.85,
+      "uncertainty_score_0_4": 3.603,
+      "scope_control_score_0_4": 3.641,
+      "decision_accuracy": 0.925,
+      "metamorphic_pass_rate": 0.796
+    },
+    "mistral-large-2512": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.469,
+      "escalation_score_0_4": 3.791,
+      "missing_context_score_0_4": 3.781,
+      "medication_safety_score_0_4": 3.772,
+      "uncertainty_score_0_4": 3.15,
+      "scope_control_score_0_4": 3.222,
+      "decision_accuracy": 0.891,
+      "metamorphic_pass_rate": 0.775
+    },
+    "mistral-medium-2508": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.487,
+      "escalation_score_0_4": 3.794,
+      "missing_context_score_0_4": 3.775,
+      "medication_safety_score_0_4": 3.781,
+      "uncertainty_score_0_4": 3.047,
+      "scope_control_score_0_4": 3.247,
+      "decision_accuracy": 0.894,
+      "metamorphic_pass_rate": 0.814
+    },
+    "mistral-small-2603": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.528,
+      "escalation_score_0_4": 3.772,
+      "missing_context_score_0_4": 3.744,
+      "medication_safety_score_0_4": 3.734,
+      "uncertainty_score_0_4": 3.519,
+      "scope_control_score_0_4": 3.344,
+      "decision_accuracy": 0.872,
+      "metamorphic_pass_rate": 0.804
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.522,
+      "escalation_score_0_4": 3.712,
+      "missing_context_score_0_4": 3.694,
+      "medication_safety_score_0_4": 3.7,
+      "uncertainty_score_0_4": 2.778,
+      "scope_control_score_0_4": 3.428,
+      "decision_accuracy": 0.853,
+      "metamorphic_pass_rate": 0.732
+    },
+    "nvidia/nemotron-3-ultra-550b-a55b": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.634,
+      "escalation_score_0_4": 3.775,
+      "missing_context_score_0_4": 3.663,
+      "medication_safety_score_0_4": 3.75,
+      "uncertainty_score_0_4": 2.834,
+      "scope_control_score_0_4": 3.541,
+      "decision_accuracy": 0.875,
+      "metamorphic_pass_rate": 0.811
+    },
+    "qwen/qwen3-32b": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.763,
+      "escalation_score_0_4": 3.763,
+      "missing_context_score_0_4": 3.763,
+      "medication_safety_score_0_4": 3.763,
+      "uncertainty_score_0_4": 2.763,
+      "scope_control_score_0_4": 3.763,
+      "decision_accuracy": 0.881,
+      "metamorphic_pass_rate": 0.729
+    },
+    "qwen/qwen3.6-27b": {
+      "rows": 320,
+      "clinical_safety_score_0_4": 3.775,
+      "escalation_score_0_4": 3.775,
+      "missing_context_score_0_4": 3.775,
+      "medication_safety_score_0_4": 3.775,
+      "uncertainty_score_0_4": 2.775,
+      "scope_control_score_0_4": 3.775,
+      "decision_accuracy": 0.887,
+      "metamorphic_pass_rate": 0.736
+    },
+    "openai/gpt-oss-120b": {
+      "rows": 171,
+      "clinical_safety_score_0_4": 3.784,
+      "escalation_score_0_4": 3.813,
+      "missing_context_score_0_4": 3.719,
+      "medication_safety_score_0_4": 3.813,
+      "uncertainty_score_0_4": 2.854,
+      "scope_control_score_0_4": 3.789,
+      "decision_accuracy": 0.906,
+      "metamorphic_pass_rate": 0.775
+    },
+    "gpt-oss-120b": {
+      "rows": 140,
+      "clinical_safety_score_0_4": 3.779,
+      "escalation_score_0_4": 3.836,
+      "missing_context_score_0_4": 3.729,
+      "medication_safety_score_0_4": 3.814,
+      "uncertainty_score_0_4": 2.843,
+      "scope_control_score_0_4": 3.779,
+      "decision_accuracy": 0.907,
+      "metamorphic_pass_rate": 0.677
+    },
+    "deepseek-ai/deepseek-v4-pro": {
+      "rows": 137,
+      "clinical_safety_score_0_4": 3.431,
+      "escalation_score_0_4": 3.861,
+      "missing_context_score_0_4": 3.869,
+      "medication_safety_score_0_4": 3.869,
+      "uncertainty_score_0_4": 3.46,
+      "scope_control_score_0_4": 3.066,
+      "decision_accuracy": 0.934,
+      "metamorphic_pass_rate": 0.798
+    },
+    "magistral-medium-2509": {
+      "rows": 127,
+      "clinical_safety_score_0_4": 3.622,
+      "escalation_score_0_4": 3.811,
+      "missing_context_score_0_4": 3.732,
+      "medication_safety_score_0_4": 3.78,
+      "uncertainty_score_0_4": 3.11,
+      "scope_control_score_0_4": 3.512,
+      "decision_accuracy": 0.89,
+      "metamorphic_pass_rate": 0.9
+    },
+    "z-ai/glm-5.2": {
+      "rows": 90,
+      "clinical_safety_score_0_4": 3.333,
+      "escalation_score_0_4": 3.833,
+      "missing_context_score_0_4": 3.778,
+      "medication_safety_score_0_4": 3.8,
+      "uncertainty_score_0_4": 3.033,
+      "scope_control_score_0_4": 2.989,
+      "decision_accuracy": 0.9,
+      "metamorphic_pass_rate": 0.773
+    },
+    "openai/gpt-oss-20b": {
+      "rows": 85,
+      "clinical_safety_score_0_4": 3.694,
+      "escalation_score_0_4": 3.765,
+      "missing_context_score_0_4": 3.647,
+      "medication_safety_score_0_4": 3.741,
+      "uncertainty_score_0_4": 2.871,
+      "scope_control_score_0_4": 3.682,
+      "decision_accuracy": 0.871,
+      "metamorphic_pass_rate": 0.917
+    },
+    "gemini-3.5-flash": {
+      "rows": 21,
+      "clinical_safety_score_0_4": 3.714,
+      "escalation_score_0_4": 3.81,
+      "missing_context_score_0_4": 3.81,
+      "medication_safety_score_0_4": 3.81,
+      "uncertainty_score_0_4": 2.81,
+      "scope_control_score_0_4": 3.667,
+      "decision_accuracy": 0.905,
+      "metamorphic_pass_rate": 0.765
+    }
+  },
+  "aggregate": {
+    "mean_decision_accuracy": 0.891,
+    "mean_metamorphic_pass_rate": 0.786,
+    "model_count": 17
+  }
+}

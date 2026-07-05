@@ -1,0 +1,270 @@
+{
+  "configured_model_checks": [
+    {
+      "alias": "cerebras_gpt_oss_120b",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "5 RPM, 30K TPM, 1M TPD",
+      "model_id": "gpt-oss-120b",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "cerebras",
+      "rpm": 4,
+      "status": "main"
+    },
+    {
+      "alias": "cerebras_gemma_4_31b",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "5 RPM, 30K TPM, 1M TPD",
+      "model_id": "gemma-4-31b",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "cerebras",
+      "rpm": 4,
+      "status": "main"
+    },
+    {
+      "alias": "cerebras_zai_glm_4_7",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "5 RPM, 30K TPM, 1M TPD",
+      "model_id": "zai-glm-4.7",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "cerebras",
+      "rpm": 4,
+      "status": "main"
+    },
+    {
+      "alias": "groq_llama_4_scout",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "30 RPM, 1000 RPD, 30K TPM, 500K TPD",
+      "model_id": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "groq",
+      "rpm": 20,
+      "status": "main"
+    },
+    {
+      "alias": "groq_qwen3_32b",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "60 RPM, 1000 RPD, 6K TPM, 500K TPD",
+      "model_id": "qwen/qwen3-32b",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "groq",
+      "rpm": 8,
+      "status": "main"
+    },
+    {
+      "alias": "groq_qwen3_6_27b",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "30 RPM, 1000 RPD, 8K TPM, 200K TPD",
+      "model_id": "qwen/qwen3.6-27b",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "groq",
+      "rpm": 8,
+      "status": "main"
+    },
+    {
+      "alias": "groq_gpt_oss_120b",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "30 RPM, 1000 RPD, 8K TPM, 200K TPD",
+      "model_id": "openai/gpt-oss-120b",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "groq",
+      "rpm": 8,
+      "status": "main"
+    },
+    {
+      "alias": "groq_gpt_oss_20b",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "30 RPM, 1000 RPD, 8K TPM, 200K TPD",
+      "model_id": "openai/gpt-oss-20b",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "groq",
+      "rpm": 8,
+      "status": "main"
+    },
+    {
+      "alias": "mistral_large_2512",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "250K TPM, 0.07 RPS \u2248 4.2 RPM",
+      "model_id": "mistral-large-2512",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "mistral",
+      "rpm": 3.5,
+      "status": "main"
+    },
+    {
+      "alias": "mistral_magistral_medium_2509",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "75K TPM, 0.08 RPS \u2248 4.8 RPM",
+      "model_id": "magistral-medium-2509",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "mistral",
+      "rpm": 4,
+      "status": "main"
+    },
+    {
+      "alias": "mistral_medium_2508",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "356K TPM, 0.38 RPS \u2248 22.8 RPM",
+      "model_id": "mistral-medium-2508",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "mistral",
+      "rpm": 18,
+      "status": "main"
+    },
+    {
+      "alias": "mistral_small_2603",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "50K TPM, 0.83 RPS \u2248 49.8 RPM",
+      "model_id": "mistral-small-2603",
+      "planned_requests_full_run": 320,
+      "priority": 1,
+      "provider": "mistral",
+      "rpm": 30,
+      "status": "main"
+    },
+    {
+      "alias": "google_gemini_3_1_pro",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "supplementary; exact active limits must be checked in AI Studio; 20-prompt probe first",
+      "model_id": "gemini-3.1-pro",
+      "planned_requests_full_run": 320,
+      "priority": 2,
+      "provider": "google",
+      "rpm": 10,
+      "status": "supplementary"
+    },
+    {
+      "alias": "google_gemini_3_5_flash",
+      "available_in_probe": false,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "supplementary; exact active limits must be checked in AI Studio; 20-prompt probe first",
+      "model_id": "gemini-3.5-flash",
+      "planned_requests_full_run": 320,
+      "priority": 2,
+      "provider": "google",
+      "rpm": 10,
+      "status": "supplementary"
+    },
+    {
+      "alias": "nvidia_nemotron_primary",
+      "available_in_probe": false,
+      "enabled": true,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first",
+      "model_id": "nvidia/nemotron-3-ultra-550b-a55b",
+      "notes": "Configured from NVIDIA Integrate sample. Runner uses non-streamed chat completions with temperature=0, top_p=1, max_tokens=180.",
+      "planned_requests_full_run": 320,
+      "priority": 2,
+      "provider": "nvidia",
+      "rpm": 20,
+      "status": "supplementary"
+    },
+    {
+      "alias": "nvidia_secondary_chat",
+      "available_in_probe": false,
+      "enabled": true,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first",
+      "model_id": "nvidia/nemotron-3-super-120b-a12b",
+      "notes": "Configured from NVIDIA Integrate sample. Runner uses non-streamed chat completions with temperature=0, top_p=1, max_tokens=180.",
+      "planned_requests_full_run": 320,
+      "priority": 2,
+      "provider": "nvidia",
+      "rpm": 20,
+      "status": "supplementary"
+    },
+    {
+      "alias": "nvidia_glm_5_2",
+      "available_in_probe": false,
+      "enabled": true,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first",
+      "model_id": "z-ai/glm-5.2",
+      "notes": "Chosen as third NVIDIA supplementary model from NVIDIA Build recent free endpoints: flagship LLM for agentic workflows, coding, and long-horizon reasoning.",
+      "planned_requests_full_run": 320,
+      "priority": 2,
+      "provider": "nvidia",
+      "rpm": 20,
+      "status": "supplementary"
+    },
+    {
+      "alias": "nvidia_deepseek_v4_pro",
+      "available_in_probe": false,
+      "enabled": true,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "supplementary; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first",
+      "model_id": "deepseek-ai/deepseek-v4-pro",
+      "notes": "Chosen as additional NVIDIA supplementary model: independent DeepSeek family, MoE, coding/agentic reasoning; avoids soon-deprecated Kimi K2.6 and redundant Mistral family overlap.",
+      "planned_requests_full_run": 320,
+      "priority": 2,
+      "provider": "nvidia",
+      "rpm": 20,
+      "status": "supplementary"
+    },
+    {
+      "alias": "nvidia_llama_3_3_70b_baseline",
+      "available_in_probe": false,
+      "enabled": true,
+      "estimated_tokens_full_run_lt": 160000,
+      "limits": "supplementary baseline; use 20 RPM safety margin; exact daily/token cap unclear; 20-prompt probe first",
+      "model_id": "meta/llama-3.3-70b-instruct",
+      "notes": "Added as a widely recognized NVIDIA-hosted Meta Llama baseline. Not a headline frontier model; useful for comparison against newer Nemotron/GLM/DeepSeek hosted models.",
+      "planned_requests_full_run": 320,
+      "priority": 3,
+      "provider": "nvidia",
+      "rpm": 20,
+      "status": "supplementary"
+    }
+  ],
+  "created_at": "2026-07-03T22:26:07Z",
+  "providers": {
+    "cerebras": {
+      "api_key_env": "CEREBRAS_API_KEY",
+      "models": [],
+      "status": "missing_api_key_or_base_url"
+    },
+    "google": {
+      "api_key_env": "GEMINI_API_KEY",
+      "models": [],
+      "status": "missing_api_key_or_base_url"
+    },
+    "groq": {
+      "api_key_env": "GROQ_API_KEY",
+      "models": [],
+      "status": "missing_api_key_or_base_url"
+    },
+    "mistral": {
+      "api_key_env": "MISTRAL_API_KEY",
+      "models": [],
+      "status": "missing_api_key_or_base_url"
+    },
+    "nvidia": {
+      "api_key_env": "NVIDIA_API_KEY",
+      "models": [],
+      "status": "missing_api_key_or_base_url"
+    }
+  }
+}

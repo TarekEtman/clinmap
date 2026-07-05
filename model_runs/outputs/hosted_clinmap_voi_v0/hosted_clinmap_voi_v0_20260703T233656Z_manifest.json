@@ -1,0 +1,59 @@
+{
+  "already_done_rows": 0,
+  "claim_boundary": "Raw hosted model-output corpus only; scoring and clinical claims require separate review.",
+  "completed_at": "2026-07-03T23:37:13Z",
+  "config_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/hosted_models_clinmap_voi_v0.json",
+  "created_at": "2026-07-03T23:36:56Z",
+  "framework_version": "clinmap-voi-v0.1",
+  "include_supplementary": true,
+  "models": [
+    {
+      "alias": "google_gemini_3_1_pro",
+      "model_id": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "rpm": 4
+    },
+    {
+      "alias": "google_gemini_3_5_flash",
+      "model_id": "gemini-3.5-flash",
+      "provider": "google",
+      "rpm": 4
+    }
+  ],
+  "output_path": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/model_runs/outputs/hosted_clinmap_voi_v0/hosted_clinmap_voi_v0_20260703T233656Z.jsonl",
+  "params": {
+    "max_tokens": 180,
+    "retries": 1,
+    "temperature": 0,
+    "timeout_sec": 60,
+    "top_p": 1
+  },
+  "planned_requests": 2,
+  "prompt_count": 1,
+  "prompt_pack": "/Users/nati/Documents/JOB/clinical-ai-eval-lab/data/clinmap_voi_v0/model_prompt_pack.jsonl",
+  "providers": [
+    "google"
+  ],
+  "run_id": "hosted_clinmap_voi_v0_20260703T233656Z",
+  "status": "complete",
+  "worker_summaries": [
+    {
+      "failed": 0,
+      "model_alias": "google_gemini_3_5_flash",
+      "ok": 1,
+      "planned": 1,
+      "provider": "google",
+      "skipped": 0,
+      "status": "done"
+    },
+    {
+      "failed": 1,
+      "model_alias": "google_gemini_3_1_pro",
+      "ok": 0,
+      "planned": 1,
+      "provider": "google",
+      "skipped": 0,
+      "status": "done"
+    }
+  ]
+}

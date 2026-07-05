@@ -1,0 +1,8 @@
+[project]
+name = "clinmap"
+version = "0.1.0"
+description = "ClinMAP proof-of-work repository for healthcare-domain model behavior evaluation engineering."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["eval_harness"]

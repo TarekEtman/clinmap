@@ -1,0 +1,42 @@
+{
+  "benchmark_id": "clinmap-voi-v0-hosted-20260703",
+  "benchmark_producer": "Tarek Etman",
+  "primary_domain_reviewer": "Tarek Etman",
+  "reviewer_role": "human_domain_reviewer",
+  "producer_roles": [
+    "ClinMAP-VOI v0 framework and metamorphic relation design",
+    "Hosted multi-model evaluation execution and corpus curation",
+    "Primary human domain review (3971 response-level annotations)",
+    "Metamorphic relation annotation and adjudication",
+    "Post-review QA audit and performance reporting"
+  ],
+  "canonical_run_id": "hosted_clinmap_voi_v0_expanded_safe_clean_20260703T235602Z_deduped",
+  "annotation_protocol": "docs/clinmap_voi_annotation_protocol_v0.md",
+  "evaluation_spec": "eval_spec/clinmap_voi_eval_spec_v0.md",
+  "review_completed_at": "2026-07-04T08:45:44Z",
+  "claim_boundary": "Synthetic healthcare-domain evaluation benchmark produced for inspectable model-behavior review. Not clinical validation.",
+  "benchmark_evidence": {
+    "generator": "clinmap_voi/benchmark_evidence_reports_v0.py",
+    "make_target": "clinmap-evidence",
+    "frontier_bundle_make_target": "clinmap-frontier-pack",
+    "output_dir": "report/benchmark_evidence/"
+  },
+  "review_layers": {
+    "primary_domain_reviewer": "Tarek Etman",
+    "protocol_qc": "secondary_review_pass.jsonl (blind QA + contract-consistency passes; internal QA, not anonymous panelists)",
+    "holdout_review": {
+      "default_mode": "fielded_external_holdout_panel",
+      "label_provenance": "human_independent_reviewers_fielded_via_blinded_panel_pack",
+      "make_target": "clinmap-holdout-panel",
+      "public_panel_ids": [
+        "panel_r01",
+        "panel_r02"
+      ],
+      "metrics": "report/benchmark_evidence/clinmap_voi_holdout_panel_metrics.md",
+      "fielding_script": "scripts/export_holdout_panel_pack.py",
+      "metrics_source": "data/clinmap_voi_v0/panel_holdout_reviews.jsonl",
+      "identity_policy": "Public artifacts use pseudonymous panel IDs only; private identity registry is intentionally omitted from git.",
+      "claim_boundary": "Two pseudonymous independent external reviewers on CMVOI-033\u2013040 only; not full-corpus multi-human review."
+    }
+  }
+}

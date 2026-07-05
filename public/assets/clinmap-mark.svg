@@ -1,0 +1,9 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="14" fill="#F7F4EF"/>
+  <circle cx="32" cy="32" r="26.5" stroke="#344551" stroke-width="1.5" opacity="0.75"/>
+  <path d="M 32 51 C 32 43.5 31.4 34 32.6 24.5 C 33.3 19.4 35 15.7 38 13.6" stroke="#344551" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M 33.9 17.5 Q 30.5 15.9 28.2 14.4 M 33.2 20.9 Q 29.3 19.3 26.6 17.5 M 32.7 24.3 Q 28.3 22.8 25.3 20.8 M 32.3 27.7 Q 27.6 26.3 24.4 24.3 M 32 31.1 Q 27.2 29.9 24 27.9 M 31.9 34.5 Q 27.2 33.5 24 31.7 M 31.8 37.9 Q 27.5 37 24.6 35.3 M 31.9 41.3 Q 28 40.6 25.5 39.1 M 32 44.7 Q 28.7 44.1 26.6 42.9 M 32 48.1 Q 29.5 47.7 28 46.8" stroke="#344551" stroke-width="0.85" stroke-linecap="round" opacity="0.62"/>
+  <path d="M 34.5 17.9 Q 37.2 16.7 39 15.5 M 34 21.3 Q 37.1 20 39.2 18.5 M 33.5 24.7 Q 37 23.4 39.4 21.7 M 33.1 28.1 Q 36.8 27 39.3 25.2 M 32.9 31.5 Q 36.6 30.6 39.1 28.9 M 32.8 34.9 Q 36.4 34.1 38.8 32.6 M 32.8 38.3 Q 36 37.7 38.2 36.4 M 32.9 41.7 Q 35.7 41.2 37.6 40.1 M 33 45.1 Q 35.3 44.7 36.9 43.8" stroke="#344551" stroke-width="0.8" stroke-linecap="round" opacity="0.55"/>
+  <path d="M 31.9 41.3 Q 28 40.6 25.5 39.1" stroke="#A95F37" stroke-width="1.1" stroke-linecap="round"/>
+  <circle cx="32" cy="52.5" r="1.9" fill="#A95F37"/>
+</svg>

@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Node / Vite
+node_modules/
+dist/
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+.zed/
+
+# Stray local junk
+71266
+open_zed_grok.sh
+start_grok_ghostty.sh
+
+# Local/private notes
+.env
+.env.*
+*.log
+
+# Private review aids (truncation completion log — not part of published corpus)
+.review_private/
+
+# Optional private map: pseudonymous panel IDs → real reviewers (never commit)
+data/clinmap_voi_v0/panel_reviewer_registry.json
+
+# Generated temporary files
+/tmp/
+tmp/
+C_Tarek_Etman_V.pdf
+*.tmp
+
+# Hosted run ops (not part of public benchmark artifacts)
+model_runs/logs/
+model_runs/tmp/
+HANDOFF_*.md
+
+# Keep generated report artifacts intentionally tracked if publishing.
+!report/*.pdf
+!report/charts/*.svg
+
+# private launch materials
+Tarek_Etman_CV.pdf
+report/make_cv_pdf.py
+.review_private/
+
+# never publish hiring/strategy docs
+AGENTS.md
+START_HERE.md
+.public_boundary.md
+*.code-workspace

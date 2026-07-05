@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClinMAP-VOI v0 record schemas",
+  "description": "Schema contract for synthetic relation-labeled clinical model behavior evaluation artifacts. This is methodology infrastructure, not clinical validation.",
+  "definitions": {
+    "split": { "enum": ["calibration", "dev", "holdout"] },
+    "risk_direction": { "enum": ["increase", "decrease", "invariant", "unknown"] },
+    "expected_direction": { "enum": ["increase", "invariant"] },
+    "variant_type": {
+      "enum": [
+        "low_risk_control",
+        "missing_context",
+        "high_risk_context_shift",
+        "urgent_red_flag",
+        "contraindication_or_medication_risk",
+        "nuisance_invariance",
+        "user_pressure",
+        "followup_correction"
+      ]
+    },
+    "relation_type": {
+      "enum": [
+        "voi_request_increase",
+        "directional_safety_monotonicity",
+        "urgent_red_flag_dominance",
+        "contraindication_sensitivity",
+        "nuisance_invariance",
+        "pressure_resistance",
+        "safety_hysteresis_update"
+      ]
+    },
+    "model_move": {
+      "enum": [
+        "general_information_with_boundary",
+        "ask_targeted_context_before_guidance",
+        "recommend_timely_professional_review",
+        "recommend_urgent_assessment",
+        "avoid_medication_or_treatment_approval",
+        "summarize_and_flag_uncertainty"
+      ]
+    },
+    "fact_change": {
+      "type": "object",
+      "required": ["fact", "clinical_relevance"],
+      "additionalProperties": false,
+      "properties": {
+        "fact": { "type": "string", "minLength": 3 },
+        "clinical_relevance": { "type": "string", "minLength": 10 }
+      }
+    },
+    "synthetic_provenance": {
+      "type": "object",
+      "required": ["created_at", "contains_patient_data", "contains_platform_tasks"],
+      "properties": {
+        "created_at": { "type": "string" },
+        "created_by": { "type": "string" },
+        "generation_method": { "type": "string" },
+        "contains_patient_data": { "const": false },
+        "contains_platform_tasks": { "const": false },
+        "review_status": { "type": "string" },
+        "source_family": { "type": "string" }
+      }
+    }
+  },
+  "schemas": {
+    "decision_family": {
+      "type": "object",
+      "required": [
+        "family_id",
+        "base_case_id",
+        "variant_case_ids",
+        "framework_version",
+        "domain",
+        "title",
+        "decision_problem",
+        "voi_question",
+        "metamorphic_operators",
+        "expected_relation_enums",
+        "risk_directions_covered",
+        "voi_slots_required",
+        "action_change_expected",
+        "source_anchor_ids",
+        "split",
+        "leakage_group_id",
+        "human_review_status",
+        "decisive_variables",
+        "nuisance_variables",
+        "allowed_moves",
+        "disallowed_moves",
+        "content_hash",
+        "synthetic_provenance"
+      ],
+      "properties": {
+        "family_id": { "type": "string", "pattern": "^CMVOI-[0-9]{3}$" },
+        "base_case_id": { "type": "string" },
+        "variant_case_ids": { "type": "array", "minItems": 8, "maxItems": 8, "items": { "type": "string" } },
+        "framework_version": { "const": "clinmap-voi-v0.1" },
+        "domain": { "type": "string" },
+        "title": { "type": "string" },
+        "decision_problem": { "type": "string" },
+        "voi_question": { "type": "string" },
+        "metamorphic_operators": { "type": "array", "minItems": 7, "maxItems": 7, "items": { "$ref": "#/definitions/relation_type" } },
+        "expected_relation_enums": { "type": "array", "minItems": 7, "maxItems": 7, "items": { "$ref": "#/definitions/relation_type" } },
+        "risk_directions_covered": { "type": "array", "contains": { "const": "increase" } },
+        "voi_slots_required": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "action_change_expected": { "type": "boolean" },
+        "source_anchor_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "split": { "$ref": "#/definitions/split" },
+        "leakage_group_id": { "type": "string" },
+        "human_review_status": { "type": "string" },
+        "decisive_variables": { "type": "array", "minItems": 1 },
+        "nuisance_variables": { "type": "array", "minItems": 1 },
+        "allowed_moves": { "type": "array", "items": { "$ref": "#/definitions/model_move" } },
+        "disallowed_moves": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "content_hash": { "type": "string" },
+        "synthetic_provenance": { "$ref": "#/definitions/synthetic_provenance" }
+      }
+    },
+    "case_variant": {
+      "type": "object",
+      "required": [
+        "variant_id",
+        "family_id",
+        "parent_family_id",
+        "framework_version",
+        "split",
+        "variant_type",
+        "clinical_axis",
+        "risk_direction",
+        "risk_stratum",
+        "visible_prompt",
+        "changed_facts",
+        "unchanged_facts",
+        "action_change_expected",
+        "expected_safe_behavior_delta",
+        "disallowed_generic_response",
+        "metamorphic_relation",
+        "expected_relation",
+        "optimal_model_move",
+        "acceptable_model_moves",
+        "unsafe_model_moves",
+        "utility_table",
+        "best_utility",
+        "scoring_dimensions",
+        "prompt_hash",
+        "content_hash",
+        "human_review_status",
+        "synthetic_provenance"
+      ],
+      "properties": {
+        "variant_id": { "type": "string" },
+        "family_id": { "type": "string" },
+        "parent_family_id": { "type": "string" },
+        "framework_version": { "const": "clinmap-voi-v0.1" },
+        "split": { "$ref": "#/definitions/split" },
+        "variant_type": { "$ref": "#/definitions/variant_type" },
+        "clinical_axis": { "type": "string" },
+        "risk_direction": { "$ref": "#/definitions/risk_direction" },
+        "risk_stratum": { "type": "string" },
+        "visible_prompt": { "type": "string", "minLength": 20 },
+        "changed_facts": { "type": "array", "minItems": 1, "maxItems": 1, "items": { "$ref": "#/definitions/fact_change" } },
+        "unchanged_facts": { "type": "array" },
+        "action_change_expected": { "type": "boolean" },
+        "expected_safe_behavior_delta": { "type": "string" },
+        "disallowed_generic_response": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "metamorphic_relation": { "type": "string" },
+        "expected_relation": { "type": "string" },
+        "optimal_model_move": { "$ref": "#/definitions/model_move" },
+        "acceptable_model_moves": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/model_move" } },
+        "unsafe_model_moves": { "type": "array", "minItems": 1 },
+        "utility_table": { "type": "object" },
+        "best_utility": { "type": "integer" },
+        "scoring_dimensions": { "type": "array", "minItems": 10, "maxItems": 10 },
+        "prompt_hash": { "type": "string" },
+        "content_hash": { "type": "string" },
+        "human_review_status": { "type": "string" },
+        "synthetic_provenance": { "$ref": "#/definitions/synthetic_provenance" }
+      }
+    },
+    "metamorphic_relation": {
+      "type": "object",
+      "required": [
+        "relation_id",
+        "family_id",
+        "framework_version",
+        "source_variant_id",
+        "target_variant_id",
+        "source_variant_type",
+        "target_variant_type",
+        "relation_type",
+        "expected_direction",
+        "expected_behavior_change",
+        "action_change_expected",
+        "metric_hooks",
+        "oracle_status",
+        "relation_annotation_schema",
+        "content_hash"
+      ],
+      "properties": {
+        "relation_id": { "type": "string" },
+        "family_id": { "type": "string" },
+        "framework_version": { "const": "clinmap-voi-v0.1" },
+        "source_variant_id": { "type": "string" },
+        "target_variant_id": { "type": "string" },
+        "source_variant_type": { "$ref": "#/definitions/variant_type" },
+        "target_variant_type": { "$ref": "#/definitions/variant_type" },
+        "relation_type": { "$ref": "#/definitions/relation_type" },
+        "expected_direction": { "$ref": "#/definitions/expected_direction" },
+        "expected_behavior_change": { "type": "string" },
+        "action_change_expected": { "type": "boolean" },
+        "voi_slots_required": { "type": "array", "items": { "type": "string" } },
+        "decisive_facts_changed": { "type": "array" },
+        "nuisance_facts_changed": { "type": "array" },
+        "metric_hooks": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "oracle_status": { "type": "string" },
+        "relation_annotation_schema": { "type": "object" },
+        "content_hash": { "type": "string" }
+      }
+    }
+  }
+}
