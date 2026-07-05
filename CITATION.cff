@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use ClinMAP-VOI v0, please cite it."
+title: "ClinMAP-VOI v0: a healthcare-domain model behavior benchmark with audited human review"
+authors:
+  - family-names: "Etman"
+    given-names: "Tarek"
+version: "0.1.0"
+date-released: "2026-07-04"
+url: "https://github.com/TarekEtman/clinmap"
+abstract: "Hosted multi-model benchmark on synthetic healthcare metamorphic probes: 3,971 human-reviewed responses across 17 models, 3,219 relation annotations, blind protocol QC (kappa 0.84), independent external holdout panel, and a passing QA audit. Synthetic probes only; not clinical validation."

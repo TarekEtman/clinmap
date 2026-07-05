@@ -1,6 +1,15 @@
 <p align="center"><img src="public/assets/clinmap_seal.png" width="180" alt="The feather of Ma'at — the ClinMAP seal"></p>
 <p align="center"><em>the feather holds</em></p>
 
+<p align="center">
+  <a href="https://github.com/TarekEtman/clinmap/actions"><img src="https://img.shields.io/github/actions/workflow/status/TarekEtman/clinmap/ci.yml?label=audit%20%2B%20tests&color=344551" alt="CI"></a>
+  <img src="https://img.shields.io/badge/reviewed%20responses-3%2C971-A95F37" alt="reviewed">
+  <img src="https://img.shields.io/badge/models-17-344551" alt="models">
+  <img src="https://img.shields.io/badge/blind%20QC%20%CE%BA-0.84-A95F37" alt="kappa">
+  <img src="https://img.shields.io/badge/QA%20audit-pass-2E8B8B" alt="audit">
+  <img src="https://img.shields.io/badge/scope-synthetic%20%C2%B7%20not%20clinical%20validation-8a95a0" alt="scope">
+</p>
+
 # ClinMAP — Clinical Model Behavior Evaluation Lab
 
 
@@ -14,6 +23,18 @@
 |---|---|
 | Producer record | [`data/clinmap_voi_v0/benchmark_provenance.json`](data/clinmap_voi_v0/benchmark_provenance.json) |
 | Producer summary | [`docs/PRODUCER.md`](docs/PRODUCER.md) |
+
+
+## Sixty seconds, honestly
+
+The dangerous healthcare answer is rarely the wrong one. It is the confident one, given too early. ClinMAP-VOI v0 measures whether a model notices when a clinical situation quietly changes: 40 synthetic decision families, 320 paired prompt variants, 280 metamorphic relations. 17 hosted models were collected under one frozen run ID; all 3,971 responses were read and judged by one accountable clinician; and the reviewer himself was then audited (blind QC at kappa 0.84, a 720-item independent external holdout panel, disagreements published as worked vignettes). Every number below can be recomputed from the frozen queue with one command. Live overview: [tareketman.github.io/clinmap](https://tareketman.github.io/clinmap/).
+
+## Figures
+
+| | |
+|---|---|
+| ![Wilson CIs by clinical domain](report/clinmap_voi_v0_charts/wilson_ci_by_domain.svg) | ![Accuracy vs metamorphic consistency](report/clinmap_voi_v0_charts/accuracy_vs_metamorphic.svg) |
+| ![Decision accuracy by model](report/clinmap_voi_v0_charts/decision_accuracy_by_model.svg) | ![The reviewer, audited](report/clinmap_voi_v0_charts/qa_ladder.svg) |
 
 ## What this is
 
@@ -148,6 +169,10 @@ python3 -m unittest discover -s tests
 
 Traceability only: [`data/synthetic_cases.jsonl`](data/synthetic_cases.jsonl), [`cases/`](cases/), early CSV scoring examples.
 
+
+## Citing
+
+GitHub's "Cite this repository" button uses [`CITATION.cff`](CITATION.cff). Scope applies to any citation: synthetic probes, not clinical validation.
 ## Why this matters
 
 High-stakes model evaluation is not fluency scoring. Models can sound calm while under-escalating, closing without context, or certifying safety without evidence. ClinMAP-VOI tests **whether behavior moves correctly when decisive clinical facts change**—and documents that judgment in a reproducible artifact tree.
