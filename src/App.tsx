@@ -8,7 +8,7 @@ const SITE = {
   repoUrl: 'https://github.com/TarekEtman/clinmap',
   linkedIn: 'https://www.linkedin.com/in/tareketman',
   email: 'mailto:dr.tareketman@gmail.com',
-  pdf: '/assets/clinmap_voi_v0_snapshot.pdf',
+  pdf: `${import.meta.env.BASE_URL}assets/clinmap_voi_v0_snapshot.pdf`,
 };
 
 const STATS: Array<{ value: string; label: string }> = [
